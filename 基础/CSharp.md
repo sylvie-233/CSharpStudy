@@ -1,7 +1,7 @@
 # C#
 
 >
-> `# TODO C# Full Course : C# Tutorial for Beginners`
+>
 >
 
 
@@ -39,6 +39,13 @@ dotnet:
 
 ```yaml
 System:
+    Collections: 集合
+        Generic:
+    IO:
+    Linq:
+    Text:
+    Threading: 多线程
+        Task:
     Array:
         Copy(): 拷贝
         CreateInstance():
@@ -61,7 +68,9 @@ System:
     Int32:
         MaxValue:
         Parse(): 字符串转int
-        ToString(): 转字符串、
+        ToString(): 转字符串
+    Math:
+        Pow(): 幂
     Object: 基类
         Equals():
         GetType():
@@ -102,7 +111,7 @@ System:
 - var: 可变类型
 - object: 基类对象
 
-
+可空类型：`type?`
 
 
 
@@ -112,6 +121,13 @@ System:
 #### enum
 
 枚举类
+
+
+#### struct
+
+结构体
+
+值类型
 
 
 
@@ -136,6 +152,34 @@ System:
 throw抛出异常
 
 
+#### Linq
+
+类SQL查询集合
+
+```
+from 数据源
+where 条件
+select 查询字段
+
+```
+
+Linq主要包括三大部分：
+- Linq To Objects
+- Linq To XML
+- Linq To SQL
+
+
+延迟执行、立即执行
+
+
+
+
+
+
+
+
+
+
 <br />
 <br />
 <br />
@@ -153,6 +197,16 @@ throw抛出异常
 #### 函数重载
 
 函数参数个数、类型不同、返回值
+
+
+#### 函数委托
+
+delegate：保存方法的引用类型
+
+
+#### 事件
+
+
 
 
 
@@ -181,13 +235,23 @@ throw抛出异常
 
 构造方法、this指针
 
+属性Properties：Getter、Setter
+
+属性、方法访问修饰符：`public`、`protected`、`private`
+
+常量属性：`const`、只读属性：`readonly`
 
 
+构造方法：`this()`,`base()`
 
 
+virtual虚方法：可被子类重写
 
+继承父类、override重写
 
-#### 接口
+abstract抽象类、abstract抽象方法、virtual虚方法
+
+interface接口
 
 
 
