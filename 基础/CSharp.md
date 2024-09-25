@@ -12,8 +12,10 @@
 
 ```yaml
 dotnet:
-    new: 新建项目
+    --version: # 版本
+    new: # 新建项目
         console: 
+            -n: # 指定项目名
     run: 运行项目
     watch: 
 ```
@@ -39,12 +41,12 @@ dotnet:
 
 ```yaml
 System:
-    Collections: 集合
+    Collections: # 集合
         Generic:
     IO:
     Linq:
     Text:
-    Threading: 多线程
+    Threading: # 多线程
         Task:
     Array:
         Copy(): 拷贝
@@ -206,6 +208,8 @@ delegate：保存方法的引用类型
 
 #### 事件
 
+
+event
 
 
 
