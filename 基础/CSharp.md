@@ -27,9 +27,9 @@ dotnet:
 ### .csproj
 
 ```yaml
-<Project>
-    <PropertyGroup>
-        <OutputType>
+<Project>:
+    <PropertyGroup>:
+        <OutputType>: 
 ```
 
 <br />
@@ -58,31 +58,31 @@ System:
         Clear():
         ReadLine(): 读入一行
         WriteLine():
-    Convert: 类型转换
+    Convert: # 类型转换
         ToInt32():
-    DateTime: 日期类
+    DateTime: # 日期类
         Date:
         DayOfWeek:
         AddDays():
         AddMonths():
-    Exception: 异常类
-        Message: 异常信息
+    Exception: # 异常类
+        Message: # 异常信息
     Int32:
         MaxValue:
-        Parse(): 字符串转int
-        ToString(): 转字符串
+        Parse(): # 字符串转int
+        ToString(): # 转字符串
     Math:
-        Pow(): 幂
-    Object: 基类
+        Pow(): # 幂
+    Object: # 基类
         Equals():
         GetType():
         ToString():
     Random:
         Next():
     String:
-        Length: 长度
-        Equals(): 字符串比较
-    StringBuilder: 可修改字符串
+        Length: # 长度
+        Equals(): # 字符串比较
+    StringBuilder: #可修改字符串
         Capacity: 容量
         AppendLine(): 添加字符串行
         Clear(): 清空
