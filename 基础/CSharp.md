@@ -99,7 +99,7 @@ System:
 <br />
 <br />
 
-### 数据结构
+### 数据类型
 
 - bool
 - byte
@@ -227,11 +227,6 @@ event
 
 
 
-
-
-
-
-#### 类
 
 类的访问修饰符：`public`、`internal`
 
