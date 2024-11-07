@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.3官方文档：https://docs.godotengine.org/en/stable/getting_started/introduction/key_concepts_overview.html#nodes`
-> `【Godot教程】零基础带你从小白到超神：P12`
+> `【Godot教程】零基础带你从小白到超神：P16`
 >
  
 
@@ -11,7 +11,7 @@
 
 scene场景 -> node节点树 -> signal信号
 
-scene可进行嵌套（组合node）
+scene可进行嵌套（组合node、预制体）
 
 每个节点都能添加脚本
 
@@ -26,18 +26,18 @@ Node:
         SubViewport:
     CanvasItem:
         Node2D:
-            CollisionObject2D:
             AnimatedSprite2D:
             AudioListener2D:
             AudioStreamPlayer2D:
             Bone2D:
             Camera2D:
             CanvasGroup:
+            CollisionObject2D:
             CollisionPolygon2D:
             Polygon2D:
             RayCast2D:
             ShapeCast2D:
-            Sprite2D:
+            Sprite2D: # 精灵图
             TileMap:
         Control:
     Node3D:
@@ -50,8 +50,9 @@ Node:
     MultiplayerSpawner:
     NavigationAgent2D:
 ```
+### Script
 
-### GDScript
+#### GDScript
 ```yaml
 Node:
 
@@ -60,7 +61,7 @@ Node:
 <br />
 <br />
 
-### CSharp
+#### CSharp
 ```yaml
 Godot:
     AudioServer:
@@ -70,7 +71,7 @@ Godot:
         MouseMode:
         MouseModeEnum:
         GetAxis():
-        IsActionJustPressed():
+        IsActionJustPressed(): # 键盘按键
         IsActionJustReleased():
         IsActionPressed():
         IsKeyPressed():
@@ -97,16 +98,45 @@ Godot:
         AddChild():
         FindChild():
         GetParent():
-        GetTree():
+        GetTree(): # 获取场景树
             CurrentScene:
         QueueFree(): # 销毁节点
         RemoveChild():
     Object:
     OS:
+    PackedScene: # 场景预制体
+        Instantiate(): # 实例化场景（生成Node）
     RefCounted:
+    SceneTree: # 场景树
+        AddChild(): # 添加子节点
+        ChangeSceneToFile():
+        ChangeSceneToPacked():
     Vector2:
 ```
 
+全局脚本：项目设置 -> 自动加载
+
+
+
+
+
+
+
+
+##### 属性
+```yaml
+:
+    [Export]:
+```
+
+
+##### 信号
+
+
+
+
+ 
+
 
 <br />
 <br />
@@ -115,4 +145,12 @@ Godot:
 
 
 
+
+### Node
+
+
+
+
+
+### Animation
 
