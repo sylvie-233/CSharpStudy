@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.3官方文档：https://docs.godotengine.org/en/stable/getting_started/introduction/key_concepts_overview.html#nodes`
-> `【Godot教程】零基础带你从小白到超神：P16`
+> `【Godot教程】零基础带你从小白到超神：P20`
 >
  
 
@@ -21,11 +21,26 @@ scene可进行嵌套（组合node、预制体）
 ## 核心内容
 ```yaml
 Node:
+    :
+        Process:
+        Editor Description:
+        Script: # 脚本
     Viewport:
         Window:
         SubViewport:
     CanvasItem:
+        :
+            Visibility:
+                Visible: # 可见性
+            Ordering:
+                Z Index: # 图层排序
         Node2D:
+            : 
+                Transform: # 图层变换属性
+                    Position:
+                    Rotation:
+                    Scale:
+                    Skew:
             AnimatedSprite2D:
             AudioListener2D:
             AudioStreamPlayer2D:
@@ -38,6 +53,18 @@ Node:
             RayCast2D:
             ShapeCast2D:
             Sprite2D: # 精灵图
+                Texture: # 图片
+                Offset:
+                    Centered:
+                    Offset:
+                    Flip H:
+                    Flip V:
+                Animation:
+                    Hframes:
+                    Vframes:
+                    Frame: # 帧
+                Region:
+                    Rect:
             TileMap:
         Control:
     Node3D:
@@ -64,8 +91,13 @@ Node:
 #### CSharp
 ```yaml
 Godot:
+    []:
+        Export:
     AudioServer:
+    Collections:
+        Array:
     GD:
+        Load(): # 资源加载
         Print(): # 控制台输出
     Input:
         MouseMode:
@@ -86,6 +118,15 @@ Godot:
     Node:
         CanvasItem:
             Node2D:
+                Sprite2D:
+                    Frame:
+                    Position:
+                    RotationDegrees:
+                    Skew:
+                    Texture:
+                    Visible:
+                    ZIndex:
+                    LookAt():
             Control:
         Node3D:
         _EnterTree(): # 进入节点树
@@ -96,6 +137,7 @@ Godot:
         _Process(): # 运行钩子
             delta:
         AddChild():
+        AddToGroup(): # 加入分组
         FindChild():
         GetParent():
         GetTree(): # 获取场景树
@@ -109,9 +151,12 @@ Godot:
     RefCounted:
     SceneTree: # 场景树
         AddChild(): # 添加子节点
+        CallGroup():
         ChangeSceneToFile():
         ChangeSceneToPacked():
+        GetNodesInGroup(): # 在分组里查找节点
     Vector2:
+    GetGlobalMousePosition(): # 获取全局鼠标位置
 ```
 
 全局脚本：项目设置 -> 自动加载
@@ -148,7 +193,10 @@ Godot:
 
 ### Node
 
+节点信号
 
+
+节点分组
 
 
 
