@@ -81,8 +81,44 @@ Node:
 
 #### GDScript
 ```yaml
-Node:
+Godot:
+    float:
+    int:
+    Color:
+    Node:
+        CanvasItem:
+            Control:
+                Label:
+                    text: # 标签文本
+            modulate: # 背景色
+        _input():
+            event:
+                is_action_pressed():
+        _process(delta):
+        _ready():
+    Vector2:
+    Vector3:
+    int():
+    print():
+    str():
+```
 
+
+##### 语法结构
+```yaml
+:
+    @:
+        export: # 变量导出
+        tool:
+    extends: # 继承类
+    signal: # 信号定义
+    const: # 常量定义
+    var: # 变量定义
+        set():
+    func: # 函数定义
+        # comment:
+        if ... elif ... else:
+        pass:
 ```
 
 <br />
