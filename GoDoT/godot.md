@@ -84,22 +84,40 @@ Node:
 Godot:
     float:
     int:
+    Array:
     Color:
     Node:
         CanvasItem:
             Control:
+                BaseButton:
+                    _signals:
+                        pressed:
                 Label:
                     text: # 标签文本
+            Node2D:
+                Sprite2D:
+            _signals:
+                _draw:
             modulate: # 背景色
+        Timer:
+            _signals:
+                timeout:
         _input():
             event:
                 is_action_pressed():
         _process(delta):
         _ready():
+        get_node():
+    String:
+    Variant:
     Vector2:
     Vector3:
+    clamp(): # 数值截取
     int():
     print():
+    randf():
+    randf_range():
+    randi_range():
     str():
 ```
 
@@ -109,20 +127,36 @@ Godot:
 :
     @:
         export: # 变量导出
+        onready:
         tool:
+    class_name: # 类定义
     extends: # 继承类
     signal: # 信号定义
+        connect(): # 连接信号
+        disconnect(): # 断连信号
+        emit(): # 触发信号
+    enum: # 枚举定义
     const: # 常量定义
     var: # 变量定义
-        set():
+        get:
+        set(value):
     func: # 函数定义
         # comment:
+        for ... in ...:
+        if ... is:
         if ... elif ... else:
+        match:
         pass:
+        while ...:
+    class:
+        new():
 ```
 
 <br />
 <br />
+
+
+
 
 #### CSharp
 ```yaml
