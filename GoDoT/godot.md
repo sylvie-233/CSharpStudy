@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.3官方文档：https://docs.godotengine.org/en/stable/getting_started/introduction/key_concepts_overview.html#nodes`
-> `【Godot教程】零基础带你从小白到超神：P20`
+> `【Godot教程】零基础带你从小白到超神：P27`
 >
  
 
@@ -41,14 +41,18 @@ Node:
                     Rotation:
                     Scale:
                     Skew:
-            AnimatedSprite2D:
+            AnimatedSprite2D: # 动画精灵图
             AudioListener2D:
-            AudioStreamPlayer2D:
+            AudioStreamPlayer2D: # 2D音频播放
             Bone2D:
             Camera2D:
             CanvasGroup:
             CollisionObject2D:
             CollisionPolygon2D:
+            Light2D:
+                DirectionalLight2D:
+                PointLight2D:
+            LightOccluder2D: # 灯光阴影
             Polygon2D:
             RayCast2D:
             ShapeCast2D:
@@ -71,7 +75,7 @@ Node:
     AnimationMixer:
         AnimationPlayer:
         AnimationTree:
-    AudioStreamPlayer:
+    AudioStreamPlayer: # 音频播放器
     CanvasLayer:
     HTTPRequest:
     MultiplayerSpawner:
@@ -208,10 +212,13 @@ Godot:
             delta:
         AddChild():
         AddToGroup(): # 加入分组
+        Connect(): # 信号连接
         FindChild():
+        GetNode():
         GetParent():
         GetTree(): # 获取场景树
             CurrentScene:
+            GetNodesInGroup():
         QueueFree(): # 销毁节点
         RemoveChild():
     Object:
@@ -220,8 +227,9 @@ Godot:
         Instantiate(): # 实例化场景（生成Node）
     RefCounted:
     SceneTree: # 场景树
+        CurrentScene:
         AddChild(): # 添加子节点
-        CallGroup():
+        CallGroup(): # 调用分组里指定方法
         ChangeSceneToFile():
         ChangeSceneToPacked():
         GetNodesInGroup(): # 在分组里查找节点
@@ -263,12 +271,28 @@ Godot:
 
 ### Node
 
+
+
+
+#### Signal
+
 节点信号
 
 
-节点分组
+自定义信号
+
+
+#### Group
+
+节点分组、类似Unity的标签tag
 
 
 
 ### Animation
 
+动画
+
+
+### Physical
+
+物理
