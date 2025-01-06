@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.3官方文档：https://docs.godotengine.org/en/stable/getting_started/introduction/key_concepts_overview.html#nodes`
-> `【Godot教程】零基础带你从小白到超神：P27`
+> `【Godot教程】零基础带你从小白到超神：P40`
 >
  
 
@@ -48,14 +48,19 @@ Node:
             Camera2D:
             CanvasGroup:
             CollisionObject2D:
+                Area2D: # 2D区域物体
+                CharacterBody2D:
+                RigidBody2D:
+                StaticBody2D: # 静态物体
             CollisionPolygon2D:
+            CollisionShape2D: # 碰撞形状
             Light2D:
                 DirectionalLight2D:
                 PointLight2D:
             LightOccluder2D: # 灯光阴影
             Polygon2D:
-            RayCast2D:
-            ShapeCast2D:
+            RayCast2D: # 物理射线
+            ShapeCast2D: # 物理形状射线
             Sprite2D: # 精灵图
                 Texture: # 图片
                 Offset:
@@ -71,6 +76,31 @@ Node:
                     Rect:
             TileMap:
         Control:
+            BaseButton:
+                Button:
+                    CheckBox: # 多选框
+                    CheckButton:
+                    OptionButton:
+                LinkButton:
+                TextureButton:
+            Container:
+                BoxContainer:
+                    HBoxContainer:
+                    VBoxContainer:
+                CenterContainer:
+                FlowContainer:
+                GraphElement:
+                GridContainer:
+                SplitContainer:
+                MarginContainer:
+                PanelContainer:
+                ScrollContainer:
+                SubViewportContainer:
+                TabContainer:
+            ItemList:
+            Label: # 标签
+            TextEdit:
+            TextureRect: # 图片框
     Node3D:
     AnimationMixer:
         AnimationPlayer:
@@ -82,7 +112,6 @@ Node:
     NavigationAgent2D:
 ```
 ### Script
-
 #### GDScript
 ```yaml
 Godot:
@@ -92,17 +121,33 @@ Godot:
     Color:
     Node:
         CanvasItem:
+            _signals:
+                _draw:
+            _props:
+                modulate: # 背景色
             Control:
                 BaseButton:
                     _signals:
                         pressed:
                 Label:
-                    text: # 标签文本
+                    _props:
+                        text: # 标签文本
+                Range:
+                    _signals:
+                        value_changed:
+                    ProgressBar:
+                    TextureProgressBar:
+                Separator:
+                    HSeparator:
+                    VSeparator:
             Node2D:
+                CollisionObject2D:
+                    Area2D:
+                        _signals:
+                            area_entered:
+                            area_exited:
                 Sprite2D:
-            _signals:
-                _draw:
-            modulate: # 背景色
+            
         Timer:
             _signals:
                 timeout:
@@ -274,6 +319,11 @@ Godot:
 
 
 
+
+
+
+
+
 #### Signal
 
 节点信号
@@ -288,11 +338,39 @@ Godot:
 
 
 
-### Animation
 
-动画
+### GUI
+
+Control基类
+
 
 
 ### Physical
 
 物理
+
+CollisionObject2D：添加对应的碰撞检测形状
+RayCast2D：物理射线
+RigidBody2D：刚体
+
+
+
+### Animation
+
+动画
+
+
+
+### Effect
+
+
+
+
+
+
+
+### Shade
+
+
+
+
