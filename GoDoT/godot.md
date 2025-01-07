@@ -45,7 +45,7 @@ Node:
             AudioListener2D:
             AudioStreamPlayer2D: # 2D音频播放
             Bone2D:
-            Camera2D:
+            Camera2D: # 摄像机
             CanvasGroup:
             CollisionObject2D:
                 Area2D: # 2D区域物体
@@ -54,10 +54,13 @@ Node:
                 StaticBody2D: # 静态物体
             CollisionPolygon2D:
             CollisionShape2D: # 碰撞形状
+            CPUParticles2D:
+            GPUParticles2D:
             Light2D:
                 DirectionalLight2D:
                 PointLight2D:
             LightOccluder2D: # 灯光阴影
+            NavigationRegion2D: # 导航区域
             Polygon2D:
             RayCast2D: # 物理射线
             ShapeCast2D: # 物理形状射线
@@ -74,7 +77,7 @@ Node:
                     Frame: # 帧
                 Region:
                     Rect:
-            TileMap:
+            TileMap: # 瓦片地图
         Control:
             BaseButton:
                 Button:
@@ -107,9 +110,9 @@ Node:
         AnimationTree:
     AudioStreamPlayer: # 音频播放器
     CanvasLayer:
-    HTTPRequest:
+    HTTPRequest: # 发送Http请求
     MultiplayerSpawner:
-    NavigationAgent2D:
+    NavigationAgent2D: # 导航代理
 ```
 ### Script
 #### GDScript
@@ -120,6 +123,13 @@ Godot:
     Array:
     Color:
     Node:
+        _input():
+            event:
+                is_action_pressed():
+        _process(delta):
+        _ready():
+        get_node():
+        ---
         CanvasItem:
             _signals:
                 _draw:
@@ -147,16 +157,11 @@ Godot:
                             area_entered:
                             area_exited:
                 Sprite2D:
-            
         Timer:
             _signals:
                 timeout:
-        _input():
-            event:
-                is_action_pressed():
-        _process(delta):
-        _ready():
-        get_node():
+        
+    ProjectSettings:
     String:
     Variant:
     Vector2:
@@ -168,6 +173,8 @@ Godot:
     randf_range():
     randi_range():
     str():
+    @export():
+    @export_dir():
 ```
 
 
@@ -355,10 +362,22 @@ RigidBody2D：刚体
 
 
 
+#### Camera
+
+摄像机
+
+
+
 ### Animation
 
 动画
 
+
+
+### Assets
+
+- `res://`
+- `user://`
 
 
 ### Effect
