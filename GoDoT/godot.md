@@ -2,18 +2,50 @@
 
 >
 > `GODOT4.3官方文档：https://docs.godotengine.org/en/stable/getting_started/introduction/key_concepts_overview.html#nodes`
-> `【Godot教程】零基础带你从小白到超神：P40`
+> ``
 >
  
 
 
 ## 基础介绍
 
+
+场景`.tscn`
+
 scene场景 -> node节点树 -> signal信号
 
 scene可进行嵌套（组合node、预制体）
 
 每个节点都能添加脚本
+
+
+
+### 项目设置
+```yaml
+项目设置:
+    常规:
+        应用:
+            配置:
+            运行:
+            启动画面:
+        显示:
+            窗口:
+        音频:
+        国际化:
+        GUI:
+        渲染:
+    输入映射:
+    本地化:
+    自动加载:
+    着色器全局量:
+    插件:
+    默认导入设置:
+```
+
+
+
+
+
 
 
 
@@ -56,11 +88,13 @@ Node:
             CollisionShape2D: # 碰撞形状
             CPUParticles2D:
             GPUParticles2D:
+            Joint2D:
             Light2D:
                 DirectionalLight2D:
                 PointLight2D:
             LightOccluder2D: # 灯光阴影
             NavigationRegion2D: # 导航区域
+            Path2D:
             Polygon2D:
             RayCast2D: # 物理射线
             ShapeCast2D: # 物理形状射线
@@ -78,6 +112,7 @@ Node:
                 Region:
                     Rect:
             TileMap: # 瓦片地图
+            TouchScreenButton:
         Control:
             BaseButton:
                 Button:
@@ -112,70 +147,134 @@ Node:
     CanvasLayer:
     HTTPRequest: # 发送Http请求
     MultiplayerSpawner:
+    MultiplayerSynchronizer:
     NavigationAgent2D: # 导航代理
 ```
 ### Script
 #### GDScript
 ```yaml
 Godot:
+    @GDScript:
+        INF:
+        NAN:
+        preload(): # 导入其它模块
+    @GlobalScope:
+        $: # 获取node节点（根据name）
+        ProjectSettings:
+
+        print():
+    bool:
     float:
     int:
+    AABB:
     Array:
+    Basis:
+    Callable:
     Color:
-    Node:
-        _input():
-            event:
-                is_action_pressed():
-        _process(delta):
-        _ready():
-        get_node():
-        ---
-        CanvasItem:
-            _signals:
-                _draw:
-            _props:
-                modulate: # 背景色
-            Control:
-                BaseButton:
-                    _signals:
-                        pressed:
-                Label:
-                    _props:
-                        text: # 标签文本
-                Range:
-                    _signals:
-                        value_changed:
-                    ProgressBar:
-                    TextureProgressBar:
-                Separator:
-                    HSeparator:
-                    VSeparator:
-            Node2D:
-                CollisionObject2D:
-                    Area2D:
-                        _signals:
-                            area_entered:
-                            area_exited:
-                Sprite2D:
-        Timer:
-            _signals:
-                timeout:
-        
-    ProjectSettings:
+    Dictionary:
+    NodePath:
+    Object:
+        :
+            get():
+            get_meta():
+            get_signal_list():
+        AudioServer:
+        CameraServer:
+        ClassDB:
+        DisplayServer:
+        EditorFileSystemDirectory:
+        EditorInterface:
+        GDExtensionManager:
+        Geometry2D:
+        Input:
+        InputMap:
+        IP:
+        JavaClassWrapper:
+        JavaScriptBridge:
+        JNISingleton:
+        JSONRPC:
+        MainLoop: # 事件循环
+            SceneTree: # 场景树
+                _props:
+        Marshalls:
+        NativeMenu:
+        NavigationServer2D:
+        Node:
+            :
+                _child_entered_tree():
+                _ready():
+                _tree_entered():
+                _tree_exited():
+                name:
+                owner:
+                process_mode():  
+                _enter_tree():
+                _exit_tree():
+                _input():
+                _physics_process():
+                _process():
+                _ready():
+            AnimationMixer:
+            AudioStreamPlayer:
+            CanvasItem:
+                :
+                    hide():
+                    show():
+                Control:
+                Node2D:
+                    :
+                        global_position:
+                        global_rotation:
+                        position:
+                        rotation:
+                        scale:
+                        skew:
+                        translate():
+                    Sprite2D:
+                        :
+                            _frame_change():
+                            centered:
+                            get_rect():
+            CanvasLayer:
+            EditorFileSystem:
+            EditorPlugin:
+            EditorResourcePreview:
+            HTTPRequest:
+            MultiplayerSpawner:
+            NavigationAgent2D:
+            RefCounted:
+            Time:
+            TreeItem:
+        ProjectSettings:
+            get_setting():
+            has_setting():
+            set_setting():
+    Plane:
+    Rect2:
+    Signal:
     String:
-    Variant:
+        length:
+        match():
+    SstringName:
+    Transform2D:
+    Variant: # 变体类型（任意类型，默认）
     Vector2:
     Vector3:
-    clamp(): # 数值截取
-    int():
-    print():
-    randf():
-    randf_range():
-    randi_range():
-    str():
-    @export():
-    @export_dir():
 ```
+
+##### 数据类型
+
+
+String
+
+
+
+Array数组
+
+
+
+Dictionary字典
+
 
 
 ##### 语法结构
@@ -196,8 +295,13 @@ Godot:
     var: # 变量定义
         get:
         set(value):
+        ---
+        false:
+        null:
+        true:
     func: # 函数定义
         # comment:
+        and ... or ... not:
         for ... in ...:
         if ... is:
         if ... elif ... else:
