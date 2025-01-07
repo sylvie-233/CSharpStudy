@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.3官方文档：https://docs.godotengine.org/en/stable/getting_started/introduction/key_concepts_overview.html#nodes`
-> ``
+> `戈多翰 Godot4基础教程：P6`
 >
  
 
@@ -163,21 +163,42 @@ Godot:
         ProjectSettings:
 
         print():
+        str(): # 转换为字符串
     bool:
     float:
     int:
     AABB:
     Array:
+        append():
+        append_array():
+        erase():
+        is_empty():
+        push_back():
+        push_front():
+        remove_at():
+        resize():
+        size():
     Basis:
-    Callable:
+    Callable: # 可调用对象
+        call():
     Color:
     Dictionary:
+        clear():
+        erase():
+        has():
+        is_empty():
+        keys():
+        size():
+        values():
     NodePath:
     Object:
         :
+            emit_signal(): # 触发信号
+            free():
             get():
             get_meta():
             get_signal_list():
+            new(): # 实例化类
         AudioServer:
         CameraServer:
         ClassDB:
@@ -200,32 +221,33 @@ Godot:
         NativeMenu:
         NavigationServer2D:
         Node:
-            :
-                _child_entered_tree():
-                _ready():
-                _tree_entered():
-                _tree_exited():
-                name:
-                owner:
-                process_mode():  
-                _enter_tree():
-                _exit_tree():
-                _input():
-                _physics_process():
-                _process():
-                _ready():
+            _child_entered_tree():
+            _ready():
+            _tree_entered():
+            _tree_exited():
+            name:
+            owner:
+            get_node(): # 获取节点
+            process_mode():  
+            _enter_tree(): # 进入节点树
+            _exit_tree():
+            _input():
+            _physics_process():
+            _process():
+            _ready():
             AnimationMixer:
             AudioStreamPlayer:
             CanvasItem:
-                :
-                    hide():
-                    show():
+                hide():
+                show():
                 Control:
+                    Label:
+                        text:
                 Node2D:
                     :
                         global_position:
                         global_rotation:
-                        position:
+                        position: # 位置
                         rotation:
                         scale:
                         skew:
@@ -249,18 +271,40 @@ Godot:
             get_setting():
             has_setting():
             set_setting():
+        RefCounted: # 引用计数Object
+            get_reference_count():
+            Resource:
+
     Plane:
     Rect2:
     Signal:
     String:
         length:
         match():
+        num():
     SstringName:
     Transform2D:
     Variant: # 变体类型（任意类型，默认）
     Vector2:
+        x:
+        y:
+        angle():
+        dot(): # 点乘
+        normalized(): # 单位化
     Vector3:
 ```
+
+
+一个gd脚本就是一个类（类似Java，默认文件名为类名）
+
+借助项目配置的自动加载脚本实现对象单例
+
+
+
+
+
+
+
 
 ##### 数据类型
 
@@ -284,12 +328,13 @@ Dictionary字典
         export: # 变量导出
         onready:
         tool:
-    class_name: # 类定义
+    class_name: # 类名定义
     extends: # 继承类
-    signal: # 信号定义
+    signal: # 信号定义（C#中的事件event）
         connect(): # 连接信号
         disconnect(): # 断连信号
         emit(): # 触发信号
+    static: # 静态变量、方法
     enum: # 枚举定义
     const: # 常量定义
     var: # 变量定义
@@ -301,6 +346,7 @@ Dictionary字典
         true:
     func: # 函数定义
         # comment:
+        self: # this引用
         and ... or ... not:
         for ... in ...:
         if ... is:
@@ -308,6 +354,8 @@ Dictionary字典
         match:
         pass:
         while ...:
+            break:
+            continue:
     class:
         new():
 ```
