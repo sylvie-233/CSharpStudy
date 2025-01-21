@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.3官方文档：https://docs.godotengine.org/en/stable/getting_started/introduction/key_concepts_overview.html#nodes`
-> `戈多翰 Godot4基础教程：P6`
+> `戈多翰 Godot4基础教程：P12`
 >
  
 
@@ -150,6 +150,12 @@ Node:
     MultiplayerSynchronizer:
     NavigationAgent2D: # 导航代理
 ```
+
+
+
+
+
+
 ### Script
 #### GDScript
 ```yaml
@@ -160,8 +166,8 @@ Godot:
         preload(): # 导入其它模块
     @GlobalScope:
         $: # 获取node节点（根据name）
+        Input:
         ProjectSettings:
-
         print():
         str(): # 转换为字符串
     bool:
@@ -169,15 +175,15 @@ Godot:
     int:
     AABB:
     Array:
-        append():
+        append(): # 追加元素
         append_array():
-        erase():
+        erase(): # 删除元素
         is_empty():
         push_back():
         push_front():
         remove_at():
         resize():
-        size():
+        size(): # 数组大小
     Basis:
     Callable: # 可调用对象
         call():
@@ -207,7 +213,8 @@ Godot:
         EditorInterface:
         GDExtensionManager:
         Geometry2D:
-        Input:
+        Input: # 输入
+            get_action_strength():
         InputMap:
         IP:
         JavaClassWrapper:
@@ -252,6 +259,9 @@ Godot:
                         scale:
                         skew:
                         translate():
+                    CollisionObject2D:
+                        Area2D:
+                            get_overlapping_areas():
                     Sprite2D:
                         :
                             _frame_change():
@@ -307,6 +317,10 @@ Godot:
 
 
 ##### 数据类型
+```yaml
+DataTypes:
+    Array:
+```
 
 
 String
