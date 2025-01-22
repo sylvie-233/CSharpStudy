@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.3官方文档：https://docs.godotengine.org/en/stable/getting_started/introduction/key_concepts_overview.html#nodes`
-> `戈多翰 Godot4基础教程：P12`
+> `戈多翰 Godot4基础教程：P21`
 >
  
 
@@ -163,6 +163,7 @@ Godot:
     @GDScript:
         INF:
         NAN:
+        load(): # 导入其他脚本
         preload(): # 导入其它模块
     @GlobalScope:
         $: # 获取node节点（根据name）
@@ -199,12 +200,16 @@ Godot:
     NodePath:
     Object:
         :
+            connect(): # 连接信号
             emit_signal(): # 触发信号
             free():
             get():
             get_meta():
             get_signal_list():
             new(): # 实例化类
+            set_script():
+            _init(): # 初始化函数
+            _notification():
         AudioServer:
         CameraServer:
         ClassDB:
@@ -234,6 +239,11 @@ Godot:
             _tree_exited():
             name:
             owner:
+            add_child():
+            add_to_group():
+            find_child():
+            find_parent():
+            get_groups():
             get_node(): # 获取节点
             process_mode():  
             _enter_tree(): # 进入节点树
@@ -266,6 +276,7 @@ Godot:
                         :
                             _frame_change():
                             centered:
+                            texture:
                             get_rect():
             CanvasLayer:
             EditorFileSystem:
@@ -283,7 +294,20 @@ Godot:
             set_setting():
         RefCounted: # 引用计数Object
             get_reference_count():
-            Resource:
+            new():
+            Resource: # 资源文件类
+                instantiate(): # 资源实例化
+                Animation:
+                AnimationNode:
+                AudioStream:
+                Image:
+                    load(): # 加载图片资源
+                Material:
+                Mesh:
+                Texture:
+                    Texture2D:
+                        ImageTexture:
+                            create_from_image():
 
     Plane:
     Rect2:
@@ -319,7 +343,9 @@ Godot:
 ##### 数据类型
 ```yaml
 DataTypes:
+    int:
     Array:
+    String:
 ```
 
 
@@ -340,8 +366,8 @@ Dictionary字典
 :
     @:
         export: # 变量导出
-        onready:
-        tool:
+        onready: # 变量延迟初始化
+        tool: # 插件类定义
     class_name: # 类名定义
     extends: # 继承类
     signal: # 信号定义（C#中的事件event）
@@ -360,7 +386,9 @@ Dictionary字典
         true:
     func: # 函数定义
         # comment:
+        await: # 等待信号触发
         self: # this引用
+        super: # 父类引用
         and ... or ... not:
         for ... in ...:
         if ... is:
@@ -545,6 +573,8 @@ RigidBody2D：刚体
 - `res://`
 - `user://`
 
+
+`tres`、`res`：资源文件
 
 ### Effect
 
