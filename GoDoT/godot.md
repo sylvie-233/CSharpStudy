@@ -167,13 +167,13 @@ Godot:
         $: # 获取node节点（根据name）
         Input:
         ProjectSettings:
-        print():
+        print(): # 控制台输出
         str(): # 转换为字符串
     bool:
     float:
     int:
     AABB:
-    Array:
+    Array: # 数组
         append(): # 追加元素
         append_array():
         erase(): # 删除元素
@@ -183,11 +183,12 @@ Godot:
         remove_at():
         resize():
         size(): # 数组大小
+        slice(): # 截取
     Basis:
     Callable: # 可调用对象
         call():
     Color:
-    Dictionary:
+    Dictionary: # 字典
         clear():
         erase():
         has():
@@ -195,19 +196,25 @@ Godot:
         keys():
         size():
         values():
+    Error: # 异常基类
     NodePath:
     Object:
-        :
-            _init(): # 初始化函数
-            _notification():
-            connect(): # 连接信号
-            emit_signal(): # 触发信号
-            free():
-            get():
-            get_meta():
-            get_signal_list():
-            new(): # 实例化类
-            set_script():
+        connect(): # 连接信号
+        disconnect(): # 断开 信号
+        duplicate(): # 对象拷贝
+        emit_signal(): # 触发信号
+        free(): # 立即释放
+        get_class():
+        get_node(): # 获取子节点
+        is_connected():
+        get(): # 读取 属性
+        get_meta():
+        get_signal_list():
+        queue_free(): # 安全释放
+        new(): # 实例化类
+        set(): # 设置 属性
+        set_script(): # 动态绑定脚本
+        ---
         AudioServer:
         CameraServer:
         ClassDB:
@@ -226,61 +233,93 @@ Godot:
         JSONRPC:
         MainLoop: # 事件循环
             SceneTree: # 场景树
-                _props:
+                change_scene(): # 切换场景
+                change_scene_to():
         Marshalls:
         NativeMenu:
         NavigationServer2D:
-        Node:
-            _child_entered_tree():
-            _ready():
-            _tree_entered():
-            _tree_exited():
+        Node: # 节点
             name:
             owner:
-            add_child():
+            add_child(): # 添加子节点
             add_to_group():
             find_child():
             find_parent():
             get_groups():
             get_node(): # 获取节点
+            get_tree(): # 获取节点树
             process_mode():  
+            _init(): # 构造函数
             _enter_tree(): # 进入节点树
-            _exit_tree():
+            _ready(): # 当节点及其所有子节点准备就绪时调用
+            _process(): # 每帧调用，用于处理逻辑更新
+            _physics_process(): # 每帧调用，用于物理计算
+            _exit_tree(): # 节点从场景树移除时调用
             _input():
-            _physics_process():
-            _process():
-            _ready():
+            _notification():
+            _unhandled_input():
+            ---
             AnimationMixer:
             AudioStreamPlayer:
             CanvasItem:
+                draw_rect():
+                draw_string():
                 hide():
                 show():
-                Control:
-                    Label:
+                ---
+                Control: # GUI 控件
+                    BaseButton:
+                        Button: # 按钮
+                            connect():
+                                pressed:
+                            text():
+                            ---
+                            CheckBox: # 复选框
+                    Container:
+                        BoxContainer:
+                            VBoxContainer:
+                        CenterContainer:
+                        GridContainer:
+                        PanelContainer:
+                        ScrollContainer:
+                        TabContainer:
+                    ItemList: # 列表渲染
+                    Label: # 标签
                         text:
+                    LineEdit: # 输入框
+                    Panel: # 面板，容器
+                    Range:
+                        ProgressBar: # 进度条
+                        Slider: # 滑动条
+                        SpinBox: # 数值框
+                    TextEdit: # 多行输入框
+                    TextureRect: # 纹理矩形
                 Node2D:
-                    :
-                        global_position:
-                        global_rotation:
-                        position: # 位置
-                        rotation:
-                        scale:
-                        skew:
-                        translate():
+                    global_position:
+                    global_rotation:
+                    position: # 位置
+                    rotation:
+                    scale:
+                    skew:
+                    translate():
+                    ---
                     CollisionObject2D:
                         Area2D:
                             get_overlapping_areas():
                     Sprite2D:
-                        :
-                            _frame_change():
-                            centered:
-                            texture:
-                            get_rect():
+                        _frame_change():
+                        centered:
+                        texture:
+                        get_rect():
             CanvasLayer:
             EditorFileSystem:
             EditorPlugin:
             EditorResourcePreview:
-            HTTPRequest:
+            HTTPRequest: # http请求，需借助信号机制完成
+                connect():
+                    request_completed: # (result, response_code, headers, body)
+                new():
+                request(): # 发起请求
             MultiplayerSpawner:
             NavigationAgent2D:
             RefCounted:
@@ -293,31 +332,71 @@ Godot:
         RefCounted: # 引用计数Object
             get_reference_count():
             new():
+            DirAccess: # 目录操作
+                get_next(): # 遍历目录 下一个
+                list_dir_begin(): # 遍历目录 开始
+                make_dir_absolute(): # 创建目录
+                remove_absolute(): # 删除目录
+            FileAccess: # 文件操作 res:// user://
+                READ: # 读模式
+                close(): # 关闭文件
+                eof_reached(): # 文件结尾判断
+                file_exists(): # 文件存在判断
+                flush(): # 刷新缓冲
+                get_as_text(): # 获取文件内容
+                get_buffer(): # 获取字节数组
+                get_length(): # 文件大小
+                get_line(): # 按行读取
+                open():
+                remove_absolute(): # 删除文件
+                store_string(): # 写入字符串
             Resource: # 资源文件类
                 instantiate(): # 资源实例化
                 Animation:
                 AnimationNode:
                 AudioStream:
-                Image:
+                Image: # 图片
                     load(): # 加载图片资源
+                JSON: # json
+                    stringify(): # json序列化
                 Material:
                 Mesh:
+                Script: # 脚本对象
                 Texture:
                     Texture2D:
                         ImageTexture:
                             create_from_image():
-
+            StreamPeer:
+                StreamPeerTCP: # tcp连接，客户端
+                    close():
+                    get_data():
+                    put_data():
+            TCPServer: # TCP 服务器
+                listen(): # 端口监听
+                new():
+                stop():
+                take_connection(): # 等待连接
+            Thread: # 线程
+                new():
+                start():
+            Tween: # 数值动画
+    PackedByteArray: # 字节数组
+        get_string_from_utf8(): # 转为字符串
+    PackedFloat32Array: # 浮点数数组
+    PackedInt32Array: # 整形数组
+    PackedStringArray: # 字符串数组 
     Plane:
-    Rect2:
+    Rect2: # 2D 矩形
     Signal:
     String:
         length:
         match():
         num():
-    SstringName:
-    Transform2D:
+        to_utf8_buffer(): # 转换为字节数组
+    StringName:
+    Transform2D: # 2D 变换
     Variant: # 变体类型（任意类型，默认）
-    Vector2:
+    Vector2: # 
         x:
         y:
         angle():
@@ -326,7 +405,7 @@ Godot:
     Vector3:
 ```
 
-
+每个 GDScript 脚本文件自动成为一个类，并继承它的父节点类型
 一个gd脚本就是一个类（类似Java，默认文件名为类名）
 
 借助项目配置的自动加载脚本实现对象单例
@@ -338,28 +417,57 @@ Godot:
 
 
 
-#### 数据类型
+#### Data Types
 ```yaml
 DataTypes:
+    bool:
+    float:
     int:
+    null:
     Array:
     String:
+    StringName: # 字符串切片
+    Nil: # 空类型
+```
+
+数据类型主要分为 基本数据类型 和 复合数据类型，此外还有一些 特殊类型
+支持自动类型推断
+
+
+
+##### String
+```python
+# 字符串字面量声明
+var my_str = "2333"
+
+# 多行字符串
+var multiline_string = """
+    这是一行
+    这是第二行
+    这是第三行
+"""
+
+# 字符串格式化 %
+var message = "我的名字是 %s，今年 %d 岁。" % [name, age]
 ```
 
 
-String
+##### Array
+```js
+var my_array = [1, 2, 3, "hello"]
+```
+
+list数组
+
+
+##### Dictionary
+```js
+var my_dict = {"name": "Godot", "version": 4.0}
+```
 
 
 
-Array数组
-
-
-
-Dictionary字典
-
-
-
-#### 语法结构
+#### Control Flow
 ```yaml
 Control Flow:
     @:
@@ -372,6 +480,7 @@ Control Flow:
         connect(): # 连接信号
         disconnect(): # 断连信号
         emit(): # 触发信号
+    setget: # get/set方法
     static: # 静态变量、方法
     enum: # 枚举定义
     const: # 常量定义
@@ -385,14 +494,15 @@ Control Flow:
     func: # 函数定义
         # comment:
         await: # 等待信号触发
+        pass:
         self: # this引用
         super: # 父类引用
+        yield: # 协程返回
         and ... or ... not:
         for ... in ...:
         if ... is:
         if ... elif ... else:
-        match:
-        pass:
+        match ...:
         while ...:
             break:
             continue:
@@ -400,24 +510,157 @@ Control Flow:
         new():
 ```
 
-<br />
-<br />
+##### Getter Setter
+```js
+// 定义一个私有变量
+var _health: int = 100
 
+// 使用 setget 关键字来定义 getter 和 setter
+export var health: int setget set_health, get_health
 
+// setter 方法，用于设置属性值
+func set_health(value: int):
+    // 在赋值时限制健康值的范围
+    _health = clamp(value, 0, 100)  // 限制在 0 到 100 之间
+    print("健康值已更新:", _health)
 
-
-
-
-
-
-#### 属性
-```yaml
-:
-    [Export]:
+// getter 方法，用于获取属性值
+func get_health() -> int:
+    return _health
 ```
 
 
-#### 信号
+
+
+
+##### Exception Handler
+```python
+# 捕获异常
+func _ready():
+    try:
+        var file = File.new()
+        file.open("res://test.txt", File.READ)  # 假设文件不存在
+        var content = file.get_as_text()
+        print(content)
+    except Error as e:
+        print("发生错误:", e)
+    finally:
+        print("无论是否发生错误，都会执行这里的代码")
+
+# 抛出异常
+raise Error("年龄不能为负数")
+```
+
+try、except、finally
+raise
+
+
+
+
+#### Function
+```js
+func add(a: int, b: int) -> int:
+    return a + b
+```
+
+支持静态函数、
+
+
+##### Static Function
+```js
+// 静态函数 static func
+extends Object
+class_name Utils  // 定义一个可直接使用的类
+
+static func to_uppercase(text: String) -> String:
+    return text.to_upper()
+```
+
+
+静态函数
+
+
+
+
+##### Async Function
+```js
+async func fetch_data() -> String:
+    print("开始加载数据...")
+    await _simulate_network_request()
+    print("数据加载完毕！")
+    return "Hello, Godot!"
+```
+
+async、await、yield
+异步函数
+yield() 等待异步函数执行完成
+
+
+
+
+
+
+#### Class
+
+
+没有接口
+
+
+##### Extends
+```js
+class InvalidAgeError extends Error:
+    var age: int
+
+    func _init(age: int):
+        self.age = age
+        message = "年龄 " + str(age) + " 无效，必须是正数！"
+```
+
+继承
+
+
+##### Inner Class
+```python
+extends Node  # 继承 Node（外部主类）
+
+class InnerClass:  # 定义内部类
+    var value: int = 0
+
+    func _init(v: int):
+        value = v
+
+    func print_value():
+        print("Value is:", value)
+
+func create_inner():
+    var obj = InnerClass.new(42)  # 创建内部类的实例
+    obj.print_value()  # 输出 "Value is: 42"
+```
+
+内部类
+
+
+
+#### Attribute
+```js
+extends Node
+
+var _health: int = 100
+
+// 设置 getter 和 setter
+export(int) var health: int setget set_health, get_health
+
+func set_health(value: int):
+    _health = clamp(value, 0, 100)  // 限制健康值在 0 到 100 之间
+
+func get_health() -> int:
+    return _health
+```
+
+export导出给编辑器使用
+
+
+#### Signal
 
 
 
@@ -471,8 +714,8 @@ Control基类
 物理
 
 CollisionObject2D：添加对应的碰撞检测形状
-RayCast2D：物理射线
 RigidBody2D：刚体
+RayCast2D：物理射线
 
 
 
