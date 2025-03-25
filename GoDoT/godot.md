@@ -1,7 +1,7 @@
 # GoDoT
 
 >
-> `GODOT4.3官方文档：https://docs.godotengine.org/en/stable/getting_started/introduction/key_concepts_overview.html#nodes`
+> `GODOT4.x官方文档：`
 > `戈多翰 Godot4基础教程：P21`
 >
  
@@ -11,12 +11,11 @@
 
 
 场景`.tscn`
-
 scene场景 -> node节点树 -> signal信号
-
 scene可进行嵌套（组合node、预制体）
 
 每个节点都能添加脚本
+全局脚本：项目设置 -> 自动加载
 
 
 
@@ -157,7 +156,6 @@ Node:
 
 
 ### Script
-#### GDScript
 ```yaml
 Godot:
     @GDScript:
@@ -200,6 +198,8 @@ Godot:
     NodePath:
     Object:
         :
+            _init(): # 初始化函数
+            _notification():
             connect(): # 连接信号
             emit_signal(): # 触发信号
             free():
@@ -208,8 +208,6 @@ Godot:
             get_signal_list():
             new(): # 实例化类
             set_script():
-            _init(): # 初始化函数
-            _notification():
         AudioServer:
         CameraServer:
         ClassDB:
@@ -340,7 +338,7 @@ Godot:
 
 
 
-##### 数据类型
+#### 数据类型
 ```yaml
 DataTypes:
     int:
@@ -361,9 +359,9 @@ Dictionary字典
 
 
 
-##### 语法结构
+#### 语法结构
 ```yaml
-:
+Control Flow:
     @:
         export: # 变量导出
         onready: # 变量延迟初始化
@@ -408,7 +406,113 @@ Dictionary字典
 
 
 
-#### CSharp
+
+
+
+
+#### 属性
+```yaml
+:
+    [Export]:
+```
+
+
+#### 信号
+
+
+
+
+ 
+
+
+<br />
+<br />
+
+
+
+
+
+
+### Node
+
+
+
+
+
+
+
+#### Signal
+
+节点信号
+
+
+自定义信号
+
+
+
+
+#### Group
+
+节点分组、类似Unity的标签tag
+
+
+
+
+### GUI
+
+Control基类
+
+
+#### Control
+
+
+### Physical
+
+物理
+
+CollisionObject2D：添加对应的碰撞检测形状
+RayCast2D：物理射线
+RigidBody2D：刚体
+
+
+
+#### Camera
+
+摄像机
+
+
+
+### Animation
+
+动画
+
+
+
+### Assets
+
+- `res://`
+- `user://`
+
+
+`tres`、`res`：资源文件
+
+
+
+### Effect
+
+
+
+
+
+
+
+### Shade
+
+
+
+
+
+### CSharp
 ```yaml
 Godot:
     []:
@@ -483,108 +587,7 @@ Godot:
     GetGlobalMousePosition(): # 获取全局鼠标位置
 ```
 
-全局脚本：项目设置 -> 自动加载
 
-
-
-
-
-
-
-
-##### 属性
-```yaml
-:
-    [Export]:
-```
-
-
-##### 信号
-
-
-
-
- 
-
-
-<br />
-<br />
-
-
-
-
-
-
-### Node
-
-
-
-
-
-
-
-
-
-#### Signal
-
-节点信号
-
-
-自定义信号
-
-
-#### Group
-
-节点分组、类似Unity的标签tag
-
-
-
-
-### GUI
-
-Control基类
-
-
-
-### Physical
-
-物理
-
-CollisionObject2D：添加对应的碰撞检测形状
-RayCast2D：物理射线
-RigidBody2D：刚体
-
-
-
-#### Camera
-
-摄像机
-
-
-
-### Animation
-
-动画
-
-
-
-### Assets
-
-- `res://`
-- `user://`
-
-
-`tres`、`res`：资源文件
-
-### Effect
-
-
-
-
-
-
-
-### Shade
 
 
 
