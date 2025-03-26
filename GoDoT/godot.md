@@ -662,6 +662,7 @@ export导出给编辑器使用
 
 #### Signal
 
+事件通信机制
 
 
 
@@ -678,25 +679,9 @@ export导出给编辑器使用
 
 ### Node
 
+Signal节点信号、自定义信号
 
-
-
-
-
-
-#### Signal
-
-节点信号
-
-
-自定义信号
-
-
-
-
-#### Group
-
-节点分组、类似Unity的标签tag
+Group节点分组、类似Unity的标签tag
 
 
 
@@ -708,20 +693,81 @@ Control基类
 
 #### Control
 
+控件基类
+
+
+
+
 
 ### Physical
 
 物理
+- 刚体（RigidBody / RigidBody2D）；
+- 静态物体（StaticBody / StaticBody2D）；
+- 运动物体（KinematicBody / KinematicBody2D）；
+- 区域（Area / Area2D）；
+- 碰撞形状（CollisionShape / CollisionShape2D）；
+- 物理材料（PhysicsMaterial / PhysicsMaterial2D）。
 
-CollisionObject2D：添加对应的碰撞检测形状
-RigidBody2D：刚体
-RayCast2D：物理射线
 
 
 
-#### Camera
 
-摄像机
+
+#### RigidBody
+
+刚体
+用于模拟具有质量、摩擦和弹性的物体。刚体会根据物理引擎计算其运动和碰撞。可以通过设置不同的属性（如 线性和角速度、质量、摩擦力 等）来影响物体的行为
+
+
+#### StaticBody
+
+静态物体
+用于表示不会移动的物体（如地面、墙壁等）。它不会响应力的作用，只用于碰撞检测。
+
+
+#### KinematicBody
+
+用于 运动物体，并且允许开发者通过脚本控制物体的运动。KinematicBody2D 不受物理引擎的自动影响，它的运动是通过脚本直接控制的，但仍然能够与其他物体碰撞。
+
+#### Area
+
+用于模拟 触发器区域。Area2D 主要用于 感知碰撞区域，比如检测是否有物体进入特定区域。它不像刚体那样响应力，但可以检测与其他物体的交互（如进入区域、离开区域）
+
+
+#### CollisionShape
+
+用于定义物体的 碰撞形状，可以与 RigidBody2D、KinematicBody2D 或 StaticBody2D 结合使用。CollisionShape2D 可以是 矩形、圆形、胶囊、路径等，定义了物体的物理边界
+
+
+#### Joint
+
+这些是物理约束组件，用于连接多个物体，模拟它们之间的 连接关系。例如，SpringJoint2D 用于模拟弹簧连接，PinJoint2D 用于固定物体
+
+
+#### PhysicsMaterial
+
+用于设置 2D 物体的物理属性，如摩擦力、弹性等。你可以将其应用于刚体、静态物体、区域等。通过调整物理材料，改变物体的反应（如碰撞后的反弹效果）
+
+#### RayCast
+
+用于 射线检测，通过从一个点沿一个方向发射射线，检测它与其他物体的碰撞。这对于射击游戏、光线反射/折射、物体拾取等场景非常有用
+
+#### AABB
+
+一种常用的碰撞体积表示方式，它用于描述 物体的包围盒，在物理引擎中经常用来进行 碰撞检测 和 加速碰撞计算。AABB 对象通常作为 碰撞形状 的基础。
+在 Godot 中，你可以通过 AABB 类来进行 AABB 计算和碰撞检测
+
+#### DebugDraw
+
+你可以启用物理调试模式，查看物体的 碰撞边界、速度矢量、力的方向 等，帮助你调试物理相关的问题
+
+
+#### Navigation
+
+寻路
+
+
 
 
 
@@ -729,6 +775,32 @@ RayCast2D：物理射线
 
 动画
 
+
+#### AnimationPlayer
+
+动画播放器
+
+
+
+#### AnimationTree
+
+
+用于复杂的动画混合和状态机控制
+
+
+#### AnimatedSprite
+
+精灵动画
+
+#### Tween
+
+
+用于平滑过渡和插值动画
+
+
+#### Skeleton
+
+骨骼
 
 
 ### Assets
@@ -740,9 +812,35 @@ RayCast2D：物理射线
 `tres`、`res`：资源文件
 
 
+#### PackedScene
+
+场景
+
+
+#### AudioStreamPlayer
+
+音效特效
+
+
+#### VideoPlayer
+
+
 
 ### Effect
 
+
+#### Camera
+
+摄像机
+
+
+#### Light
+
+灯光
+
+#### Particles
+
+粒子系统
 
 
 
@@ -752,10 +850,22 @@ RayCast2D：物理射线
 ### Shade
 
 
+#### ShaderMaterial
+
+Shader 的重要容器，它允许你将自定义的着色器应用到 3D 或 2D 材质 上
 
 
+#### Shader
 
-### CSharp
+存储 顶点着色器（Vertex Shader）和 片段着色器（Fragment Shader）的资源。你可以通过编写 GLSL 代码来实现各种视觉效果
+
+
+#### ShaderGraph
+
+可视化编辑着色器 的方式，不需要手动编写代码，而是通过图形化界面连接节点来创建着色器
+
+
+## CSharp
 ```yaml
 Godot:
     []:
