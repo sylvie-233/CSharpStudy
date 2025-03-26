@@ -669,9 +669,6 @@ export导出给编辑器使用
  
 
 
-<br />
-<br />
-
 
 
 
@@ -685,6 +682,27 @@ Group节点分组、类似Unity的标签tag
 
 
 
+#### Sprite
+
+精灵图
+
+
+#### TileMap
+
+瓦片地图
+
+
+
+#### Viewport
+
+
+子视图，可用于 UI、迷你地图、分屏游戏等
+
+
+#### Timer
+
+定时器
+
 
 ### GUI
 
@@ -695,6 +713,67 @@ Control基类
 
 控件基类
 
+
+#### Button
+
+
+#### Label
+
+
+#### TextureRect
+
+
+#### TextEdit
+
+
+
+#### PopupMenu
+
+
+#### Slider
+
+
+#### Container
+
+常用于布局、View视图展示
+
+
+##### ScrollContainer
+
+
+
+##### HBoxContainer
+
+##### MarginContainer
+
+##### PanelContainer
+
+
+
+##### GridContainer
+
+
+
+##### TabContainer
+
+
+
+
+#### ItemList
+
+列表视图
+
+
+
+#### Window
+
+
+
+##### AcceptDialog
+
+
+
+##### FileDialog
 
 
 
@@ -726,7 +805,7 @@ Control基类
 用于表示不会移动的物体（如地面、墙壁等）。它不会响应力的作用，只用于碰撞检测。
 
 
-#### KinematicBody
+#### CharacterBody
 
 用于 运动物体，并且允许开发者通过脚本控制物体的运动。KinematicBody2D 不受物理引擎的自动影响，它的运动是通过脚本直接控制的，但仍然能够与其他物体碰撞。
 
@@ -876,7 +955,7 @@ Godot:
     GD:
         Load(): # 资源加载
         Print(): # 控制台输出
-    Input:
+    Input: # 输入系统
         MouseMode:
         MouseModeEnum:
         GetAxis():
