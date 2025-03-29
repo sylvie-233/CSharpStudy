@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.x官方文档：`
-> `戈多翰 Godot4基础教程：P21`
+> `戈多翰 Godot4基础教程：P34`
 >
  
 
@@ -72,7 +72,7 @@ Node:
                     Rotation:
                     Scale:
                     Skew:
-            AnimatedSprite2D: # 动画精灵图
+            AnimatedSprite2D: # 动画精灵图2D
             AudioListener2D:
             AudioStreamPlayer2D: # 2D音频播放
             Bone2D:
@@ -161,7 +161,7 @@ Godot:
     @GDScript:
         INF:
         NAN:
-        load(): # 导入其他脚本
+        load(): # 导入其他资源
         preload(): # 导入其它模块
     @GlobalScope:
         $: # 获取node节点（根据name）
@@ -186,7 +186,9 @@ Godot:
         slice(): # 截取
     Basis:
     Callable: # 可调用对象
+        bind():
         call():
+        call_deferred():
     Color:
     Dictionary: # 字典
         clear():
@@ -225,6 +227,9 @@ Godot:
         Geometry2D:
         Input: # 输入
             get_action_strength():
+            get_axis(): # 方向按键
+            is_action_just_pressed(): # 按键 按压
+            is_action_just_released(): # 按键 释放
         InputMap:
         IP:
         JavaClassWrapper:
@@ -241,14 +246,6 @@ Godot:
         Node: # 节点
             name:
             owner:
-            add_child(): # 添加子节点
-            add_to_group():
-            find_child():
-            find_parent():
-            get_groups():
-            get_node(): # 获取节点
-            get_tree(): # 获取节点树
-            process_mode():  
             _init(): # 构造函数
             _enter_tree(): # 进入节点树
             _ready(): # 当节点及其所有子节点准备就绪时调用
@@ -258,60 +255,133 @@ Godot:
             _input():
             _notification():
             _unhandled_input():
-            ---
+            add_child(): # 添加子节点
+            add_to_group():
+            find_child():
+            find_parent():
+            get_groups():
+            get_node(): # 获取节点
+            get_tree(): # 获取节点树
+            process_mode():  
             AnimationMixer:
-            AudioStreamPlayer:
+                AnimationPlayer: # 动画播放
+            AudioStreamPlayer: # 音频播放
             CanvasItem:
+                modulate: # 颜色
+                visible: # 可见性
+                y_sort_enabled: # 根据y值确定 z轴排序
+                z_as_relative: # z轴排序，相对父级
+                z_index: # z轴排序，越高越靠前
                 draw_rect():
-                draw_string():
-                hide():
-                show():
+                draw_string():  
+                hide(): # 隐藏
+                show(): # 显示
                 ---
-                Control: # GUI 控件
+                Control: # GUI 控件基类
+                    clip_contents: # 内容溢出裁剪
+                    custom_minimum_size: # 最小尺寸
+                    layout_direction: # 布局方向
+                    pivot_offset: # 锚点
+                    position:
+                    size:
                     BaseButton:
                         Button: # 按钮
-                            connect():
-                                pressed:
+                            @pressed:
                             text():
-                            ---
                             CheckBox: # 复选框
-                    Container:
+                            CheckButton:
+                            MenuButton:
+                            OptionButton:
+                        LinkButton: # 链接按钮
+                        TextureButton: # 纹理按钮
+                    ColorRect:
+                    Container: # 容器
+                        AspectRadioContainer:
                         BoxContainer:
+                            HBoxContainer:
+                                alignment:
                             VBoxContainer:
-                        CenterContainer:
-                        GridContainer:
+                                ColorPicker: # 颜色选择器
+                        CenterContainer: # 居中布局
+                        FlowContainer: # 弹性布局
+                        GraphNode:
+                        GridContainer: # 网格布局
+                            columns: # 列数
+                        MarginContainer:
                         PanelContainer:
-                        ScrollContainer:
+                        ScrollContainer: # 滚动视图容器
+                        SplitContainer:
+                        SubViewportContainer: # 子视窗容器
                         TabContainer:
+                    GraphEdit: # 图
                     ItemList: # 列表渲染
                     Label: # 标签
                         text:
-                    LineEdit: # 输入框
+                    LineEdit: # 单行输入框
+                    MenuBar: # 菜单栏
+                    NinePatchRect: # 九宫格
                     Panel: # 面板，容器
                     Range:
                         ProgressBar: # 进度条
                         Slider: # 滑动条
                         SpinBox: # 数值框
+                        TextureProgressBar: # 纹理进度条
+                    RichTextLabel: # 富文本标签
+                    Separator:
+                    TabBar: # 标签栏
                     TextEdit: # 多行输入框
                     TextureRect: # 纹理矩形
+                        texture:
+                    Tree: # 树状节点
+                    VideoStreamPlayer: # 视频播放
                 Node2D:
                     global_position:
                     global_rotation:
-                    position: # 位置
-                    rotation:
+                    position: # 位置 Vector2
+                    rotation: # 旋转
                     scale:
-                    skew:
+                    skew: # 斜切
                     translate():
                     ---
-                    CollisionObject2D:
-                        Area2D:
+                    AnimatedSprite2D: # 动画精灵图 
+                        @animation_finished:
+                        animation: # 动画资源
+                        frame: # 当前动画帧
+                        speed_scale: # 播放速度
+                        play():
+                        stop():
+                    Camera2D: # 摄像机
+                    CollisionObject2D: # 碰撞体
+                        collision_layer: # 碰撞层，自己所属
+                        collision_mask: # 碰撞遮罩，和谁碰撞
+                        Area2D: # 区域，检测
+                            @area_entered:
                             get_overlapping_areas():
-                    Sprite2D:
-                        _frame_change():
+                        PhysicsBody2D:
+                             CharacterBody2D: # 人物
+                                is_on_ceiling():
+                                is_on_floor():
+                                is_on_wall():
+                                move_and_slide(): # 根据速度进行移动
+                             RigidBody2D: # 刚体，具有物理特性，重力
+                                physics_material_override: # 物理材质
+                                PhysicalBone2D:
+                             StaticBody2D: # 静态物体
+                                physics_material_override: # 物理材质
+                    CollisionPolygon2D: # 碰撞多边形
+                    CollisionShape2D: # 碰撞形状
+                        shape: # 形状 Shape2D
+                    RayCast2D: # 射线
+                    ShapeCast2D: # 形状射线
+                    Sprite2D: # 精灵图
+                        @frame_changed:
+                        @texture_changed:
                         centered:
-                        texture:
+                        texture: # 纹理 Texture2D
                         get_rect():
-            CanvasLayer:
+                    TileMap: # 地图块
+                        tile_set: # 地图集合
+            CanvasLayer: # 画布层
             EditorFileSystem:
             EditorPlugin:
             EditorResourcePreview:
@@ -322,10 +392,18 @@ Godot:
                 request(): # 发起请求
             MultiplayerSpawner:
             NavigationAgent2D:
-            RefCounted:
-            Time:
+            Timer: # 定时器
+                @timeout:
+                autostart:
+                is_stopped():
+                start():
+                stop():
             TreeItem:
-        ProjectSettings:
+            Viewport: # 视窗
+                world_2d:
+                push_input():
+                SubViewport: # 子视窗
+        ProjectSettings: # 项目设置
             get_setting():
             has_setting():
             set_setting():
@@ -355,17 +433,34 @@ Godot:
                 Animation:
                 AnimationNode:
                 AudioStream:
+                BitMap: # 位图
                 Image: # 图片
                     load(): # 加载图片资源
+                InputEvent: # 输入事件
                 JSON: # json
                     stringify(): # json序列化
+                LabelSettings: # 标签设置
                 Material:
                 Mesh:
+                PhysicsMaterial: # 物理材质
+                    bounce: # 弹性
+                    friction: # 摩擦力
+                    rough: # 粗糙
                 Script: # 脚本对象
-                Texture:
-                    Texture2D:
+                Shape2D: # 形状
+                    CapsuleShape2D: # 胶囊
+                    CircleShape2D: # 圆
+                    RectangleShape2D: # 矩形
+                Texture: # 纹理
+                    Texture2D: # 2D纹理
+                        AtlasTexture: # 裁剪2D纹理
+                            region: # 裁剪区域
+                        CompressedTexture2D: # 压缩2D纹理
                         ImageTexture:
                             create_from_image():
+                        NoiseTexture2D: # 噪点2D纹理
+                TileSet: # Tilemap 的图块库
+                World2D:
             StreamPeer:
                 StreamPeerTCP: # tcp连接，客户端
                     close():
@@ -695,7 +790,7 @@ Group节点分组、类似Unity的标签tag
 
 #### Viewport
 
-
+视窗节点
 子视图，可用于 UI、迷你地图、分屏游戏等
 
 
@@ -707,6 +802,10 @@ Group节点分组、类似Unity的标签tag
 ### GUI
 
 Control基类
+Container控制布局、
+
+
+
 
 
 #### Control
@@ -789,7 +888,7 @@ Control基类
 - 物理材料（PhysicsMaterial / PhysicsMaterial2D）。
 
 
-
+CollisionObject2D碰撞体 + CollisionShape2D碰撞形状 实现碰撞检测
 
 
 
@@ -831,6 +930,9 @@ Control基类
 #### RayCast
 
 用于 射线检测，通过从一个点沿一个方向发射射线，检测它与其他物体的碰撞。这对于射击游戏、光线反射/折射、物体拾取等场景非常有用
+
+
+#### ShapeCast
 
 #### AABB
 
