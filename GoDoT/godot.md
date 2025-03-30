@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.x官方文档：`
-> ``
+> `godot 4.x 教程：P63`
 >
  
 
@@ -13,6 +13,11 @@
 场景`.tscn`
 scene场景 -> node节点树 -> signal信号
 scene可进行嵌套（组合node、预制体）、基于scene进行组件封装
+
+材质：
+Texture、Material、Shader
+
+
 
 每个节点都能添加脚本
 全局脚本：项目设置 -> 自动加载
@@ -168,7 +173,10 @@ Godot:
         Input:
         ProjectSettings:
         print(): # 控制台输出
+        range(): # 生成数组
         str(): # 转换为字符串
+        type_convert():
+        typeof():
     bool:
     float:
     int:
@@ -195,18 +203,19 @@ Godot:
         erase():
         has():
         is_empty():
-        keys():
+        keys(): # 所有键
         size():
-        values():
+        values(): # 所有值
     Error: # 异常基类
-    NodePath:
+    NodePath: # 场景树路径
     Object:
-        connect(): # 连接信号
+        _get_property_list(): # 为 游戏引擎提供自定义属性列表
+        connect(): # 连接信号，连接 自己的信号 到 指定方法 上
         disconnect(): # 断开 信号
         duplicate(): # 对象拷贝
         emit_signal(): # 触发信号
         free(): # 立即释放
-        get_class():
+        get_class(): # 获取类名
         get_node(): # 获取子节点
         is_connected():
         get(): # 读取 属性
@@ -214,6 +223,7 @@ Godot:
         get_signal_list():
         queue_free(): # 安全释放
         new(): # 实例化类
+        notify_property_list_changed(): # 刷新编辑器
         set(): # 设置 属性
         set_script(): # 动态绑定脚本
         ---
@@ -223,6 +233,9 @@ Godot:
         DisplayServer:
         EditorFileSystemDirectory:
         EditorInterface:
+        Engine: # 游戏引擎实例
+            max_fps:
+            register_singleton(): # 注册单例
         GDExtensionManager:
         Geometry2D:
         Input: # 输入
@@ -238,14 +251,21 @@ Godot:
         JSONRPC:
         MainLoop: # 事件循环
             SceneTree: # 场景树
+                root: # 根节点，Viewport
                 change_scene(): # 切换场景
                 change_scene_to():
+                create_timer(): # 创建场景树定时器
+                create_tween(): # 创建场景补间动画
+                quit():
         Marshalls:
         NativeMenu:
         NavigationServer2D:
         Node: # 节点
+            editor_description: # 节点描述
             name:
-            owner:
+            owner: # 祖先节点，仅在自己场景树中
+            process_mode: # 节点执行模式，控制暂停时的prosess方法的行为
+            process_priority: # 节点执行优先级
             _init(): # 构造函数
             _enter_tree(): # 进入节点树
             _ready(): # 当节点及其所有子节点准备就绪时调用
@@ -256,13 +276,14 @@ Godot:
             _notification():
             _unhandled_input():
             add_child(): # 添加子节点
-            add_to_group():
-            find_child():
-            find_parent():
+            add_to_group(): # 添加组
+            find_child(): # 获取子节点，支持深度
+            find_parent(): # 获取父节点
             get_groups():
-            get_node(): # 获取节点
-            get_tree(): # 获取节点树
+            get_node(): # 获取子节点，根据名称
+            get_tree(): # 获取场景树
             process_mode():  
+            remove_child(): # 删除子节点
             AnimationMixer:
                 AnimationPlayer: # 动画播放
             AudioStreamPlayer: # 音频播放
@@ -354,6 +375,7 @@ Godot:
                     CollisionObject2D: # 碰撞体
                         collision_layer: # 碰撞层，自己所属
                         collision_mask: # 碰撞遮罩，和谁碰撞
+                        _input_event(): # 输入事件
                         Area2D: # 区域，检测
                             @area_entered:
                             get_overlapping_areas():
@@ -371,12 +393,15 @@ Godot:
                     CollisionPolygon2D: # 碰撞多边形
                     CollisionShape2D: # 碰撞形状
                         shape: # 形状 Shape2D
+                    Light2D: # 灯光
                     RayCast2D: # 射线
                     ShapeCast2D: # 形状射线
                     Sprite2D: # 精灵图
                         @frame_changed:
                         @texture_changed:
                         centered:
+                        region_enabled: # 开启 图片区域截取
+                        region_rect: # 图片区域截取
                         texture: # 纹理 Texture2D
                         get_rect():
                     TileMap: # 地图块
@@ -410,6 +435,7 @@ Godot:
         RefCounted: # 引用计数Object
             get_reference_count():
             new():
+            unreference(): # 解除引用
             DirAccess: # 目录操作
                 get_next(): # 遍历目录 下一个
                 list_dir_begin(): # 遍历目录 开始
@@ -428,6 +454,10 @@ Godot:
                 open():
                 remove_absolute(): # 删除文件
                 store_string(): # 写入字符串
+            Mutex: # 互斥锁
+                lock():
+                try_lock():
+                unlock():
             Resource: # 资源文件类
                 instantiate(): # 资源实例化
                 Animation:
@@ -472,9 +502,19 @@ Godot:
                 stop():
                 take_connection(): # 等待连接
             Thread: # 线程
+                get_id():
+                is_active():
                 new():
                 start():
+                wait_to_finish():
             Tween: # 数值动画
+                chain():
+                from():
+                set_ease():
+                set_parallel():
+                set_trans():
+                tween_callback():
+                tween_property():
     PackedByteArray: # 字节数组
         get_string_from_utf8(): # 转为字符串
     PackedFloat32Array: # 浮点数数组
@@ -519,15 +559,16 @@ DataTypes:
     bool:
     float:
     int:
-    null:
-    Array:
-    String:
+    null: # 空类型
+    Array: # 数组
+    Dictionary: # 字典
+    Object: # 对象
+    String: # 字符串
     StringName: # 字符串切片
-    Nil: # 空类型
 ```
 
 数据类型主要分为 基本数据类型 和 复合数据类型，此外还有一些 特殊类型
-支持自动类型推断
+支持自动类型推断、默认值
 
 
 
@@ -561,15 +602,19 @@ list数组
 var my_dict = {"name": "Godot", "version": 4.0}
 ```
 
+##### Enum
+```js
+enum Food {GOOD, BAD}
+```
 
 
 #### Control Flow
 ```yaml
 Control Flow:
-    @:
-        export: # 变量导出
-        onready: # 变量延迟初始化
-        tool: # 插件类定义
+    #: # 注释
+    @export: # 变量导出
+    @onready: # 变量延迟初始化
+    @tool: # 插件类定义
     class_name: # 类名定义
     extends: # 继承类
     signal: # 信号定义（C#中的事件event）
@@ -588,21 +633,23 @@ Control Flow:
         null:
         true:
     func: # 函数定义
-        # comment:
-        await: # 等待信号触发
-        pass:
+        as: # 类型强制
+        await: # 等待信号触发、异步函数执行完毕，yield替代方案
+        pass: # 省略，待完成
         self: # this引用
         super: # 父类引用
-        yield: # 协程返回
-        and ... or ... not:
-        for ... in ...:
-        if ... is:
+        yield(): # 协程返回，可对当前协程注册信号（当信号触发时继续向下执行）
+            completed: # 等待协程执行完毕
+            resume(): # 重新调用
+        and ... or ... not: # 逻辑判断
+        for ... in ...: # 遍历
+        if ... is: # 实例判断
         if ... elif ... else:
         match ...:
         while ...:
             break:
             continue:
-    class:
+    class: # 内部类
         new():
 ```
 
@@ -659,7 +706,7 @@ func add(a: int, b: int) -> int:
     return a + b
 ```
 
-支持静态函数、
+支持静态函数、形参默认值
 
 
 ##### Static Function
@@ -759,6 +806,8 @@ export导出给编辑器使用
 #### Signal
 
 事件通信机制
+实现模块、脚本之间的通信
+
 
 
 
@@ -773,8 +822,8 @@ export导出给编辑器使用
 ### Node
 
 Signal节点信号、自定义信号
-
 Group节点分组、类似Unity的标签tag
+只有Node节点才可以挂载脚本
 
 
 
@@ -889,7 +938,7 @@ Container控制布局、
 - 物理材料（PhysicsMaterial / PhysicsMaterial2D）。
 
 
-CollisionObject2D碰撞体 + CollisionShape2D碰撞形状 实现碰撞检测
+RigidBody刚体 + CollisionObject2D碰撞体 + CollisionShape2D碰撞形状 实现碰撞检测
 
 
 
