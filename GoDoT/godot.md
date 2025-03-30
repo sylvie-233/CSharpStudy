@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.x官方文档：`
-> `戈多翰 Godot4基础教程：P34`
+> ``
 >
  
 
@@ -12,7 +12,7 @@
 
 场景`.tscn`
 scene场景 -> node节点树 -> signal信号
-scene可进行嵌套（组合node、预制体）
+scene可进行嵌套（组合node、预制体）、基于scene进行组件封装
 
 每个节点都能添加脚本
 全局脚本：项目设置 -> 自动加载
@@ -492,6 +492,7 @@ Godot:
     Transform2D: # 2D 变换
     Variant: # 变体类型（任意类型，默认）
     Vector2: # 
+        RIGHT:
         x:
         y:
         angle():
