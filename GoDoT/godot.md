@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.x官方文档：`
-> `godot 4.x 教程：P63`
+> `godot 4.x 教程：P76`
 >
  
 
@@ -172,6 +172,7 @@ Godot:
         $: # 获取node节点（根据name）
         Input:
         ProjectSettings:
+        clamp(): # 值范围限定
         print(): # 控制台输出
         range(): # 生成数组
         str(): # 转换为字符串
@@ -243,6 +244,7 @@ Godot:
             get_axis(): # 方向按键
             is_action_just_pressed(): # 按键 按压
             is_action_just_released(): # 按键 释放
+            is_action_pressed(): # 按键 按下
         InputMap:
         IP:
         JavaClassWrapper:
@@ -295,6 +297,7 @@ Godot:
                 z_index: # z轴排序，越高越靠前
                 draw_rect():
                 draw_string():  
+                get_viewport_rect(): # 获取视口边界
                 hide(): # 隐藏
                 show(): # 显示
                 ---
@@ -356,12 +359,14 @@ Godot:
                     Tree: # 树状节点
                     VideoStreamPlayer: # 视频播放
                 Node2D:
-                    global_position:
+                    global_position: # 全局位置
                     global_rotation:
-                    position: # 位置 Vector2
+                    position: # 位置 Vector2，相对位置（父节点）
                     rotation: # 旋转
                     scale:
                     skew: # 斜切
+                    to_global(): # 本地位置 转 全局位置 
+                    to_local(): # 全局位置 转 本地位置
                     translate():
                     ---
                     AnimatedSprite2D: # 动画精灵图 
@@ -371,31 +376,52 @@ Godot:
                         speed_scale: # 播放速度
                         play():
                         stop():
+                    Bone2D: # 骨骼
                     Camera2D: # 摄像机
                     CollisionObject2D: # 碰撞体
                         collision_layer: # 碰撞层，自己所属
                         collision_mask: # 碰撞遮罩，和谁碰撞
                         _input_event(): # 输入事件
-                        Area2D: # 区域，检测
+                        Area2D: # 区域，仅用于检测
                             @area_entered:
+                            @area_exited:
                             get_overlapping_areas():
-                        PhysicsBody2D:
-                             CharacterBody2D: # 人物
+                        PhysicsBody2D: # 物理体
+                            move_and_collide(): # 移动、碰撞检测
+                            CharacterBody2D: # 运动体，无质量，可设置速度，不受重力影响
                                 is_on_ceiling():
                                 is_on_floor():
                                 is_on_wall():
                                 move_and_slide(): # 根据速度进行移动
-                             RigidBody2D: # 刚体，具有物理特性，重力
+                            RigidBody2D: # 刚体，具有物理特性，重力
+                                angular_velocity: # 角速度
+                                gravity_scale: # 加速度缩放
+                                linear_damp: # 线性速度 阻尼
+                                linear_velocity: # 线性速度，Vector2
+                                mass: # 质量
                                 physics_material_override: # 物理材质
+                                apply_force(): # 受力
+                                apply_torque(): # 扭矩，角加速度
                                 PhysicalBone2D:
-                             StaticBody2D: # 静态物体
+                            StaticBody2D: # 静态物体
                                 physics_material_override: # 物理材质
                     CollisionPolygon2D: # 碰撞多边形
                     CollisionShape2D: # 碰撞形状
                         shape: # 形状 Shape2D
+                    CPUParticles2D:
+                    GPUParticles2D:
+                    Joint2D:
                     Light2D: # 灯光
+                    Line2D:
+                    Marker2D:
+                    NavigationLink2D:
+                    Parallax2D:
+                    ParallaxLayer:
+                    Path2D:
+                    Polygon2D:
                     RayCast2D: # 射线
                     ShapeCast2D: # 形状射线
+                    Skeleton2D:
                     Sprite2D: # 精灵图
                         @frame_changed:
                         @texture_changed:
@@ -406,6 +432,7 @@ Godot:
                         get_rect():
                     TileMap: # 地图块
                         tile_set: # 地图集合
+                    TileMapLayer:
             CanvasLayer: # 画布层
             EditorFileSystem:
             EditorPlugin:
@@ -428,6 +455,8 @@ Godot:
                 world_2d:
                 push_input():
                 SubViewport: # 子视窗
+        OS: # 操作系统
+            create_process():
         ProjectSettings: # 项目设置
             get_setting():
             has_setting():
@@ -441,6 +470,7 @@ Godot:
                 list_dir_begin(): # 遍历目录 开始
                 make_dir_absolute(): # 创建目录
                 remove_absolute(): # 删除目录
+            ENetConnection:
             FileAccess: # 文件操作 res:// user://
                 READ: # 读模式
                 close(): # 关闭文件
@@ -458,6 +488,11 @@ Godot:
                 lock():
                 try_lock():
                 unlock():
+            PacketPeer:
+                ENetPacketPeer:
+                MultiplayerPeer:
+                    ENetMultiplayerPeer:
+                        get_peer():
             Resource: # 资源文件类
                 instantiate(): # 资源实例化
                 Animation:
@@ -465,9 +500,12 @@ Godot:
                 AudioStream:
                 BitMap: # 位图
                 Image: # 图片
+                    get_data(): # 获取字节数组，PackedByteArray
                     load(): # 加载图片资源
+                    save_png():
                 InputEvent: # 输入事件
                 JSON: # json
+                    new():
                     stringify(): # json序列化
                 LabelSettings: # 标签设置
                 Material:
@@ -482,6 +520,8 @@ Godot:
                     CircleShape2D: # 圆
                     RectangleShape2D: # 矩形
                 Texture: # 纹理
+                    get_data():
+                    StreamTexture:
                     Texture2D: # 2D纹理
                         AtlasTexture: # 裁剪2D纹理
                             region: # 裁剪区域
@@ -491,9 +531,13 @@ Godot:
                         NoiseTexture2D: # 噪点2D纹理
                 TileSet: # Tilemap 的图块库
                 World2D:
-            StreamPeer:
+            StreamPeer: # 流式api
                 StreamPeerTCP: # tcp连接，客户端
+                    bind():
                     close():
+                    connect_to_host(): # 连接
+                    disconnect_from_host():
+                    get_connected_host():
                     get_data():
                     put_data():
             TCPServer: # TCP 服务器
@@ -515,6 +559,7 @@ Godot:
                 set_trans():
                 tween_callback():
                 tween_property():
+            UDPServer:
     PackedByteArray: # 字节数组
         get_string_from_utf8(): # 转为字符串
     PackedFloat32Array: # 浮点数数组
@@ -536,8 +581,10 @@ Godot:
         x:
         y:
         angle():
+        angle_to(): # 向量夹角，弧度
         dot(): # 点乘
-        normalized(): # 单位化
+        length(): # 长度
+        normalized(): # 转为单位向量
     Vector3:
 ```
 
@@ -614,6 +661,7 @@ Control Flow:
     #: # 注释
     @export: # 变量导出
     @onready: # 变量延迟初始化
+    @rpc: # rpc远程过程调用
     @tool: # 插件类定义
     class_name: # 类名定义
     extends: # 继承类
@@ -925,6 +973,9 @@ Container控制布局、
 ##### FileDialog
 
 
+### Input
+
+输入系统
 
 
 ### Physical
@@ -1043,9 +1094,9 @@ RigidBody刚体 + CollisionObject2D碰撞体 + CollisionShape2D碰撞形状 实�
 `tres`、`res`：资源文件
 
 
-#### PackedScene
+#### SceneTree
 
-场景
+场景树
 
 
 #### AudioStreamPlayer
@@ -1079,6 +1130,141 @@ RigidBody刚体 + CollisionObject2D碰撞体 + CollisionShape2D碰撞形状 实�
 
 
 ### Shade
+```yaml
+_type: # 内置类型
+    bool:
+    float:
+    int:
+    mat2:
+    mat3:
+    mat4:
+    sampler2D: # 2D 纹理采样器
+    samplerCube: # 立方体贴图（天空盒）
+    struct: # 自定义结构体
+    uint:
+    uvec2:
+    vec2:
+    vec3:
+    vec4:
+    void:
+    TIME: # 当前时间，秒
+_function: # 内置函数
+    abs():
+    ceil(): # 
+    cellular_noise(): # 细胞噪声
+    clamp():
+    cos():
+    cross(): # 叉积
+    degrees(): # 弧度转角度
+    distance(): # 两个点的距离
+    dot(): # 点积
+    fbm(): # 分形布朗运动
+    floor(): # 
+    fract(): # 小数部分
+    inverse(): # 矩阵求逆
+    length(): # 向量长度
+    mat3(): # 取 4×4 矩阵的左上 3×3
+    mat4(): # 3×3 矩阵转换成 4×4
+    max():
+    min():
+    mix(): # 插值
+    mod():
+    noise(): # 噪声
+    normalize(): # 归一化
+    radians(): # 角度转弧度
+    rand(): # 伪随机数
+    sign(): # 正负值
+    sin():
+    smoothstep(): # 平滑插值
+    step(): # 产生二值化结果
+    tan():
+    texture(): # 采样纹理颜色, (tex, uv)
+    textureGather(): # 采样 4 个相邻像素
+    textureGrad(): # 计算导数来避免失真
+    textureLod():
+    textureProj(): # 透视纹理投影
+    transpose(): # 矩阵转置
+shader_type: # shade类型
+    canvas_item: # 2D
+        ALPHA_SCISSOR_THRESHOLD: # 透明度裁剪
+        ATTENUATION: # 光衰减因子
+        COLOR: # 最终颜色（包含透明度），vec4
+        DEPTH: # 片元深度
+        DEPTH_TEXTURE: # 深度贴图
+        EMISSION: # 自发光颜色，vec4
+        INSTANCE_CUSTOM: # 实例化自定义数据
+        INSTANCE_ID: # 当前实例 ID
+        INV_PROJECTION_MATRIX: # 逆投影矩阵
+        LIGHT_COLOR: # 光源颜色
+        LIGHT_VEC: # 指向光源的向量
+        NORMAL: # 法线方向（用于光照），vec3
+        PROJECTION_MATRIX: # 投影矩阵
+        ROUGHNESS: # 表面粗糙度（影响反射），float
+        SCREEN_TEXTURE: # 屏幕纹理
+        SCREEN_UV: # 屏幕坐标
+        SHADOW_ATTENUATION: # 阴影衰减系数
+        SHADOW_VEC: # 方向阴影向量
+        SPECULAR: # 镜面高光强度，float
+        TIME: # 当前时间，秒
+        VIEW: # 相机方向
+        WORLD_MATRIX: # 世界变换矩阵
+    particles: # 粒子
+        ALPHA:
+        COLOR: # 
+        LIFETIME: # 粒子剩余寿命, float
+        MASS: # 质量, float
+        VELOCITY: # 速度, vec3
+    spatial: # 3D
+        ALBEDO: # 基础颜色（类似 COLOR）,vec3
+        ALPHA:
+        DISCARD: # 丢弃当前像素（用于不规则透明）,bool
+        EMISSION:
+        METALLIC: # 控制金属感（0 = 非金属，1 = 金属）,float
+        NORMAL:
+        ROUGHNESS:
+        SPECULAR:
+const: # 用于声明 常量，在运行时值不能改变
+in: # 用于 输入 数据（通常是从顶点着色器传递到片段着色器）
+inout:
+out: # 用于 输出 数据（通常是从顶点着色器到片段着色器，或从片段着色器到最终渲染结果）
+uniform: # 声明一个 可动态修改的全局变量，这些变量在所有着色器调用中是一样的
+varying: # 用于声明 插值变量，用于在顶点和片段着色器之间传递数据
+compute(): # 计算着色器函数，通常用于 GPU 上的大规模并行计算
+fragment(): # 片段着色器函数，用来 设置每个像素的最终颜色
+vertex(): # 顶点着色器函数，通常用于 变换顶点数据
+```
+
+
+Shader是运行在GPU上的程序，负责计算像素颜色、顶点变换、光照效果等。Godot提供了3种主要类型的Shader：
+- CanvasItem Shader（2D）：用于2D物体，如精灵（Sprite）、UI
+- Spatial Shader（3D）：用于3D物体，如模型、地形
+- Particles Shader（粒子）：用于粒子系统
+
+类c语言，支持自定义函数
+
+
+
+
+基础使用：
+```js
+shader_type canvas_item;
+void fragment() {
+    COLOR = vec4(0.0, 0.0, 1.0, 0.5);  // 半透明蓝色
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #### ShaderMaterial
@@ -1094,6 +1280,28 @@ Shader 的重要容器，它允许你将自定义的着色器应用到 3D 或 2D
 #### ShaderGraph
 
 可视化编辑着色器 的方式，不需要手动编写代码，而是通过图形化界面连接节点来创建着色器
+
+
+
+### Network
+
+网络
+
+#### HTTPRequest
+
+HTTP请求
+
+#### ENetMultiplayerPeer
+
+
+#### MultiplayerAPI
+
+
+### Test
+
+
+测试
+
 
 
 ## CSharp
