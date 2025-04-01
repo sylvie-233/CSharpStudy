@@ -1,8 +1,8 @@
 # GoDoT
 
 >
-> `GODOT4.x官方文档：`
-> `godot 4.x 教程：P76`
+> `GODOT4.x官方文档：https://docs.godotengine.org/zh-cn/4.x/index.html`
+> ``
 >
  
 
@@ -55,112 +55,6 @@ Texture、Material、Shader
 
 
 ## 核心内容
-```yaml
-Node:
-    :
-        Process:
-        Editor Description:
-        Script: # 脚本
-    Viewport:
-        Window:
-        SubViewport:
-    CanvasItem:
-        :
-            Visibility:
-                Visible: # 可见性
-            Ordering:
-                Z Index: # 图层排序
-        Node2D:
-            : 
-                Transform: # 图层变换属性
-                    Position:
-                    Rotation:
-                    Scale:
-                    Skew:
-            AnimatedSprite2D: # 动画精灵图2D
-            AudioListener2D:
-            AudioStreamPlayer2D: # 2D音频播放
-            Bone2D:
-            Camera2D: # 摄像机
-            CanvasGroup:
-            CollisionObject2D:
-                Area2D: # 2D区域物体
-                CharacterBody2D:
-                RigidBody2D:
-                StaticBody2D: # 静态物体
-            CollisionPolygon2D:
-            CollisionShape2D: # 碰撞形状
-            CPUParticles2D:
-            GPUParticles2D:
-            Joint2D:
-            Light2D:
-                DirectionalLight2D:
-                PointLight2D:
-            LightOccluder2D: # 灯光阴影
-            NavigationRegion2D: # 导航区域
-            Path2D:
-            Polygon2D:
-            RayCast2D: # 物理射线
-            ShapeCast2D: # 物理形状射线
-            Sprite2D: # 精灵图
-                Texture: # 图片
-                Offset:
-                    Centered:
-                    Offset:
-                    Flip H:
-                    Flip V:
-                Animation:
-                    Hframes:
-                    Vframes:
-                    Frame: # 帧
-                Region:
-                    Rect:
-            TileMap: # 瓦片地图
-            TouchScreenButton:
-        Control:
-            BaseButton:
-                Button:
-                    CheckBox: # 多选框
-                    CheckButton:
-                    OptionButton:
-                LinkButton:
-                TextureButton:
-            Container:
-                BoxContainer:
-                    HBoxContainer:
-                    VBoxContainer:
-                CenterContainer:
-                FlowContainer:
-                GraphElement:
-                GridContainer:
-                SplitContainer:
-                MarginContainer:
-                PanelContainer:
-                ScrollContainer:
-                SubViewportContainer:
-                TabContainer:
-            ItemList:
-            Label: # 标签
-            TextEdit:
-            TextureRect: # 图片框
-    Node3D:
-    AnimationMixer:
-        AnimationPlayer:
-        AnimationTree:
-    AudioStreamPlayer: # 音频播放器
-    CanvasLayer:
-    HTTPRequest: # 发送Http请求
-    MultiplayerSpawner:
-    MultiplayerSynchronizer:
-    NavigationAgent2D: # 导航代理
-```
-
-
-
-
-
-
-### Script
 ```yaml
 Godot:
     @GDScript:
@@ -242,6 +136,7 @@ Godot:
         Input: # 输入
             get_action_strength():
             get_axis(): # 方向按键
+            get_vector(): # 根据输入获取方向
             is_action_just_pressed(): # 按键 按压
             is_action_just_released(): # 按键 释放
             is_action_pressed(): # 按键 按下
@@ -253,12 +148,16 @@ Godot:
         JSONRPC:
         MainLoop: # 事件循环
             SceneTree: # 场景树
+                current_scene: # 当前场景树根节点node
                 root: # 根节点，Viewport
-                change_scene(): # 切换场景
-                change_scene_to():
-                create_timer(): # 创建场景树定时器
-                create_tween(): # 创建场景补间动画
+                call_group():
+                call_group_flags():
+                change_scene_to_file():
+                change_scene_to_packed(): # 切换场景
+                create_timer(): # 创建 场景树定时器
+                create_tween(): # 创建 场景补间动画
                 quit():
+                reload_current_scene(): # 重新加载当前场景
         Marshalls:
         NativeMenu:
         NavigationServer2D:
@@ -284,30 +183,58 @@ Godot:
             get_groups():
             get_node(): # 获取子节点，根据名称
             get_tree(): # 获取场景树
+            is_in_group(): # 判断当前节点是否在指定group中
             process_mode():  
             remove_child(): # 删除子节点
-            AnimationMixer:
-                AnimationPlayer: # 动画播放
+            AnimationMixer: # 动画混合器
+                AnimationPlayer: # 动画播放器
+                    autoplay:
+                    current_animation:
+                    current_animation_position:
+                    speed_scale:
+                    pause():
+                    play():
+                    stop():
+                AnimationTree: # 动画数
             AudioStreamPlayer: # 音频播放
+                autoplay:
+                bus:
+                stream:
+                play():
+                stop():
             CanvasItem:
+                light_mask: # 灯光层
                 modulate: # 颜色
                 visible: # 可见性
                 y_sort_enabled: # 根据y值确定 z轴排序
                 z_as_relative: # z轴排序，相对父级
                 z_index: # z轴排序，越高越靠前
+                _draw(): # 绘制
+                draw_circle():
+                draw_line():
+                draw_multiline():
+                draw_primitive():
                 draw_rect():
                 draw_string():  
+                draw_texture():
                 get_viewport_rect(): # 获取视口边界
+                get_world_2d(): # 获取此物品所在的 World2D
                 hide(): # 隐藏
                 show(): # 显示
+                update():
                 ---
                 Control: # GUI 控件基类
+                    anchor_top: # 距离上锚点（锚点是相对父节点的坐标）
+                    anchor_left:
                     clip_contents: # 内容溢出裁剪
                     custom_minimum_size: # 最小尺寸
                     layout_direction: # 布局方向
-                    pivot_offset: # 锚点
-                    position:
-                    size:
+                    pivot_offset: # 中心点偏移
+                    position: # 位置
+                    rotation: # 旋转
+                    scale: # 缩放
+                    size: # 尺寸
+                    theme: # 主题
                     BaseButton:
                         Button: # 按钮
                             @pressed:
@@ -335,7 +262,7 @@ Godot:
                         PanelContainer:
                         ScrollContainer: # 滚动视图容器
                         SplitContainer:
-                        SubViewportContainer: # 子视窗容器
+                        SubViewportContainer: # 子视口容器
                         TabContainer:
                     GraphEdit: # 图
                     ItemList: # 列表渲染
@@ -373,11 +300,33 @@ Godot:
                         @animation_finished:
                         animation: # 动画资源
                         frame: # 当前动画帧
+                        frame_progress:
                         speed_scale: # 播放速度
+                        pause():
+                        play(): # 播放指定动画
+                        stop():
+                    AudioStreamPlayer2D: # 音频播放器
+                        autoplay:
+                        bus: # 控制总线
+                        playing: 
+                        stream:
+                        stream_paused:
+                        volume_db:
                         play():
+                        seek():
                         stop():
                     Bone2D: # 骨骼
                     Camera2D: # 摄像机
+                        anchor_mode:
+                        drag_left_margin:
+                        editor_draw_limits:
+                        enable:
+                        limit_left:
+                        offset:
+                        position_smoothing_enabled:
+                        zoom:
+                        is_current(): # 是否激活
+                        make_current(): # 激活
                     CollisionObject2D: # 碰撞体
                         collision_layer: # 碰撞层，自己所属
                         collision_mask: # 碰撞遮罩，和谁碰撞
@@ -389,10 +338,11 @@ Godot:
                         PhysicsBody2D: # 物理体
                             move_and_collide(): # 移动、碰撞检测
                             CharacterBody2D: # 运动体，无质量，可设置速度，不受重力影响
+                                velocity: # 速度
                                 is_on_ceiling():
                                 is_on_floor():
                                 is_on_wall():
-                                move_and_slide(): # 根据速度进行移动
+                                move_and_slide(): # 根据速度进行移动、碰撞检测
                             RigidBody2D: # 刚体，具有物理特性，重力
                                 angular_velocity: # 角速度
                                 gravity_scale: # 加速度缩放
@@ -408,18 +358,48 @@ Godot:
                     CollisionPolygon2D: # 碰撞多边形
                     CollisionShape2D: # 碰撞形状
                         shape: # 形状 Shape2D
-                    CPUParticles2D:
-                    GPUParticles2D:
+                    CPUParticles2D: # CPU粒子
+                    GPUParticles2D: # GPU粒子
+                        process_material: # 运行材质
+                        texture:
                     Joint2D:
                     Light2D: # 灯光
-                    Line2D:
+                        DirectionalLight2D: # 平行光
+                        PointLight2D: # 点光源
+                            texture: 
+                    LightOccluder2D: # 遮挡灯光，投射阴影
+                        occluder:
+                        occluder_light_mask:
+                        sdf_collision:
+                    Line2D: # 线条
+                        points: # 点集，PackedVector2Array
+                        width: # 线宽
+                        width_curve:
+                        add_point(): # 添加点
+                        clear_points(): # 清空点
+                        get_point_count(): # 获取点数量
+                        get_point_position():
+                        remove_point():
+                        set_point_position():
                     Marker2D:
                     NavigationLink2D:
                     Parallax2D:
                     ParallaxLayer:
-                    Path2D:
+                    Path2D: # 路径
+                        curve: # 路径曲线
+                    PathFollow2D: # 路径移动跟随
+                        h_offset: # 路径水平偏移量
+                        progress: # 路径完成度
+                        progress_ratio:
+                        v_offset:
                     Polygon2D:
                     RayCast2D: # 射线
+                        collision_mask: # 碰撞检测层
+                        target_position: # 目标点位置，相对
+                        get_collider(): # 获取碰撞体
+                        is_colliding(): # 碰撞检测
+                    RemoteTransform2D: # 坐标代理
+                        remote_path:
                     ShapeCast2D: # 形状射线
                     Skeleton2D:
                     Sprite2D: # 精灵图
@@ -433,30 +413,60 @@ Godot:
                     TileMap: # 地图块
                         tile_set: # 地图集合
                     TileMapLayer:
-            CanvasLayer: # 画布层
+                        get_used_cells(): # 
+                        get_used_cells_by_id():
+                        get_used_rect():
+            CanvasLayer: # 画布层，2D渲染层
+                custom_viewport:
+                layer: # 渲染层级，默认0
+                offset:
+                transform:
+                visible:
             EditorFileSystem:
             EditorPlugin:
             EditorResourcePreview:
             HTTPRequest: # http请求，需借助信号机制完成
+                accept_gzip:
+                body_size_limit:
+                download_chunk_size:
+                download_file:
+                timeout:
+                use_threads:
+                cancel_request():
                 connect():
                     request_completed: # (result, response_code, headers, body)
+                get_body_size():
+                get_downloaded_bytes():
+                get_http_client_status():
                 new():
                 request(): # 发起请求
+                request_raw():
+                set_http_proxy():
             MultiplayerSpawner:
-            NavigationAgent2D:
+            NavigationAgent2D: # 寻路至某个位置并且能够躲避障碍物的 2D 代理
+                target_position:
+                get_current_navigation_path():
+                get_next_path_position():
             Timer: # 定时器
                 @timeout:
-                autostart:
+                autostart: # 自动开始
+                one_shot: # 仅执行一次
+                paused: # 暂停
+                wait_time: # 延迟时间
                 is_stopped():
                 start():
                 stop():
             TreeItem:
-            Viewport: # 视窗
+            Viewport: # 视口
                 world_2d:
                 push_input():
                 SubViewport: # 子视窗
         OS: # 操作系统
             create_process():
+        PhysicsDirectSpaceState2D: # 物理空间的直接访问，物理状态操作器
+            intersect_ray(): # 使用射线
+        PhysicsServer2D:
+            space_get_direct_state():
         ProjectSettings: # 项目设置
             get_setting():
             has_setting():
@@ -465,13 +475,19 @@ Godot:
             get_reference_count():
             new():
             unreference(): # 解除引用
+            AStar2D: # 查找 2D 空间中连通图上两个顶点之间的最短路径
+                add_point():
+                connect_points():
+                get_point_path():
+                has_point():
+                remove_point():
             DirAccess: # 目录操作
                 get_next(): # 遍历目录 下一个
                 list_dir_begin(): # 遍历目录 开始
                 make_dir_absolute(): # 创建目录
                 remove_absolute(): # 删除目录
             ENetConnection:
-            FileAccess: # 文件操作 res:// user://
+            FileAccess: # 文件操作 res:// 、 user://
                 READ: # 读模式
                 close(): # 关闭文件
                 eof_reached(): # 文件结尾判断
@@ -481,8 +497,13 @@ Godot:
                 get_buffer(): # 获取字节数组
                 get_length(): # 文件大小
                 get_line(): # 按行读取
-                open():
+                get_path(): # 获取文件路径
+                get_path_absolute(): # 获取文件绝对路径
+                open(): # 打开文件，返回FileAccess对象
                 remove_absolute(): # 删除文件
+                seek():
+                store_buffer():
+                store_line():
                 store_string(): # 写入字符串
             Mutex: # 互斥锁
                 lock():
@@ -493,12 +514,21 @@ Godot:
                 MultiplayerPeer:
                     ENetMultiplayerPeer:
                         get_peer():
+            PhysicsRayQueryParameters2D:
+                create(): # 创建射线请求
             Resource: # 资源文件类
                 instantiate(): # 资源实例化
                 Animation:
                 AnimationNode:
-                AudioStream:
+                AudioStream: # 音频
+                    get_length():
+                    AudioStreamMP3: # MP3
                 BitMap: # 位图
+                Curve: # 数学曲线
+                Curve2D: # 路径曲线
+                Font: # 字体
+                    FontFile:
+                        data:
                 Image: # 图片
                     get_data(): # 获取字节数组，PackedByteArray
                     load(): # 加载图片资源
@@ -506,10 +536,30 @@ Godot:
                 InputEvent: # 输入事件
                 JSON: # json
                     new():
+                    parse():
                     stringify(): # json序列化
                 LabelSettings: # 标签设置
-                Material:
+                Material: # 材质
+                    ParticleProcessMaterial:
+                        angular_velocity_curve: # 角速度曲线
+                        color: # 颜色
+                        color_ramp:
+                        damping_curve: # 衰减曲线
+                        direction: # 方向
+                        emission_shape: # 发射形状
+                        gravity: # 重力
+                        initial_velocity_max:
+                        inherit_velocity_ratio:
+                        lifetime_randomness: # 随机存活
+                        scale_curve: # 缩放曲线
+                        scale_max:
+                        spread: # 扩散
                 Mesh:
+                OccluderPolygon2D: # 灯光遮挡多边形
+                PackedScene: # 场景预制体
+                    get_state():
+                    instantiate(): # 实例化
+                    pack():
                 PhysicsMaterial: # 物理材质
                     bounce: # 弹性
                     friction: # 摩擦力
@@ -519,17 +569,31 @@ Godot:
                     CapsuleShape2D: # 胶囊
                     CircleShape2D: # 圆
                     RectangleShape2D: # 矩形
+                    WorldBoundaryShape2D: # 半平面， 2D 空间边界（半平面）形状
+                StyleBox: # 为 UI 元素定义风格化方框的抽象基类
                 Texture: # 纹理
                     get_data():
                     StreamTexture:
                     Texture2D: # 2D纹理
                         AtlasTexture: # 裁剪2D纹理
                             region: # 裁剪区域
+                        CanvasTexture: # 法线和镜面贴图
+                            diffuse_texture:
+                            normal_texture:
+                            specular_texture:
                         CompressedTexture2D: # 压缩2D纹理
                         ImageTexture:
                             create_from_image():
                         NoiseTexture2D: # 噪点2D纹理
+                Theme: # 主题 用于为 Control 和 Window 应用风格/外观的资源
+                    clear(): # 
+                    set_stylebox():
                 TileSet: # Tilemap 的图块库
+                    tile_layout:
+                    tile_shape:
+                    tile_size: # 土块大小
+                    add_navigation_layer():
+                    add_physics_layer():
                 World2D:
             StreamPeer: # 流式api
                 StreamPeerTCP: # tcp连接，客户端
@@ -552,14 +616,29 @@ Godot:
                 start():
                 wait_to_finish():
             Tween: # 数值动画
-                chain():
+                @finished:
+                @loop_finished:
+                @step_finished:
+                chain(): # 串行动画
                 from():
-                set_ease():
-                set_parallel():
-                set_trans():
-                tween_callback():
-                tween_property():
+                is_running():
+                is_valid():
+                kill():
+                pause(): # 
+                play():
+                set_ease(): # 缓动类型
+                set_loops(): # 循环次数
+                set_parallel(): # 并行动画
+                set_trans(): # 过渡类型
+                stop():
+                tween_callback(): # 绑定动画回调
+                    set_delay():
+                tween_interval(): # 延迟动画
+                tween_method(): # 方法动画
+                tween_property(): # 属性动画
+                tween_subtween(): # 子动画
             UDPServer:
+        TileData: # 单个图块
     PackedByteArray: # 字节数组
         get_string_from_utf8(): # 转为字符串
     PackedFloat32Array: # 浮点数数组
@@ -584,9 +663,17 @@ Godot:
         angle_to(): # 向量夹角，弧度
         dot(): # 点乘
         length(): # 长度
+        lerp(): # 线性插值
         normalized(): # 转为单位向量
     Vector3:
 ```
+
+
+
+
+
+### Script
+
 
 每个 GDScript 脚本文件自动成为一个类，并继承它的父节点类型
 一个gd脚本就是一个类（类似Java，默认文件名为类名）
@@ -884,12 +971,14 @@ Group节点分组、类似Unity的标签tag
 
 瓦片地图
 
+TileMap -> TileSet
 
 
 #### Viewport
 
 视窗节点
 子视图，可用于 UI、迷你地图、分屏游戏等
+每个Viewport都有自己的世界坐标
 
 
 #### Timer
@@ -1101,7 +1190,9 @@ RigidBody刚体 + CollisionObject2D碰撞体 + CollisionShape2D碰撞形状 实�
 
 #### AudioStreamPlayer
 
-音效特效
+音效播放
+AudioBus音频控制总线，是一种资源类型
+
 
 
 #### VideoPlayer
@@ -1115,6 +1206,9 @@ RigidBody刚体 + CollisionObject2D碰撞体 + CollisionShape2D碰撞形状 实�
 
 摄像机
 
+Viewport -> Camera
+一个Viewport中可以有多个Camera，但同时只能有一个被激活
+
 
 #### Light
 
@@ -1125,7 +1219,9 @@ RigidBody刚体 + CollisionObject2D碰撞体 + CollisionShape2D碰撞形状 实�
 粒子系统
 
 
+##### ParticleProcessMaterial
 
+粒子材质
 
 
 
