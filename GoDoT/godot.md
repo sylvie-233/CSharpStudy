@@ -382,6 +382,7 @@ Godot:
                         remove_point():
                         set_point_position():
                     Marker2D:
+                    MeshInstance2D:
                     NavigationLink2D:
                     Parallax2D:
                     ParallaxLayer:
@@ -447,6 +448,27 @@ Godot:
                 target_position:
                 get_current_navigation_path():
                 get_next_path_position():
+            Node3D: # 3D节点
+                AudioListener3D:
+                AudioStreamPlayer3D:
+                BoneAttachMent3D:
+                Camera3D:
+                CollisionObject3D:
+                CollisionPolygon3D:
+                CollisionShape3D:
+                GridMap:
+                ImporterMeshInstance3D:
+                Joint3D:
+                Marker3D:
+                Path3D:
+                PathFollow3D:
+                RayCast3D:
+                ShapeCast3D:
+                Skeleton3D:
+                VisualInstance3D: # 可视3D节点
+                    GeometryInstance3D:
+                        MeshInstance3D: # 网格实例与场景相结合的节点
+                            get_surface_override_material(): # 获取材质shader
             Timer: # 定时器
                 @timeout:
                 autostart: # 自动开始
@@ -554,6 +576,9 @@ Godot:
                         scale_curve: # 缩放曲线
                         scale_max:
                         spread: # 扩散
+                    ShaderMaterial: # shader材质
+                        get_shader_parameter(): # 获取uniform参数
+                        set_shader_parameter(): # 设置uniform参数
                 Mesh:
                 OccluderPolygon2D: # 灯光遮挡多边形
                 PackedScene: # 场景预制体
@@ -638,6 +663,7 @@ Godot:
                 tween_property(): # 属性动画
                 tween_subtween(): # 子动画
             UDPServer:
+        ResourceSaver: # 资源保存器
         TileData: # 单个图块
     PackedByteArray: # 字节数组
         get_string_from_utf8(): # 转为字符串
@@ -1235,6 +1261,7 @@ _type: # 内置类型
     mat3:
     mat4:
     sampler2D: # 2D 纹理采样器
+        repeat_enable: # 允许重复
     samplerCube: # 立方体贴图（天空盒）
     struct: # 自定义结构体
     uint:
@@ -1280,6 +1307,11 @@ _function: # 内置函数
     textureLod():
     textureProj(): # 透视纹理投影
     transpose(): # 矩阵转置
+render_mode: # 渲染模式
+    blend_mix: # 混合混合模式
+    cull_back: # 剔除背面
+    depth_draw_never: # 不绘制深度
+    unshaded: # 不发生照明、阴影
 shader_type: # shade类型
     canvas_item: # 2D
         ALPHA_SCISSOR_THRESHOLD: # 透明度裁剪
@@ -1312,14 +1344,21 @@ shader_type: # shade类型
         VELOCITY: # 速度, vec3
     spatial: # 3D
         ALBEDO: # 基础颜色（类似 COLOR）,vec3
+            b:
+            g:
+            r:
         ALPHA:
+        COLOR:
+            rgb:
         DISCARD: # 丢弃当前像素（用于不规则透明）,bool
         EMISSION:
         METALLIC: # 控制金属感（0 = 非金属，1 = 金属）,float
         NORMAL:
         ROUGHNESS:
         SPECULAR:
+        TIME: # 当前时间
 const: # 用于声明 常量，在运行时值不能改变
+discard: # 丢弃
 in: # 用于 输入 数据（通常是从顶点着色器传递到片段着色器）
 inout:
 out: # 用于 输出 数据（通常是从顶点着色器到片段着色器，或从片段着色器到最终渲染结果）
@@ -1327,34 +1366,58 @@ uniform: # 声明一个 可动态修改的全局变量，这些变量在所有�
 varying: # 用于声明 插值变量，用于在顶点和片段着色器之间传递数据
 compute(): # 计算着色器函数，通常用于 GPU 上的大规模并行计算
 fragment(): # 片段着色器函数，用来 设置每个像素的最终颜色
+    in:
+        COLOR: # 输入颜色
+            b:
+            g:
+            r:
+            rgb:
+        TIME: # 当前时间
+    inout:
+    out:
+        ALBEDO: # 片元颜色
+        ALPHA: # 透明度
 vertex(): # 顶点着色器函数，通常用于 变换顶点数据
+    in:
+    inout:
+        UV:
+    out:
+        POSITION: # 位置坐标
+        VERTEX: # 顶点坐标
+            x:
+            y:
+            z:
 ```
 
 
-Shader是运行在GPU上的程序，负责计算像素颜色、顶点变换、光照效果等。Godot提供了3种主要类型的Shader：
+使用Shader修改Mesh的Material
+
+
+Shader是运行在GPU上的程序，负责计算像素颜色、顶点变换、光照效果等。Godot提供了5种主要类型的Shader：
 - CanvasItem Shader（2D）：用于2D物体，如精灵（Sprite）、UI
 - Spatial Shader（3D）：用于3D物体，如模型、地形
+- 天空
 - Particles Shader（粒子）：用于粒子系统
+- 雾
+
+
 
 类c语言，支持自定义函数
-
-
-
-
-基础使用：
 ```js
 shader_type canvas_item;
+// 片段着色器
 void fragment() {
     COLOR = vec4(0.0, 0.0, 1.0, 0.5);  // 半透明蓝色
 }
 ```
 
 
+- vertex(): 计算顶点相对屏幕位置
+- fragment(): 计算最终输出的颜色
 
 
-
-
-
+![godot顶点函数](../.assets/godot顶点函数.png)
+![godot片段函数](../.assets/godot片段函数.png)
 
 
 
