@@ -1,8 +1,8 @@
 # GoDoT
 
 >
-> `GODOT4.x官方文档：https://docs.godotengine.org/zh-cn/4.x/index.html`
-> `【godot】游戏引擎自学教程踩坑系列：P5`
+> `GODOT4.x官方文档：https://docs.godotengine.org/zh-cn/4.x/getting_started/introduction/key_concepts_overview.html`
+> `【godot】游戏引擎自学教程踩坑系列：P15`
 >
  
 
@@ -64,6 +64,7 @@ Godot:
         preload(): # 导入其它模块
     @GlobalScope:
         $: # 获取node节点（根据name）
+        Error: # 异常枚举
         Input:
         ProjectSettings:
         clamp(): # 值范围限定
@@ -105,6 +106,7 @@ Godot:
     NodePath: # 场景树路径
     Object:
         _get_property_list(): # 为 游戏引擎提供自定义属性列表
+        call_deferred(): # 在空闲时调用该对象的 method 方法
         connect(): # 连接信号，连接 自己的信号 到 指定方法 上
         disconnect(): # 断开 信号
         duplicate(): # 对象拷贝
@@ -131,7 +133,7 @@ Godot:
         Engine: # 游戏引擎实例
             max_fps:
             register_singleton(): # 注册单例
-        GDExtensionManager:
+        GDExtensionManager: # GD共享库管理
         Geometry2D:
         Input: # 输入
             get_action_strength():
@@ -185,7 +187,7 @@ Godot:
             get_tree(): # 获取场景树
             is_in_group(): # 判断当前节点是否在指定group中
             process_mode():  
-            remove_child(): # 删除子节点
+            remove_child(): # 删除子节点，只能删除子级
             AnimationMixer: # 动画混合器
                 AnimationPlayer: # 动画播放器
                     autoplay:
@@ -339,6 +341,7 @@ Godot:
                             move_and_collide(): # 移动、碰撞检测
                             CharacterBody2D: # 运动体，无质量，可设置速度，不受重力影响
                                 velocity: # 速度
+                                get_slide_collision(): # 获取碰撞物体
                                 is_on_ceiling():
                                 is_on_floor():
                                 is_on_wall():
@@ -350,7 +353,10 @@ Godot:
                                 linear_velocity: # 线性速度，Vector2
                                 mass: # 质量
                                 physics_material_override: # 物理材质
-                                apply_force(): # 受力
+                                _integrate_forces(): # 允许你读取并安全地修改对象的模拟状态，在标准力积分之前调用
+                                apply_central_force(): # 施加一个不影响旋转的定向力
+                                apply_force(): # 受力，附加力
+                                apply_impulse(): # 冲量
                                 apply_torque(): # 扭矩，角加速度
                                 PhysicalBone2D:
                             StaticBody2D: # 静态物体
@@ -472,11 +478,11 @@ Godot:
             Timer: # 定时器
                 @timeout:
                 autostart: # 自动开始
-                one_shot: # 仅执行一次
+                one_shot: # 仅执行一次，默认循环执行
                 paused: # 暂停
                 wait_time: # 延迟时间
                 is_stopped():
-                start():
+                start(): # 开始
                 stop():
             TreeItem:
             Viewport: # 视口
@@ -503,6 +509,7 @@ Godot:
                 get_point_path():
                 has_point():
                 remove_point():
+            Crypto: # 加密
             DirAccess: # 目录操作
                 get_next(): # 遍历目录 下一个
                 list_dir_begin(): # 遍历目录 开始
@@ -527,6 +534,10 @@ Godot:
                 store_buffer():
                 store_line():
                 store_string(): # 写入字符串
+            KinematicCollision2D: # 存放移动 PhysicsBody2D 所产生的碰撞数据
+                get_collider():
+                get_collider_id():
+                get_collider_shape():
             Mutex: # 互斥锁
                 lock():
                 try_lock():
@@ -551,6 +562,7 @@ Godot:
                 Font: # 字体
                     FontFile:
                         data:
+                GDExtension: # 共享库，它可以扩展引擎的功能
                 Image: # 图片
                     get_data(): # 获取字节数组，PackedByteArray
                     load(): # 加载图片资源
@@ -621,19 +633,35 @@ Godot:
                     add_physics_layer():
                 World2D:
             StreamPeer: # 流式api
+                get_available_bytes(): # 接收到的字节数
+                get_data(): # 获取字节数据
+                get_string():
+                get_var():
+                put_data(): # 发送字节数据
+                put_string():
+                put_var():
+                StreamPeerBuffer:
+                StreamPerrExtension:
                 StreamPeerTCP: # tcp连接，客户端
                     bind():
                     close():
                     connect_to_host(): # 连接
                     disconnect_from_host():
                     get_connected_host():
+                    get_connected_port():
                     get_data():
+                    get_status(): # 获取连接状态
+                    new(): # 新建
+                    poll(): # 更新socket状态
                     put_data():
             TCPServer: # TCP 服务器
+                get_local_port():
+                is_connection_available():
+                is_listening():
                 listen(): # 端口监听
                 new():
                 stop():
-                take_connection(): # 等待连接
+                take_connection(): # 等待连接，返回StreamPeerTCP
             Thread: # 线程
                 get_id():
                 is_active():
@@ -677,7 +705,7 @@ Godot:
         length:
         match():
         num():
-        to_utf8_buffer(): # 转换为字节数组
+        to_utf8_buffer(): # 转换为字节数组,PackedByteArray
     StringName:
     Transform2D: # 2D 变换
     Variant: # 变体类型（任意类型，默认）
@@ -687,6 +715,7 @@ Godot:
         y:
         angle():
         angle_to(): # 向量夹角，弧度
+        cross(): # 叉乘
         dot(): # 点乘
         length(): # 长度
         lerp(): # 线性插值
