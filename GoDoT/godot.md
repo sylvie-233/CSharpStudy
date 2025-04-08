@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.x官方文档：https://docs.godotengine.org/zh-cn/4.x/getting_started/introduction/key_concepts_overview.html`
-> `【godot】游戏引擎自学教程踩坑系列：P15`
+> `【godot】游戏引擎自学教程踩坑系列：P21`
 >
  
 
@@ -67,8 +67,11 @@ Godot:
         Error: # 异常枚举
         Input:
         ProjectSettings:
+        acos(): # 反余弦，弧度
         clamp(): # 值范围限定
+        deg_to_rad(): # 角度转弧度
         print(): # 控制台输出
+        rad_to_deg(): # 弧度转角度
         range(): # 生成数组
         str(): # 转换为字符串
         type_convert():
@@ -138,10 +141,14 @@ Godot:
         Input: # 输入
             get_action_strength():
             get_axis(): # 方向按键
+            get_gravity():
             get_vector(): # 根据输入获取方向
-            is_action_just_pressed(): # 按键 按压
+            is_action_just_pressed(): # 按键 按压，支持输入映射，第一次按压
             is_action_just_released(): # 按键 释放
             is_action_pressed(): # 按键 按下
+            is_key_pressed():
+            is_mouse_button_pressed():
+            warp_mouse(): # 设置鼠标位置
         InputMap:
         IP:
         JavaClassWrapper:
@@ -338,14 +345,15 @@ Godot:
                             @area_exited:
                             get_overlapping_areas():
                         PhysicsBody2D: # 物理体
-                            move_and_collide(): # 移动、碰撞检测
+                            move_and_collide(): # 移动、碰撞检测，根据速度
                             CharacterBody2D: # 运动体，无质量，可设置速度，不受重力影响
                                 velocity: # 速度
                                 get_slide_collision(): # 获取碰撞物体
+                                get_slide_collision_count():
                                 is_on_ceiling():
                                 is_on_floor():
                                 is_on_wall():
-                                move_and_slide(): # 根据速度进行移动、碰撞检测
+                                move_and_slide(): # 根据速度进行移动、碰撞检测、碰撞滑动
                             RigidBody2D: # 刚体，具有物理特性，重力
                                 angular_velocity: # 角速度
                                 gravity_scale: # 加速度缩放
@@ -715,7 +723,10 @@ Godot:
         y:
         angle():
         angle_to(): # 向量夹角，弧度
+        bounce(): # 反射，基于法线向量方向
         cross(): # 叉乘
+        direction_to(): # 获取指向的方向向量
+        distance_to(): # 获取指定位置的距离
         dot(): # 点乘
         length(): # 长度
         lerp(): # 线性插值
