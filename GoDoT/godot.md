@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.x官方文档：https://docs.godotengine.org/zh-cn/4.x/getting_started/introduction/key_concepts_overview.html`
-> `【godot】游戏引擎自学教程踩坑系列：P21`
+> `【godot】游戏引擎自学教程踩坑系列：P50`
 >
  
 
@@ -72,13 +72,18 @@ Godot:
         deg_to_rad(): # 角度转弧度
         print(): # 控制台输出
         rad_to_deg(): # 弧度转角度
+        randf(): # 0~1，浮点数
+        randi(): # 随机数，32位
+        randi_range(): # 随机数，32位，范围
+        randomize(): # 初始化随机种子
         range(): # 生成数组
+        seed(): # 可重复随机种子
         str(): # 转换为字符串
         type_convert():
         typeof():
     bool:
     float:
-    int:
+    int: # 整数
     AABB:
     Array: # 数组
         append(): # 追加元素
@@ -158,6 +163,7 @@ Godot:
         MainLoop: # 事件循环
             SceneTree: # 场景树
                 current_scene: # 当前场景树根节点node
+                paused: # 暂停状态
                 root: # 根节点，Viewport
                 call_group():
                 call_group_flags():
@@ -182,7 +188,7 @@ Godot:
             _process(): # 每帧调用，用于处理逻辑更新
             _physics_process(): # 每帧调用，用于物理计算
             _exit_tree(): # 节点从场景树移除时调用
-            _input():
+            _input(): # 输入事件
             _notification():
             _unhandled_input():
             add_child(): # 添加子节点
@@ -193,6 +199,7 @@ Godot:
             get_node(): # 获取子节点，根据名称
             get_tree(): # 获取场景树
             is_in_group(): # 判断当前节点是否在指定group中
+            print_tree_pretty(): # 打印场景树
             process_mode():  
             remove_child(): # 删除子节点，只能删除子级
             AnimationMixer: # 动画混合器
@@ -301,6 +308,7 @@ Godot:
                     rotation: # 旋转
                     scale:
                     skew: # 斜切
+                    look_at(): # 根据点位置旋转自身
                     to_global(): # 本地位置 转 全局位置 
                     to_local(): # 全局位置 转 本地位置
                     translate():
@@ -402,10 +410,12 @@ Godot:
                     ParallaxLayer:
                     Path2D: # 路径
                         curve: # 路径曲线
-                    PathFollow2D: # 路径移动跟随
+                    PathFollow2D: # 路径移动跟随，子节点有效
                         h_offset: # 路径水平偏移量
-                        progress: # 路径完成度
-                        progress_ratio:
+                        loop: # 循环
+                        progress: # 路径完成度，长度
+                        progress_ratio: # 路径完成度，比例(0~1)
+                        rotates: # 自动转向
                         v_offset:
                     Polygon2D:
                     RayCast2D: # 射线
@@ -413,8 +423,8 @@ Godot:
                         target_position: # 目标点位置，相对
                         get_collider(): # 获取碰撞体
                         is_colliding(): # 碰撞检测
-                    RemoteTransform2D: # 坐标代理
-                        remote_path:
+                    RemoteTransform2D: # 坐标代理，坐标控制
+                        remote_path: # 控制的远程节点（当前坐标变化转移到远程节点上）
                     ShapeCast2D: # 形状射线
                     Skeleton2D:
                     Sprite2D: # 精灵图
@@ -495,6 +505,7 @@ Godot:
             TreeItem:
             Viewport: # 视口
                 world_2d:
+                get_mouse_position(): # 获取鼠标位置
                 push_input():
                 SubViewport: # 子视窗
         OS: # 操作系统
@@ -507,6 +518,10 @@ Godot:
             get_setting():
             has_setting():
             set_setting():
+                display:
+                    window:
+                        stretch:
+                            scale_mode:
         RefCounted: # 引用计数Object
             get_reference_count():
             new():
@@ -576,6 +591,7 @@ Godot:
                     load(): # 加载图片资源
                     save_png():
                 InputEvent: # 输入事件
+                    InputEventAction:
                 JSON: # json
                     new():
                     parse():
@@ -721,8 +737,9 @@ Godot:
         RIGHT:
         x:
         y:
-        angle():
+        angle(): # 与x轴夹角
         angle_to(): # 向量夹角，弧度
+        angle_to_point(): # 两个点连线与x轴夹角
         bounce(): # 反射，基于法线向量方向
         cross(): # 叉乘
         direction_to(): # 获取指向的方向向量
@@ -730,6 +747,7 @@ Godot:
         dot(): # 点乘
         length(): # 长度
         lerp(): # 线性插值
+        move_toward(): # 指定位置移动
         normalized(): # 转为单位向量
     Vector3:
 ```
@@ -1055,7 +1073,7 @@ TileMap -> TileSet
 ### GUI
 
 Control基类
-Container控制布局、
+常使用锚点、Container控制布局
 
 
 
@@ -1252,6 +1270,14 @@ RigidBody刚体 + CollisionObject2D碰撞体 + CollisionShape2D碰撞形状 实�
 #### SceneTree
 
 场景树
+
+
+
+#### Theme
+
+主题
+
+
 
 
 #### AudioStreamPlayer
