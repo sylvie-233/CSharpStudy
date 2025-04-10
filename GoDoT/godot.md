@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.x官方文档：https://docs.godotengine.org/zh-cn/4.x/getting_started/introduction/key_concepts_overview.html`
-> `【godot】游戏引擎自学教程踩坑系列：P50`
+> `【godot】游戏引擎自学教程踩坑系列：P66`
 >
  
 
@@ -381,11 +381,43 @@ Godot:
                     CollisionShape2D: # 碰撞形状
                         shape: # 形状 Shape2D
                     CPUParticles2D: # CPU粒子
+                        amount: # 粒子数量
+                        angle_max: # 初始角度
+                        angular_velocity_max: # 角速度
+                        color: # 颜色
+                        damping_max: # 阻尼
+                        direction: # 发射方向
+                        emission_shape: # 发射形状
+                        emitting: # 发射
+                        explosiveness: # 爆发式发射
+                        gravity: # 重力
+                        hue_variation_max: # 色向
+                        initial_velocity_max:
+                        lifetime: # 存活时间
+                        linear_accel_max: # 线性加速度
+                        local_coords: # 粒子发射跟随
+                        orbit_velocity_max: # 轨道速度
+                        one_shot: # 发射一次
+                        preprocess: # 预处理
+                        radial_accel_max: # 镜像加速度
+                        randomness: # 随机种子
+                        scale_amount_max: # 粒子大小
+                        speed_scale: # 发送速度
+                        spread: # 初始方向范围
+                        tangential_accel_max: # 切向加速度
+                        texture: # 粒子纹理 
                     GPUParticles2D: # GPU粒子
                         process_material: # 运行材质
                         texture:
                     Joint2D:
                     Light2D: # 灯光
+                        blend_mode:
+                        color:
+                        energy:
+                        shadow_color:
+                        shadow_enabled: # 开启阴影
+                        shadow_filter:
+                        range_z_max: # 影响z-index范围
                         DirectionalLight2D: # 平行光
                         PointLight2D: # 点光源
                             texture: 
@@ -1309,6 +1341,8 @@ Viewport -> Camera
 #### Particles
 
 粒子系统
+速度、加速度、阻力、形状、方向、角度、大小、颜色
+
 
 
 ##### ParticleProcessMaterial
