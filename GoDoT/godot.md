@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.x官方文档：https://docs.godotengine.org/zh-cn/4.x/getting_started/introduction/key_concepts_overview.html`
-> `【godot】游戏引擎自学教程踩坑系列：P66`
+> ``
 >
  
 
@@ -45,6 +45,17 @@ Texture、Material、Shader
     插件:
     默认导入设置:
 ```
+
+
+#### godot
+
+
+#### tscn
+
+
+
+
+#### tres
 
 
 
@@ -439,7 +450,7 @@ Godot:
                     MeshInstance2D:
                     NavigationLink2D:
                     Parallax2D:
-                    ParallaxLayer:
+                    ParallaxLayer: # 视差滚动层
                     Path2D: # 路径
                         curve: # 路径曲线
                     PathFollow2D: # 路径移动跟随，子节点有效
@@ -479,6 +490,7 @@ Godot:
                 offset:
                 transform:
                 visible:
+                ParallaxBackground: # 视差滚动背景，内含多个ParallaxLayer，用于多层背景
             EditorFileSystem:
             EditorPlugin:
             EditorResourcePreview:
