@@ -1,10 +1,13 @@
 # Blender
 
-`Blender4.0建模入门教程：P84`
+``
 
 ## 基础介绍
 
 3D建模软件
+- 建模
+- 雕刻
+- 骨骼
 
 
 核心操作：
@@ -26,6 +29,7 @@ Blender:
     Help:
     Layout:
     Modelling:
+    UV Editing: # UV 编辑
     Shading:
     Animation:
     Rendering:
@@ -142,6 +146,39 @@ Blender:
         Merge Vertices: # 合并顶点
 ```
 
+### 底部编辑区
+```yaml
+Blender:
+    General:
+        Geometry Node Editor: # 几何节点编辑器
+            Input:
+                Scene:
+                    Object Info: # 物体信息
+            Geometry:
+                Read:
+                    Normal:
+            Instances:
+                Instance To Points: # 实例化于点上
+                Rotate Instance: # 旋转实例
+            Utilities:
+                Deprecated:
+                    Align Euler to Vector: # 对齐欧拉置矢量
+        Shader Editor: # 着色器编辑器（槽、新建）
+            Input:
+            Output:
+            Shader: # 材质
+                Principled BSDF: # 原理化 BSDF
+            Texture: # 纹理
+                Image Texture:
+            Vector:
+    Animation:
+    Scripting:
+    Data: # 数据
+        Asset Browser: # 资产管理器
+```
+
+
+
 
 
 ### 快捷键
@@ -154,6 +191,7 @@ Blender:
     k: # 切割
     n: # 侧边栏
     x: # 删除
+    z: # 环形菜单
 ```
 
 
@@ -193,6 +231,30 @@ Blender:
     Image:
     Light:
     Material: # 材质
+        Preview:
+        Surface: # 表面
+            Base Color:
+            Metallic:
+            Roughness:
+            IOR:
+            Alpha:
+            Normal:
+            Diffuse:
+            Subsurface:
+            Specular:
+            Transmission:
+            Coat:
+            Sheen:
+            Emission:
+            Thin Film:
+        Volume: # 体积
+        Displacement:
+        Thickness:
+        Settings:
+        Line Art:
+        Viewport Display:
+        Animation:
+        Custom Properties:
     Mesh: # 网格
         Circle: # 圆
         Cone: # 圆锥
@@ -223,6 +285,7 @@ Blender:
                 Intersect: # 交集
                 Union: # 并集
                 Difference: # 差集
+            Geometry Nodes: # 几何节点编辑器，配合流水线使用
             Mirror: # 镜像生成器
                 Axis: # 轴
                 Bisect: # 切分
@@ -231,7 +294,13 @@ Blender:
                 Thickness: # 厚度
             Subdivision Surface: # 表面细分器
         Deform: # 形变
+            Curve: # 曲线
             Smooth: # 光滑形变器
+            Simple Deform: # 简单形变修改器
+                Twist: # 扭曲
+                Bend: # 弯曲，Y轴垂直平面参考
+                Taper: # 锥化
+                Stretch: # 拉伸
         Normals:
         Physics: # 物理
         Hairs:
