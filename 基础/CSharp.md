@@ -229,7 +229,24 @@ dotnet-tools.json:
 
 tool工具命令使用声明
 
+#### PM
+```yaml
+PM:
+    Add-PackageSource:
+    Find-Package:   
+    Get-Package:
+    Get-PackageSource:
+    Install-Package:
+    Install-Product:
+    New-Item:
+    Remove-PackageSource:
+    Restore-Package:
+    Set-PackageSource:
+    Uninstall-Package:
+    Update-Package:
+```
 
+vs控制台nuget包管理工具
 
 
 
@@ -243,7 +260,28 @@ System:
     Collections: # 集合
         Concurrent: # 并发集合
         Generic: # 泛型集合
-    ComponentModel: # GUI组件模型
+    ComponentModel: # 组件模型
+        DataAnnotations:
+            Schema:
+                [Column]: # 数据库映射字段
+            [DataType]:
+            [Required]:
+                ErrorMessage:    
+        [Browsable]:
+        [Category]:
+        [DefaultValue]:
+        [Description]: # 描述
+        [NotifyParentProperty]:
+        [ReadOnly]:
+        BindingList:
+        Component:
+        EventDescriptorCollection:
+        IEditableObject:
+        INotifyPropertyChanged:
+        PropertyDescriptor:
+        PropertyDescriptorCollection:
+        TypeConverter:
+        TypeDescriptor:
     Configuration: # 旧式配置文件（app.config）访问
     Data: # 数据集、表、行等 ADO.NET 基础类
         Common: # 通用数据库接口
@@ -575,6 +613,10 @@ using Newtonsoft.Json;
 using MyLibNamespace;
 ```
 
+#### CLR
+
+Microsoft .NET 平台中的 运行时环境。
+负责管理代码的执行、内存分配、垃圾回收、安全性、异常处理等任务
 
 ## 设计模式
 

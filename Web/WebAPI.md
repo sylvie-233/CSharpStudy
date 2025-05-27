@@ -6,7 +6,7 @@
 
 rest api项目框架
 
-### 项目目录
+### 项目结构
 ```yaml
 webapi:
     /xxx:
@@ -15,6 +15,7 @@ webapi:
             WeatherForecastController.cs:
         /obj:
         /Properties:
+            launchSettings.json:
         appsettings.Development.json:
         appsettings.json:
         xxx.csproj:
@@ -23,5 +24,10 @@ webapi:
     xxx.sln:
 ```
 
+#### launchSettings.json
+```yaml
+launchSettings.json:
+
+```
 
 ## 核心内容
