@@ -1,6 +1,6 @@
 # Blazor
 
-`从零开始blazor server WebApp: P11`
+`从零开始blazor server WebApp: P12`
 
 ## 基础介绍
 

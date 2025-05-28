@@ -39,6 +39,13 @@ csproj:
 ```
 
 
+#### appsettings.json
+```yaml
+appsettings.json:
+
+```
+
+
 ### dotnet
 ```yaml
 dotnet:
@@ -283,6 +290,8 @@ System:
         TypeConverter:
         TypeDescriptor:
     Configuration: # 旧式配置文件（app.config）访问
+        ConfigurationManager:
+            AppSettings:
     Data: # 数据集、表、行等 ADO.NET 基础类
         Common: # 通用数据库接口
         SqlClient:
@@ -295,16 +304,59 @@ System:
     Globalization:
     IO: # 文件、目录、流的操作
         Compression:
+        Directory: # 目录操作
+            CreateDirectory():
+            Delete():
+            Exists():
+            GetFiles():
+        File: # 文件操作
+            AppendAllText():
+            Copy():
+            Delete():
+            Exists():
+            ReadAllLines():
+            ReadAllText():
+            Move():
+            WriteAllText():
         MemoryMappedFiles:
         Pipes:
+        StreamReader: # 流式文本读取
+            ReadLine():
+        StreamWriter: # 流式文本写入
+            WriteLine():
     Linq: # LINQ 扩展方法
     Net: # 基础网络支持
         Http:
             Json:
         Mail:
-        Sockets:
+        Sockets: # socket
+            Socket:
+                Accept():
+                Bind():
+                Close():
+                Connect():
+                Listen():
+                Receive():
+                Send():
         WebSockets:
     Reflection: # 反射
+        Activator:
+            CreateInstance(): # 动态创建对象
+        FieldInfo: # 字段信息
+            GetValue():
+        MethodInfo: # 方法信息
+            Name:
+            Invoke(): # 调用方法
+        PropertyInfo: # 属性信息
+            Name:
+            GetValue():
+            SetValue():
+        Type: # 类型
+            GetCustomAttribute():
+            GetCustomAttributes():
+            GetField():
+            GetMethods():
+            GetProperties():
     Runtime: # 运行时
         CompilerServices:    
     Security: # 
@@ -331,6 +383,10 @@ System:
         CreateInstance():
         Reverse():
         Sort():
+    Attribute: # 属性
+    AttributeTargets: # 属性应用目标
+        Class:
+        Method:
     Console: # 控制台
         ForegroundColor:
         Clear():
@@ -353,7 +409,7 @@ System:
         Pow(): # 幂
     Object: # 基类
         Equals():
-        GetType():
+        GetType(): # 获取对象类型
         ToString():
     Random:
         Next():
@@ -415,7 +471,7 @@ Data Types:
     double:
     decimal:
     char:
-    string:
+    string: # 字符串
     var: # 可变类型
     object: # 基类对象
 ```
@@ -426,6 +482,15 @@ Data Types:
 模板字符串：`$"{xxx}"`
 
 #### string
+```cs
+// 模板字符串
+$"Method Description: {x.value}"
+
+// 源串
+@"
+    person = { name = 'Alice', age = 30 }
+"
+```
 
 
 字符串
@@ -450,6 +515,8 @@ Data Types:
 ```yaml
 Control Flow:
     if:
+    using: # 命名空间使用，上下文管理
+    typeof(): # 获取Type类型 
 ```
 
 
@@ -553,6 +620,17 @@ abstract抽象类、abstract抽象方法、virtual虚方法
 interface接口
 
 
+#### Getter/Setter
+
+#### Extends
+
+继承
+
+#### Interface
+
+
+接口
+
 
 #### Attribute
 
@@ -570,6 +648,10 @@ interface接口
 
 
 ### 测试
+
+
+
+### 并发
 
 
 
