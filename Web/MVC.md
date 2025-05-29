@@ -89,6 +89,7 @@ Microsoft:
                 UseStaticFiles():
                 UseSwagger():
                 UseSwaggerUI():
+                UseWebSockets():
         Components:
             Authorization:
                 AuthenticationState:
@@ -152,6 +153,21 @@ Microsoft:
         Options:
         Hosting():
 ```
+
+
+
+
+
+### Websocket
+
+
+
+### SSE
+
+
+
+
+
 
 
 ## Razor

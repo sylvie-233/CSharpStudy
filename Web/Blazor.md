@@ -1,6 +1,6 @@
 # Blazor
 
-`从零开始blazor server WebApp: P48`
+``
 
 ## 基础介绍
 

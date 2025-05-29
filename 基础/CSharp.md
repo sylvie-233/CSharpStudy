@@ -345,7 +345,18 @@ System:
                 Listen():
                 Receive():
                 Send():
-        WebSockets:
+        WebSockets: # websocket
+            CancellationToken:
+            ClientWebSocket:
+                State:
+                CloseAsync():
+                ConnectAsync():
+                ReceiveAsync():
+                SendAsync():
+            WebSocketMessageType:
+                Close:
+            WebSocketState:
+                Open:
     Reflection: # 反射
         Activator:
             CreateInstance(): # 动态创建对象
