@@ -41,33 +41,32 @@ UnityEngine:
     UIElements:
         Slider:
             value:
-    Animator: 动画控制器
+    Animator: # 动画控制器
         deltaPosition:
         SetFloat():
-    AnimatorStateInfo: 动画状态信息
-    Application: 应用程序
+    AnimatorStateInfo: # 动画状态信息
+    Application: # 应用程序
         Quit():
-    AsyncOperation: 异步操作
-        "completed"
+    AsyncOperation: # 异步操作
         progress:
-    CharacterController: 人物控制器
+    CharacterController: # 人物控制器
         center:
         isGrounded:
         Move():
-    Collider: 碰撞体
+    Collider: # 碰撞体
     GameObject:
-        layer: 层级
+        layer: # 层级
         scene:
         tag:
         transform:
-        AddComponent(): 添加组件
+        AddComponent(): # 添加组件
         CompareTag():
         Destroy():
         GetComponent():
         GetScene():
         SendMessage():
         SetActive():
-    Input: 输入系统
+    Input: # 输入系统
         location:
         touchCount:
         GetAxis():
@@ -75,21 +74,21 @@ UnityEngine:
         GetTouch():
     LayerMask:
 
-    Quaternion: 旋转
+    Quaternion: # 旋转
         LookRotation():
         RotateTowards():
     Time:
         deltaTime:
     Transform:
         rotation:
-        TransformDirection(): 改变方向
-    Mathf: 数学工具类
+        TransformDirection(): # 改变方向
+    Mathf: # 数学工具类
         PI:
         Abs():
         Ceil():
         MoveTowards():
         Round():
-    MonoBehaviour: 基础脚本类
+    MonoBehaviour: # 基础脚本类
         gameObject:
         transform:
         Awake():
@@ -101,7 +100,7 @@ UnityEngine:
         OnEnable():
         OnGUI:
         Start():
-        StartCoroutine(): 启动协程
+        StartCoroutine(): # 启动协程
         Update():
     Vector3:
         x:
@@ -136,7 +135,7 @@ UnityEngine:
 
 ### Physics
 
-#### Character Controll
+#### Character Controlller
 
 Character Controller
 

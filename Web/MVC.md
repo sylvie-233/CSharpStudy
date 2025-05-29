@@ -90,11 +90,19 @@ Microsoft:
                 UseSwagger():
                 UseSwaggerUI():
         Components:
+            Authorization:
+                AuthenticationState:
+                AuthenticationStateProvider:
+                    GetAuthenticationStateAsync():
             Form:
             Routing:
             Web:
                 RenderMode:
                 Virtualization:
+        Http:
+            HttpContext:
+                Request:
+                Response:
         Mvc:
             RazorPages:
                 IPageModelActivator:
@@ -109,6 +117,7 @@ Microsoft:
                 RedirectToPageResult:
             [ApiController]:
             [Controller]:
+            [FromBody]:
             [HttpGet]:
             [Route]:
                 controller:

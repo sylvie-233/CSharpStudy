@@ -1,6 +1,6 @@
 # Blazor
 
-`从零开始blazor server WebApp: P12`
+`从零开始blazor server WebApp: P48`
 
 ## 基础介绍
 
@@ -65,8 +65,9 @@ Routes.razor: # 路由视图规则配置（类似<route-view>视图显示组件�
 ```yaml
 Blazor:
     @: # 使用变量
-    @attribute:
-        StreamRendering:
+    @(): # 变量表达式
+    @attribute: # 使用属性
+        [StreamRendering]:
     @bind: # 变量绑定
     @code: # C#代码
         [CascadingParameter]:
@@ -86,12 +87,14 @@ Blazor:
     @foreach:
     @functions:
     @if ... else ...:
+    @implements: # 接口实现
     @inherits: # 模板继承
     @inject: # 依赖注入
         NavigationManager:
     @layout: # Layout模板使用
     @onclick: # 点击事件绑定
     @page: # 标注响应页面，页面 url 路径
+    @ref: # DOM引用
     @rendermode:
         InteractiveServer:
     @typeparam: # 组件属性

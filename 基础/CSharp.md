@@ -53,6 +53,7 @@ dotnet:
     --version: # 版本
     add:
         package: # 添加包
+        reference: # 添加project项目引用
     build:
         -c:
             Release:
@@ -94,7 +95,9 @@ dotnet:
     sln: # 解决方案
         add: # 添加项目引用
         remove:
-    test:
+    test: # 运行测试
+         --filter: # 测试过滤
+            FullyQualifiedName:
     tool: # 工具包
         install:
             -g:
@@ -271,9 +274,11 @@ System:
         DataAnnotations:
             Schema:
                 [Column]: # 数据库映射字段
+            [AttributeUsage]:
             [DataType]:
-            [Required]:
+            [Required]: # 必填项
                 ErrorMessage:    
+            ValitaionAttribute:
         [Browsable]:
         [Category]:
         [DefaultValue]:
@@ -327,6 +332,8 @@ System:
     Linq: # LINQ 扩展方法
     Net: # 基础网络支持
         Http:
+            HttpClient:
+                GetAsync():
             Json:
         Mail:
         Sockets: # socket
@@ -361,6 +368,8 @@ System:
         CompilerServices:    
     Security: # 
         Claims: # 声明式身份
+            ClaimsPrincipal:
+                Identity:
         Cryptography: # 加密、哈希、签名
         Principal: # 用户/身份验证
     Text: # Text文本
