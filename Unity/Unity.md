@@ -113,23 +113,24 @@ UnityEngine:
 
 ```
 
+### Scripting
 
-### Assets
+
+
+
+### Component
+
+组件
+
+
+### UI
+
+
 
 
 
 
 ### Input
-
-
-
-
-### 2D Game Development
-
-
-
-
-### Graphics
 
 
 
@@ -141,23 +142,7 @@ Character Controller
 
 圆柱形的碰撞体
 
-```yaml
-Character Controller:
-    Slope Limit:
-    Step Offset:
-    Skin Width:
-    Center:
-    Radius:
-```
 
-
-### Scripting
-
-
-### Audio
-
-
-### Video
 
 
 
@@ -171,8 +156,35 @@ Character Controller:
 
 
 
+### Assets
 
-### UI
+
+#### Audio
+
+
+#### Video
+
+
+
+### Effect
+
+
+
+
+### Shader
+
+
+
+### Network
+
+
+
+
+
+
+
+
+
 
 
 
