@@ -17,9 +17,3 @@ System.Web:
 
 ## WebForms
 
-
-## MVC
-
-
-
-## WebAPI

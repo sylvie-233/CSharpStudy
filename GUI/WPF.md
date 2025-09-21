@@ -4,9 +4,8 @@
 
 
 ### 项目结构
-
 ```yaml
-:
+WPF:
     /bin:
     /obj:
     .csproj:
@@ -143,74 +142,7 @@ xaml常用指令：
 
 
 
-#### 基础控件
-```yaml
-:
-    <Border>:
-    <Button>:
-        Click: # 点击事件
-            sender: 
-            event:
-        Content:
-    <Calendar>:
-    <Canvas>:
-    <CheckBox>:
-    <ComboBox>:
-    <ContentControl>:
-    <DataGrid>: # 表格组件
-        <DataGrid.Columns>:
-            <DataGridTextColumn>:
-                Binding:
-                Header:
-        ItemsSource: # 数据源
-        SelectedItem:
-    <DatePicker>:
-    <DockPanel>:
-    <DocumentViewer>:
-    <Ellipse>:
-    <Expander>: # 折叠控件
-    <Frame>:
-    <Grid>: # 网格布局
-        <Grid.RowDefinitions>:
-            <RowDefinition>:
-                Height:
-        <Grid.ColumnDefinitions>:
-            <ColumnDefinition>:
-        Grid.Column:
-        Grid.Row:
-    <GridSplitter>: # 网格分隔线（可拖动）
-    <GroupBox>:
-    <Image>:
-    <Label>:
-    <ListBox>:
-    <ListView>: # 列表视图
-        ItemsSource:
-    <MediaElement>:
-    <Menu>: # 菜单栏
-        <MenuItem>: # 菜单项（可嵌套）
-            Header:
-    <RadioButton>:
-    <Rectangle>: # 矩形
-        Fill:
-    <ScrollBar>:
-    <ScrollViewer>:
-    <Slider>:
-    <StackPanel>: # 堆叠面板（水平/垂直布局）
-        Orientation:
-    <TabControl>:
-    <TextBlock>: # 文本块
-        FontSize:
-        Margin:
-        Name:
-        Text:
-    <TextBox>: # 输入框
-    <UserControl>: # 自定义控件
-        d:DesignHeight:
-        d:DesignWidth:
-```
 
-
-通过控件Name操作控件
 
 
 #### ResourceDictionary
@@ -278,11 +210,78 @@ ICommand
 类似JavaScript代码
 
 
+### Basic Control
+```yaml
+Basic Control:
+    <Border>:
+    <Button>:
+        Click: # 点击事件
+            sender: 
+            event:
+        Content:
+    <Calendar>:
+    <Canvas>:
+    <CheckBox>:
+    <ComboBox>:
+    <ContentControl>:
+    <DataGrid>: # 表格组件
+        <DataGrid.Columns>:
+            <DataGridTextColumn>:
+                Binding:
+                Header:
+        ItemsSource: # 数据源
+        SelectedItem:
+    <DatePicker>:
+    <DockPanel>:
+    <DocumentViewer>:
+    <Ellipse>:
+    <Expander>: # 折叠控件
+    <Frame>:
+    <Grid>: # 网格布局
+        <Grid.RowDefinitions>:
+            <RowDefinition>:
+                Height:
+        <Grid.ColumnDefinitions>:
+            <ColumnDefinition>:
+        Grid.Column:
+        Grid.Row:
+    <GridSplitter>: # 网格分隔线（可拖动）
+    <GroupBox>:
+    <Image>:
+    <Label>:
+    <ListBox>:
+    <ListView>: # 列表视图
+        ItemsSource:
+    <MediaElement>:
+    <Menu>: # 菜单栏
+        <MenuItem>: # 菜单项（可嵌套）
+            Header:
+    <RadioButton>:
+    <Rectangle>: # 矩形
+        Fill:
+    <ScrollBar>:
+    <ScrollViewer>:
+    <Slider>:
+    <StackPanel>: # 堆叠面板（水平/垂直布局）
+        Orientation:
+    <TabControl>:
+    <TextBlock>: # 文本块
+        FontSize:
+        Margin:
+        Name:
+        Text:
+    <TextBox>: # 输入框
+    <UserControl>: # 自定义控件
+        d:DesignHeight:
+        d:DesignWidth:
+```
+
+
+通过控件Name操作控件
 
 
 
-
-### 自定义控件
+### User Control
 
 UserControl
 

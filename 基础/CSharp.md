@@ -12,6 +12,27 @@ nuget包
 
 vscode格式化C#代码，使用`.editorconfig`在根目录
 
+.NET Framework 传统项目默认引入：
+- System;
+- System.Collections.Generic;
+- System.Linq;
+- System.Text;
+- System.Threading.Tasks;
+
+
+
+.NET 6+ 的默认引入：
+- System
+- System.Collections.Generic
+- System.IO
+- System.Linq
+- System.Net.Http
+- System.Threading
+- System.Threading.Tasks
+- System.Console（隐式可用）
+- System.Text
+- System.Globalization
+
 
 常用环境变量
 - NUGET_PACKAGES：nuget安装包默认缓存路径（默认:`\Users\~\.nuget\packages\`）
@@ -52,7 +73,7 @@ dotnet:
     --help: # -h
     --version: # 版本
     add:
-        package: # 添加包
+        package: # 添加第三方包
         reference: # 添加project项目引用
     build:
         -c:
@@ -270,6 +291,15 @@ System:
     Collections: # 集合
         Concurrent: # 并发集合
         Generic: # 泛型集合
+            ArrayList:
+            Dictionary:
+            HashSet:
+            Hashtable:
+            LinkedList:
+            List:
+            ObservableCollection:
+            Queue:
+            Stack:
     ComponentModel: # 组件模型
         DataAnnotations:
             Schema:
@@ -308,6 +338,8 @@ System:
     GC:
     Globalization:
     IO: # 文件、目录、流的操作
+        BinaryReader:
+        BinaryWriter:
         Compression:
         Directory: # 目录操作
             CreateDirectory():
@@ -323,7 +355,10 @@ System:
             ReadAllText():
             Move():
             WriteAllText():
+        FileStream:
         MemoryMappedFiles:
+        MemoryStream:
+        Path:
         Pipes:
         StreamReader: # 流式文本读取
             ReadLine():
@@ -334,6 +369,8 @@ System:
         Http:
             HttpClient:
                 GetAsync():
+            HttpRequestMessage:
+            HttpResponseMessage:
             Json:
         Mail:
         Sockets: # socket
@@ -345,6 +382,7 @@ System:
                 Listen():
                 Receive():
                 Send():
+        WebClient:
         WebSockets: # websocket
             CancellationToken:
             ClientWebSocket:
@@ -394,10 +432,23 @@ System:
                 PropertyNamingPolicy:
                 WriteIndented:
         RegularExpressions: # 正则表达式
-    Threading: # 多线程
-        Task:
+        StringBuilder:
+    Threading: # 多线程并发
+        Tasks:
+            Task:
+        BlockingCollection:
+        CancellationToken:
+        ConcurrentDictionary:
+        ConcurrentQueue:
+        Mutex:
+        Semaphore:
+        ThreadPool:
+    Xml:
+        Serialization:
+            XmlSerializer:
     Timers: # 定时器支持
     TimeSpan:
+    ArgumentException:
     Array:
         Copy(): # 拷贝
         CreateInstance():
@@ -407,6 +458,7 @@ System:
     AttributeTargets: # 属性应用目标
         Class:
         Method:
+    Char:
     Console: # 控制台
         ForegroundColor:
         Clear():
@@ -419,21 +471,24 @@ System:
         DayOfWeek:
         AddDays():
         AddMonths():
+    DateTimeOffset:
     Exception: # 异常类
         Message: # 异常信息
+    Guid:
     Int32:
         MaxValue:
         Parse(): # 字符串转int
         ToString(): # 转字符串
     Math:
         Pow(): # 幂
-    Object: # 基类
+    Object: # 对象基类
         Equals():
         GetType(): # 获取对象类型
         ToString():
     Random:
         Next():
-    String:
+    Stopwatch:
+    String: # 字符串
         Length: # 长度
         Equals(): # 字符串比较
     StringBuilder: #可修改字符串
@@ -443,10 +498,13 @@ System:
         Insert(): # 插入
         Remove(): # 移除
         Replace(): # 字符串替换
-    TimeSpan: # 时间
+    TimeSpan: # 时间间隔
         Subtract():
+    Tuple: # 元组
     Type: # 类型
         Name:
+    Uri:
+    ValueTuple: # 
 
 Microsoft:
     AspNetCore:
@@ -455,32 +513,13 @@ Microsoft:
         DependencyInjection: # 内建依赖注入容器（DI）
 ```
 
-.NET Framework 传统项目默认引入：
-- System;
-- System.Collections.Generic;
-- System.Linq;
-- System.Text;
-- System.Threading.Tasks;
-
-
-
-.NET 6+ 的默认引入：
-- System
-- System.Collections.Generic
-- System.IO
-- System.Linq
-- System.Net.Http
-- System.Threading
-- System.Threading.Tasks
-- System.Console（隐式可用）
-- System.Text
-- System.Globalization
 
 
 
 
 
-### 数据类型
+
+### Data Types
 ```yaml
 Data Types:
     bool:
@@ -531,7 +570,7 @@ $"Method Description: {x.value}"
 
 
 
-### 流程控制
+### Control Flow
 ```yaml
 Control Flow:
     if:
@@ -546,15 +585,14 @@ throw抛出异常
 
 
 #### Linq
-
-类SQL查询集合
-
 ```
 from 数据源
 where 条件
 select 查询字段
 
 ```
+
+类SQL查询集合
 
 Linq主要包括三大部分：
 - Linq To Objects
@@ -574,7 +612,7 @@ Linq主要包括三大部分：
 
 
 
-### 函数
+### Function
 
 访问修饰符：`public`、`protected`、`private`
 
@@ -608,7 +646,7 @@ event
 
 
 
-### 面向对象
+### Class
 
 命名空间：`namespace`，命名空间一般和项目名相同
 
@@ -660,22 +698,22 @@ interface接口
 
 反射
 
-### 模块
+### Module
 
 
 #### NameSpace
 
 
 
-### 测试
+### Test
 
 
 
-### 并发
+### Concurrency
 
 
 
-### 扩展
+### Extension
 
 
 #### csx
