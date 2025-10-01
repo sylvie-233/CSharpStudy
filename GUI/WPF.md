@@ -1,6 +1,13 @@
 # WPF
 
+`WPF入门教程 Visual Studio 2022: P11`
+
 ## 基础介绍
+
+
+基于xaml的 GUI框架
+
+
 
 
 ### 项目结构
@@ -20,11 +27,24 @@ WPF:
 #### App.xaml
 ```yaml
 <Application>:
-    <Application.Resources>:
+    StartupUri: # 主窗口界面
+    ---
+    <Resources>:
         <ResourceDictionary>:
-            <ResourceDictionary.MergedDictionaries>:
+            <MergedDictionaries>:
                 <ResourceDictionary>:
-                    Source:
+                    Source: # 文件路径
+```
+
+
+主应用文件
+
+
+
+#### App.config
+```yaml
+App.config:
+
 ```
 
 
@@ -108,24 +128,27 @@ System:
 ### XAML
 ```yaml
 <Window>:
-    <Window.Resources>:
+    <Window.Resources>: # 资源定义
         <Style>:
+            BaseOn: # 样式继承
+            TargetType: # 作用组件类型
+                x:Type:
+            x:Key:
+            ---
             <Style.Triggers>:
                 <Trigger>:
                     <Setter>:
                     Property:
                         IsMouseOver:
-            <Setter>:
-                <Setter.Value>:
-                    <ControlTemplate>:
-                        <ContentPresenter>: # 原内容显示
+            <Setter>: # 属性设置
                 Property:
                     FontSize:
                     FontWeight:
                     Height:
                     Width:
-            TargetType:
-                x:Type:
+                Value:
+                    <ControlTemplate>:
+                        <ContentPresenter>: # 原内容显示
     x:Class: # 窗口绑定类
     Height:
     Title:
@@ -153,15 +176,35 @@ xaml常用指令：
             Property:
 ```
 
-Style类似CSS样式
 
+资源字典文件
+
+
+##### Style
 ```xml
 <Style TargetType="Button" x:Key="mystyle"></Style>
 
 <Button Style="{StaticResource mystyle}"/>
 ```
 
+
+Style类似CSS样式
+
+
 #### ControlTemplate
+```yaml
+<Template>:
+    <ControlTemplate>:
+        TemplateBinding: # 引用原始属性
+        <ContentPresenter>: # 原始内容显示
+        <Triggers>: # 样式触发器
+            <Trigger>:
+        ---
+        <Border>: # 边框
+```
+
+控件模板
+组件插槽，用于修改组件样式
 ControlTemplate、TemplateBinding
 
 模板样式绑定，常用于Style中
@@ -206,8 +249,23 @@ class MyCommand: ICommand {
 ```
 
 ICommand
-
 类似JavaScript代码
+
+
+### MVVM
+
+
+`DataContext = MyViewModel`
+
+
+
+View -> ViewModel -> Model 类似 View -> Service -> Dao
+
+DataBinding、UIEvent、ModelEvents
+
+
+ViewModel持有可观测对象`INotifyPropertyChanged`
+
 
 
 ### Basic Control
@@ -219,6 +277,9 @@ Basic Control:
             sender: 
             event:
         Content:
+        Style: # 样式
+            DynamicResource:
+            StaticResource: # 静态资源引用（x:Key）
     <Calendar>:
     <Canvas>:
     <CheckBox>:
@@ -238,13 +299,13 @@ Basic Control:
     <Expander>: # 折叠控件
     <Frame>:
     <Grid>: # 网格布局
-        <Grid.RowDefinitions>:
+        <RowDefinitions>: # 网格 行定义
             <RowDefinition>:
                 Height:
-        <Grid.ColumnDefinitions>:
+        <ColumnDefinitions>: # 网格 列定义
             <ColumnDefinition>:
-        Grid.Column:
-        Grid.Row:
+        Grid.Row: # 组件网格 行索引
+        Grid.Column: # 组件网格 列索引
     <GridSplitter>: # 网格分隔线（可拖动）
     <GroupBox>:
     <Image>:
@@ -279,25 +340,57 @@ Basic Control:
 
 通过控件Name操作控件
 
+#### Layout
+
+布局
+
+
+##### StackPanel
+
+堆叠
+div
+
+
+
+##### Grid
+
+网格布局
+
+
+
+
+#### Input
+
+输入组件
+
+
+##### Button
+
+按钮
+
+##### TextBox
+
+输入框
+
+
+
+
+#### View
+
+显示组件
+
+
+##### TextBlock
+文本块
+
+
+
 
 
 ### User Control
 
 UserControl
 
+用户自定义组件
 
 
-
-### MVVM
-
-
-`DataContext = MyViewModel`
-
-
-
-View -> ViewModel -> Model 类似 View -> Service -> Dao
-
-DataBinding、UIEvent、ModelEvents
-
-
-ViewModel持有可观测对象`INotifyPropertyChanged`

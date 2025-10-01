@@ -41,7 +41,7 @@ vscode格式化C#代码，使用`.editorconfig`在根目录
 
 ### 项目结构
 ```yaml
-csproj:
+项目结构:
     /.config:
         dotnet-tools.json: # tool工具声明
     /bin: # 构建二进制文件
@@ -60,11 +60,62 @@ csproj:
 ```
 
 
-#### appsettings.json
-```yaml
-appsettings.json:
 
+
+### sln
+```yaml
+sln:
+    VisualStudioVersion:
+    Project: # 引用项目
+    Global:
 ```
+
+项目解决方案
+
+#### csproj
+```yaml
+<Project>:
+    SdK: # .NET SDK配置
+        Microsoft.NET.Sdk: # 控制台/类库
+        Microsoft.NET.Sdk.Razor: # Blazor
+        Microsoft.NET.Sdk.Web: # ASP.NET Core
+    <ItemGroup>: # 对象配置组
+        <Compile>: # 编译行为
+            Remove:
+        <Content>:
+            CopyToOutputDirectory:
+            Include:
+        <None>:
+        <PackageReference>: # 包引用（本地包、第三方包）
+            Include:
+            Version:
+    <PropertyGroup>: # 属性配置组
+        Condition: # 条件配置
+        <AssemblyName>: # 生成的 DLL/EXE 名
+        <Authors>:
+        <Company>:
+        <DefineConstants>: # 自定义条件编译宏：如 DEBUG;TRACE
+        <Description>:
+        <GeneratePackageOnBuild>: # 生成pack
+        <ImplicitUsings>: # 自动导入常用命名空间（仅 SDK 风格）
+        <IsPackable>:
+        <LangVersion>: # C# 语言版本，如 latest, preview, 10.0
+        <Nullable>: # 启用 C# 的 nullable 引用类型检查
+        <OutputType>: # 构建类型：Exe 或 Library
+        <PackageId>: # 
+        <PackageTags>:
+        <PackAsTool>: # 打包成tool包
+        <PlatformTarget>: # 指定 x86/x64/AnyCPU 等目标架构
+        <RepositoryUrl>:
+        <RootNamespace>:
+        <TargetFramework>: # 目标框架(net8.0、net6.0、netstandard2.1)
+        <ToolCommandName>: # tool 命令名
+        <TreatWarningsAsErrors>: # 是否将所有警告当成错误处理
+        <Version>:
+```
+
+项目配置
+
 
 
 ### dotnet
@@ -130,59 +181,8 @@ dotnet:
 ```
 
 
-### sln
-```yaml
-sln:
-    VisualStudioVersion:
-    Project: # 引用项目
-    Global:
-```
-
-项目解决方案
 
 
-
-#### csproj
-```yaml
-<Project>:
-    SdK: # .NET SDK配置
-        Microsoft.NET.Sdk: # 控制台/类库
-        Microsoft.NET.Sdk.Razor: # Blazor
-        Microsoft.NET.Sdk.Web: # ASP.NET Core
-    <ItemGroup>: # 对象配置组
-        <Compile>: # 编译行为
-            Remove:
-        <Content>:
-            CopyToOutputDirectory:
-            Include:
-        <None>:
-        <PackageReference>: # 包引用（本地包、第三方包）
-            Include:
-            Version:
-    <PropertyGroup>: # 属性配置组
-        Condition: # 条件配置
-        <AssemblyName>: # 生成的 DLL/EXE 名
-        <Authors>:
-        <Company>:
-        <DefineConstants>: # 自定义条件编译宏：如 DEBUG;TRACE
-        <Description>:
-        <GeneratePackageOnBuild>: # 生成pack
-        <ImplicitUsings>: # 自动导入常用命名空间（仅 SDK 风格）
-        <IsPackable>:
-        <LangVersion>: # C# 语言版本，如 latest, preview, 10.0
-        <Nullable>: # 启用 C# 的 nullable 引用类型检查
-        <OutputType>: # 构建类型：Exe 或 Library
-        <PackageId>: # 
-        <PackageTags>:
-        <PackAsTool>: # 打包成tool包
-        <PlatformTarget>: # 指定 x86/x64/AnyCPU 等目标架构
-        <RepositoryUrl>:
-        <RootNamespace>:
-        <TargetFramework>: # 目标框架(net8.0、net6.0、netstandard2.1)
-        <ToolCommandName>: # tool 命令名
-        <TreatWarningsAsErrors>: # 是否将所有警告当成错误处理
-        <Version>:
-```
 
 
 
