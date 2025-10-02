@@ -1,6 +1,6 @@
 # WPF
 
-`WPF入门教程 Visual Studio 2022: P11`
+``
 
 ## 基础介绍
 
@@ -71,7 +71,8 @@ System:
         CompilerServices:
             CallerMemberName:
     Windows:
-        Controls:
+        Controls: # 控件
+            Button: # 按钮
             Expander:
                 IsExpanded:
             ListView: # 列表视图
@@ -193,9 +194,9 @@ Style类似CSS样式
 
 #### ControlTemplate
 ```yaml
-<Template>:
-    <ControlTemplate>:
-        TemplateBinding: # 引用原始属性
+<Template>: # 模板
+    <ControlTemplate>: # 控件模板
+        TemplateBinding: # 引用原始属性（属性透传）
         <ContentPresenter>: # 原始内容显示
         <Triggers>: # 样式触发器
             <Trigger>:
@@ -204,13 +205,36 @@ Style类似CSS样式
 ```
 
 控件模板
-组件插槽，用于修改组件样式
+组件插槽，用于自定义组件内容样式
 ControlTemplate、TemplateBinding
 
-模板样式绑定，常用于Style中
+
+##### Trigger
 
 
-#### DataBinding
+控件触发器
+CSS中的伪元素
+
+
+### MVVM
+
+
+`DataContext = MyViewModel`
+
+View -> ViewModel(INotifyPropertyChanged、ICommand、Window) -> Model -> Service -> Dao
+DataBinding、UIEvent、ModelEvents
+
+
+- ViewModel持有可观测对象`INotifyPropertyChanged`
+- ViewModel聚合多个Model（Vue中的data属性）
+- ViewModle聚合多个ICommand方法（Vue中的methods方法）
+
+
+#### DataContext
+
+窗口数据上下文
+
+#### Binding
 ```yaml
 Binding:
     Mode: # 绑定模式
@@ -226,15 +250,24 @@ Binding:
         PropertyChanged:
 ```
 
-DataContext -> Property -> NotifyChanged()
 
+DataContext -> Property -> NotifyChanged()
 数据绑定：`{Binding xxx}`，属性修改需显式调用`PropertyChanged::Invoke()`重绘界面
 
+#### INotifyPropertyChanged
+
+属性变更通知事件
+Model数据模型使用
 
 
-#### Command
+##### DependencyProperty
 
-```csharp
+依赖属性
+自定义控件属性（Vue中的defineProps）
+
+
+#### ICommand
+```cs
 class MyCommand: ICommand {
     public event EventHandler? canExecuteChanged;
 
@@ -247,24 +280,15 @@ class MyCommand: ICommand {
     }
 }
 ```
+ICommand(Vue methods)
+普通方法包装
 
-ICommand
-类似JavaScript代码
+##### CommandManager
 
-
-### MVVM
-
-
-`DataContext = MyViewModel`
+注册Command命令
 
 
 
-View -> ViewModel -> Model 类似 View -> Service -> Dao
-
-DataBinding、UIEvent、ModelEvents
-
-
-ViewModel持有可观测对象`INotifyPropertyChanged`
 
 
 
@@ -350,11 +374,15 @@ Basic Control:
 堆叠
 div
 
+##### WrapPanel
+##### DockPanel
 
 
 ##### Grid
 
 网格布局
+
+##### UniformGrid
 
 
 
@@ -371,7 +399,7 @@ div
 ##### TextBox
 
 输入框
-
+##### CheckBox
 
 
 
@@ -384,6 +412,8 @@ div
 文本块
 
 
+##### ScrollViewer
+
 
 
 
@@ -394,3 +424,4 @@ UserControl
 用户自定义组件
 
 
+## Prism
