@@ -1,6 +1,6 @@
 # WPF
 
-``
+`WPF项目实战合集(2022终结版)：P20`
 
 ## 基础介绍
 
@@ -97,6 +97,7 @@ System:
         Input:
             ICommand: # 自定义命令
         Media:
+            Animation: # 动画
             Imaging:
         Navigation:
         Shapes:
@@ -166,7 +167,8 @@ xaml常用指令：
 
 
 
-
+#### App
+#### Window
 
 
 #### ResourceDictionary
@@ -188,8 +190,10 @@ xaml常用指令：
 <Button Style="{StaticResource mystyle}"/>
 ```
 
-
 Style类似CSS样式
+- BaseOn: 样式继承
+- StaticResource：
+- DynamicResource:
 
 
 #### ControlTemplate
@@ -214,6 +218,7 @@ ControlTemplate、TemplateBinding
 
 控件触发器
 CSS中的伪元素
+
 
 
 ### MVVM
@@ -375,7 +380,11 @@ Basic Control:
 div
 
 ##### WrapPanel
+
+堆叠换行
+
 ##### DockPanel
+
 
 
 ##### Grid
@@ -401,7 +410,7 @@ div
 输入框
 ##### CheckBox
 
-
+##### Slider
 
 #### View
 
@@ -414,14 +423,100 @@ div
 
 ##### ScrollViewer
 
+##### ListBox
 
+列表渲染视图
+ListBoxItem
+ItemTemplate -> DataTemplate
+
+##### DataGrid
+
+表格渲染视图
+Columns -> DataGridTextColumn
+        -> DataGridTemplateColumn -> CelllTemplate -> DataTempalte
 
 
 ### User Control
 
 UserControl
-
-用户自定义组件
+用户自定义组件，（可复用）
 
 
 ## Prism
+```yaml
+```
+
+### PrismApplication
+
+主应用 
+
+#### IModuleCatalog
+
+子模块注册
+
+
+### IModule
+
+子模块
+
+#### IContainerRegistry
+
+容器注册
+- 注入导航视图
+- 注入弹出框
+
+
+### BindableBase
+
+MVVM基类
+
+#### DelegateCommand
+
+
+#### IDialogService
+
+弹出框服务
+
+##### IDialogAware
+##### IDialogParameters
+##### IDialogResult
+
+
+### ContentControl
+
+类似`<router-view>`、`<component>`，用于动态组件渲染
+常用于和区域绑定
+
+
+
+#### IRegionManager
+
+区域管理，动态切换容器
+
+
+##### NavigationParameters
+
+导航参数
+
+##### NavigationContext
+##### IRegionNavigationJournal
+##### INavigationAware
+##### IConfirmNavigationRequest
+
+
+
+### PubSubEvent
+
+事件机制
+
+
+#### IEventAggregator
+
+
+
+
+
+## 第三方库
+
+### MvvmLight
+### MicrosoftToolkitMVVM
