@@ -273,6 +273,7 @@ PM:
     Remove-PackageSource:
     Restore-Package:
     Set-PackageSource:
+    Scaffold-DbContext:
     Uninstall-Package:
     Update-Package:
 ```
