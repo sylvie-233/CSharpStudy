@@ -1,6 +1,6 @@
 # WPF
 
-`WPF项目实战合集(2022终结版)：P30`
+`WPF项目实战合集(2022终结版)：P51`
 
 ## 基础介绍
 
@@ -446,6 +446,10 @@ UserControl
 ```yaml
 ```
 
+
+Shell(主窗口) -> Region(区域)
+
+
 ### PrismApplication
 
 主应用 
@@ -461,7 +465,7 @@ UserControl
 
 #### IContainerRegistry
 
-容器注册
+容器注册(依赖注入)
 - 注入导航视图
 - 注入弹出框
 
@@ -471,7 +475,7 @@ UserControl
 MVVM基类
 
 #### DelegateCommand
-
+#### ViewModelLocator
 
 #### IDialogService
 
@@ -501,6 +505,12 @@ MVVM基类
 ##### NavigationContext
 ##### IRegionNavigationJournal
 ##### INavigationAware
+
+导航进入/离开事件
+- void OnNavigatedTo(NavigationContext navigationContext);
+- bool IsNavigationTarget(NavigationContext navigationContext);
+- void OnNavigatedFrom(NavigationContext navigationContext);
+
 ##### IConfirmNavigationRequest
 
 
