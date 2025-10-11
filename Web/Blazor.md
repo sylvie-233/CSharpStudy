@@ -12,6 +12,9 @@ Blazor Server、Blazor WebAssembly
 支持组件封装、同级组件可直接引用
 
 
+- ComponentBase组件基类
+
+
 
 ### 项目结构
 ```yaml
@@ -66,12 +69,16 @@ Routes.razor: # 路由视图规则配置（类似<route-view>视图显示组件�
 Blazor:
     @: # 使用变量
     @(): # 变量表达式
+    @addTagHelper: # 添加辅助标签
     @attribute: # 使用属性
         [StreamRendering]:
     @bind: # 变量绑定
     @code: # C#代码
-        [CascadingParameter]:
+        [CascadingParameter]: # 获取级联参数
         [Parameter]: # 组件属性
+            ElementReference: # DOM引用
+            RenderFragment: # 组件插槽类型（默认ChildContent变量）
+                Context: # 插槽作用域
         OnInitialized(): # 初始化钩子
         OnInitializedAsync():
         OnParametersSet():
@@ -82,16 +89,20 @@ Blazor:
             Current:
         Assets: # 资源文件
         Body: # Layout默认插槽
+        ComponentBase: # 组件基类
+            BuildRenderTree(): # 自定义渲染内容（默认使用razor页面）
         HttpContext:
         StateHashChanged(): # 手动触发UI刷新
-    @foreach:
+    @foreach: # 列表渲染
     @functions:
-    @if ... else ...:
+    @if ... else ...: # 条件渲染
     @implements: # 接口实现
     @inherits: # 模板继承
     @inject: # 依赖注入
-        NavigationManager:
+        IJSRuntime:
+        NavigationManager: # 编程式导航
     @layout: # Layout模板使用
+    @namespace: # 命名空间
     @onclick: # 点击事件绑定
     @page: # 标注响应页面，页面 url 路径
     @ref: # DOM引用
@@ -106,8 +117,34 @@ Blazor:
     asp-page:
     asp-route-xxx:
     asp-validation-for:
+    <component>: # 动态组件
+        render-mode: # 组件渲染模式
+    <environment>:
+    <CascadingValue>: # 级联传参（父子组件通信）
+    <ErrorBoundary>: # 错误边界 
+        <ChildContent>:
+        <ErrorContent>:
     <HeadOutlet>:
     <ImportMap>:
-    <PageTitle>:
-    <Router>: # 路由视图
+    <PageTitle>: # 页面标题
+    <Router>: # 路由
+        <Found>:
+        <NotFound>:
+            <RouterView>: # 路由视图 
+            <LayoutView>:
+            <FocusOnNavigate>:
+    _Imports.razor: # 组件引入命名空间
+    App.razor: # 主应用（路由配置）
+    _Layout.cshtml: # 根布局
+        @RenderBody: # 内容渲染
+    _Host.cshtml: # 入口页面（引入主应用App）
+    Error.cshtml:
 ```
+
+
+
+### 生命周期
+
+
+- OnInitialized
+- OnAfterRender
