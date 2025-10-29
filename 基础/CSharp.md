@@ -130,6 +130,12 @@ dotnet:
         -c:
             Release:
     clean:
+    ef:
+        database:
+            update:
+        migrations:
+            add:
+                -c:
     list:
         package:
     new: # 新建项目
@@ -138,6 +144,7 @@ dotnet:
         console: # 控制台程序
             -n: # 指定项目名
             -o:
+        install: # 安装项目模板
         mvc:
         sln: # 解决方案
         tool-manifest: # 生成dotnet-tools.json
