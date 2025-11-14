@@ -10,17 +10,20 @@
 ## 基础介绍
 
 
+godot4大组成元素：scene场景 -> node节点树 -> script脚本 -> signal信号
+
 场景`.tscn`
-scene场景 -> node节点树 -> signal信号
 scene可进行嵌套（组合node、预制体）、基于scene进行组件封装
 
-材质：
-Texture、Material、Shader
+材质：Texture、Material、Shader
 
 
 
-每个节点都能添加脚本
-全局脚本：项目设置 -> 自动加载
+- 每个节点都能添加脚本、godot的脚本相当于和节点绑定的（一体）、单纯给节点扩展方法
+- 全局脚本：项目设置 -> 自动加载
+- @GDScript：GDScript的工具函数和类型操作、@GlobalScope：Godot引擎全局作用域；@GlobalScope下的东西可以自动导入
+- 基础物理配置：RigidBody刚体 + CollisionObject碰撞体 + CollisionShape碰撞形状
+- queue_free()节点销毁
 
 
 
@@ -29,21 +32,52 @@ Texture、Material、Shader
 项目设置:
     常规:
         应用:
-            配置:
-            运行:
-            启动画面:
+            配置: # 应用名称、图标
+            运行: # 主场景
+            启动画面: # 
         显示:
-            窗口:
+            窗口: # 视口大小、垂直同步
+            鼠标光标: # 
         音频:
         国际化:
         GUI:
         渲染:
+        输入设备:
+        物理:
+        XR:
+        编辑器:
+        导航:
+        层名称:
+        文件系统:
     输入映射:
     本地化:
-    自动加载:
-    着色器全局量:
+    全局:
+        自动加载:
+        着色器全局量:
+        分组:
     插件:
     默认导入设置:
+```
+
+
+
+### 编辑器设置
+```yaml
+编辑器设置:
+    界面:
+    网络:
+    文件系统:
+    文本编辑器:
+    各编辑器:
+    运行:
+    调试器:
+    版本控制:
+    输入:
+    项目管理器:
+    导出:
+        Android:
+        MacOS:
+        Windows:
 ```
 
 
@@ -68,16 +102,28 @@ Texture、Material、Shader
 ## 核心内容
 ```yaml
 Godot:
-    @GDScript:
+    @GDScript: # GDScript模块的builtins内建工具类集合
         INF:
         NAN:
+        instance_from_id():
+        is_instance_valid():
         load(): # 导入其他资源
         preload(): # 导入其它模块
-    @GlobalScope:
+        print_debug():
+        typeof():
+    @GlobalScope: # Godot引擎提供的全局命名空间：所有全局常量与全局函数
         $: # 获取node节点（根据name）
+        ClassDB:
+        Engine:
         Error: # 异常枚举
+        GDExtensionManager:
         Input:
+        InputMap:
+        IP:
+        OS:
         ProjectSettings:
+        ThemeDB:
+        Time:
         acos(): # 反余弦，弧度
         clamp(): # 值范围限定
         deg_to_rad(): # 角度转弧度
@@ -101,6 +147,7 @@ Godot:
         append_array():
         erase(): # 删除元素
         is_empty():
+        pick_random(): # 随机获取元素
         push_back():
         push_front():
         remove_at():
@@ -484,6 +531,9 @@ Godot:
                         get_used_cells(): # 
                         get_used_cells_by_id():
                         get_used_rect():
+                    VisibleOnScreenNotifier2D: # 屏幕可见通知器
+                        @screen_entered():
+                        @screen_exited():
             CanvasLayer: # 画布层，2D渲染层
                 custom_viewport:
                 layer: # 渲染层级，默认0
@@ -538,7 +588,7 @@ Godot:
                         MeshInstance3D: # 网格实例与场景相结合的节点
                             get_surface_override_material(): # 获取材质shader
             Timer: # 定时器
-                @timeout:
+                @timeout: # 定时信号
                 autostart: # 自动开始
                 one_shot: # 仅执行一次，默认循环执行
                 paused: # 暂停
@@ -819,14 +869,15 @@ Godot:
 ```yaml
 DataTypes:
     bool:
-    float:
     int:
+    float:
+    void: # 返回空
     null: # 空类型
+    String: # 字符串
+    StringName: # 字符串切片
     Array: # 数组
     Dictionary: # 字典
     Object: # 对象
-    String: # 字符串
-    StringName: # 字符串切片
 ```
 
 数据类型主要分为 基本数据类型 和 复合数据类型，此外还有一些 特殊类型
@@ -870,6 +921,17 @@ enum Food {GOOD, BAD}
 ```
 
 
+
+##### Vector2
+
+二维向量
+
+##### PackedByteArray
+
+
+
+
+
 #### Control Flow
 ```yaml
 Control Flow:
@@ -878,12 +940,13 @@ Control Flow:
     @onready: # 变量延迟初始化
     @rpc: # rpc远程过程调用
     @tool: # 插件类定义
-    class_name: # 类名定义
-    extends: # 继承类
+    class_name: # 类名定义（外部类名）
+    extends: # 类继承
     signal: # 信号定义（C#中的事件event）
         connect(): # 连接信号
         disconnect(): # 断连信号
         emit(): # 触发信号
+        emit_signal(): # 触发信号
     setget: # get/set方法
     static: # 静态变量、方法
     enum: # 枚举定义
@@ -905,18 +968,18 @@ Control Flow:
             completed: # 等待协程执行完毕
             resume(): # 重新调用
         and ... or ... not: # 逻辑判断
-        for ... in ...: # 遍历
+        for ... in ...: # 迭代遍历
         if ... is: # 实例判断
-        if ... elif ... else:
+        if ... elif ... else: # 条件判断
         match ...:
         while ...:
             break:
             continue:
-    class: # 内部类
+    class: # 内部类定义
         new():
 ```
 
-##### Getter Setter
+##### Getter/Setter
 ```js
 // 定义一个私有变量
 var _health: int = 100
@@ -1073,6 +1136,17 @@ export导出给编辑器使用
 
 
 
+#### Lifetime
+
+脚本生命周期：
+- _init()（构造函数，执行在资源/脚本实例化时）
+- _enter_tree()（节点加入场景树时）
+- _ready()（节点准备完毕，资源、子节点可用）
+- _process(delta)（每帧，可用于 UI/逻辑）
+- _physics_process(delta)（固定步，用于物理/运动）
+- _exit_tree()（节点离开场景树）
+- _notification(what)（更底层的通知系统）
+
 
  
 
@@ -1088,18 +1162,94 @@ Signal节点信号、自定义信号
 Group节点分组、类似Unity的标签tag
 只有Node节点才可以挂载脚本
 
+#### CanvasItem
 
 
-#### Sprite
 
-精灵图
+##### Node2D
+
+2d节点
+
+##### Control
+
+控件节点
+
+##### AnimatedSprite2D
+##### AudioStreamPlayer2D
+##### AudioListener2D
+##### BackBufferCopy
+##### Bone2D
+##### Camera2D
+##### CanvasGroup
+##### CPUParticles2D
+##### CanvasModulate
+##### Collisionobject2D
+##### CollisionPolygon2D
+##### CollisionShape2D
+##### Joint2D
+##### Light2D
+##### GPUParticles2D
+##### LightOccluder2D
+##### Line2D
+##### Marker2D
+
+常用于敌人生成的坐标点
+
+##### MeshInstance2D
+##### MultiMeshInstance2D
+##### NavigationLink2D
+##### NavigationObstacle2D
+##### NavigationRegion2D
+##### Parallax2D
+##### ParallaxLayer
+##### Path2D
+
+二维路径节点（常配合Path Follow2D使用）
+
+##### Path Follow2D
+
+二维路径跟随节点
 
 
-#### TileMap
+##### Polygon2D
+##### RayCast2D
+##### RemoteTransform2D
+##### ShapeCast2D
+##### Skeleton2D
+##### Sprite2D
+##### TileMap
+##### TileMapLayer
+##### TouchScreenButton
+##### VisibleOnScreenNotifier2D
 
-瓦片地图
 
-TileMap -> TileSet
+
+
+#### CanvasLayer
+
+固定绘制层（常用于GUI）
+
+
+#### Node3D
+
+##### AudioListener3D
+##### AudioStreamPlayer3D
+##### BoneAttachment3D
+##### Camera3D
+##### CollisionObject3D
+##### CollisionPolygon3D
+##### CollisionShape3D
+##### Joint3D
+##### GridMap
+##### Marker3D
+##### NavigationLink3D
+##### NavigationObstacle3D
+##### NavigationRegion3D
+
+
+#### Timer
+
+定时器
 
 
 #### Viewport
@@ -1109,9 +1259,11 @@ TileMap -> TileSet
 每个Viewport都有自己的世界坐标
 
 
-#### Timer
+##### Window
 
-定时器
+##### SubViewport
+
+
 
 
 ### GUI
@@ -1226,9 +1378,31 @@ RigidBody刚体 + CollisionObject2D碰撞体 + CollisionShape2D碰撞形状 实�
 
 用于 运动物体，并且允许开发者通过脚本控制物体的运动。KinematicBody2D 不受物理引擎的自动影响，它的运动是通过脚本直接控制的，但仍然能够与其他物体碰撞。
 
+##### CharacterBody2D
+
+结合velocity速度进行move_and_slide()移动
+
+
 #### Area
 
 用于模拟 触发器区域。Area2D 主要用于 感知碰撞区域，比如检测是否有物体进入特定区域。它不像刚体那样响应力，但可以检测与其他物体的交互（如进入区域、离开区域）
+
+##### Area2D
+```yaml
+Area2D:
+
+```
+
+2D碰撞区域
+继承自CollisionObject2D
+
+
+#### CollisionPolygon
+
+碰撞多边形
+
+##### CollisionPolygon2D
+
 
 
 #### CollisionShape
@@ -1308,7 +1482,17 @@ RigidBody刚体 + CollisionObject2D碰撞体 + CollisionShape2D碰撞形状 实�
 - `user://`
 
 
+
+
+#### Resource
+
 `tres`、`res`：资源文件
+资源文件
+
+
+##### PackedScene
+
+打包场景文件
 
 
 #### SceneTree
@@ -1344,6 +1528,18 @@ AudioBus音频控制总线，是一种资源类型
 
 Viewport -> Camera
 一个Viewport中可以有多个Camera，但同时只能有一个被激活
+
+
+##### Camera2D
+```yaml
+Camera2D:
+    Limit:
+    Drag: # 相机拖动 
+```
+
+
+##### Camera3D
+
 
 
 #### Light

@@ -182,7 +182,8 @@ dotnet:
             -g:
             --local:
         list:
-    watch: 
+    watch: # 文件监听
+        run: # 热重载
     workload:
         install:
 ```
@@ -501,6 +502,7 @@ System:
         Equals(): # 字符串比较
     StringBuilder: #可修改字符串
         Capacity: # 容量
+        Append(): # 字符串追加
         AppendLine(): # 添加字符串行
         Clear(): # 清空
         Insert(): # 插入
@@ -551,12 +553,12 @@ Data Types:
 #### string
 ```cs
 // 模板字符串
-$"Method Description: {x.value}"
+string str = $"Method Description: {x.value}";
 
 // 源串
-@"
+string str = @"
     person = { name = 'Alice', age = 30 }
-"
+";
 ```
 
 
@@ -581,8 +583,16 @@ $"Method Description: {x.value}"
 ### Control Flow
 ```yaml
 Control Flow:
-    if:
+    for: # for循环
+    foreach in: # for循环迭代遍历
+    if else if else: # 条件判断
+    is: # 类型判断
+    switch: # 模式匹配
+        case:
+        default:
+            break:
     using: # 命名空间使用，上下文管理
+    var: # 自动类型推断
     typeof(): # 获取Type类型 
 ```
 
@@ -593,11 +603,8 @@ throw抛出异常
 
 
 #### Linq
-```
-from 数据源
-where 条件
-select 查询字段
-
+```yaml
+linq:
 ```
 
 类SQL查询集合
@@ -719,6 +726,11 @@ interface接口
 
 ### Concurrency
 
+
+
+#### Mutex
+
+互斥锁
 
 
 ### Extension
