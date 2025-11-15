@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.x官方文档：https://docs.godotengine.org/zh-cn/4.x/getting_started/introduction/key_concepts_overview.html`
-> ``
+> `GODOT入门新手教程-下：P17`
 >
  
 
@@ -24,6 +24,7 @@ scene可进行嵌套（组合node、预制体）、基于scene进行组件封装
 - @GDScript：GDScript的工具函数和类型操作、@GlobalScope：Godot引擎全局作用域；@GlobalScope下的东西可以自动导入
 - 基础物理配置：RigidBody刚体 + CollisionObject碰撞体 + CollisionShape碰撞形状
 - queue_free()节点销毁
+- node节点分组group、类似unity中的tag标签
 
 
 
@@ -1202,6 +1203,9 @@ Group节点分组、类似Unity的标签tag
 ##### NavigationRegion2D
 ##### Parallax2D
 ##### ParallaxLayer
+
+视差层（常配合ParallaxBackground使用）
+
 ##### Path2D
 
 二维路径节点（常配合Path Follow2D使用）
@@ -1218,7 +1222,26 @@ Group节点分组、类似Unity的标签tag
 ##### Skeleton2D
 ##### Sprite2D
 ##### TileMap
+
+瓦片地图
+依赖TileSet素材
+
+
+TileSet
+
+
+图块
+
+
+图案
+
+
+地形
+
 ##### TileMapLayer
+
+瓦片地图层
+
 ##### TouchScreenButton
 ##### VisibleOnScreenNotifier2D
 
@@ -1228,6 +1251,11 @@ Group节点分组、类似Unity的标签tag
 #### CanvasLayer
 
 固定绘制层（常用于GUI）
+
+
+##### ParallaxBackground
+
+视差背景
 
 
 #### Node3D
@@ -1451,7 +1479,7 @@ Area2D:
 
 #### AnimationPlayer
 
-动画播放器
+动画播放器（可对属性k帧）
 
 
 
