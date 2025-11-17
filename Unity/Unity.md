@@ -1,7 +1,7 @@
 # Unity
 
 >
->``
+>`【Unity教程】零基础带你从小白到超神：P28`
 >
 
 
@@ -9,10 +9,15 @@
 ## 基础介绍
 
 
+游戏引擎
+
+
+- Scene -> GameObject -> Component
+- 一个3D对象通常具有 Mesh Filter(网格)、Mesh Renderer(材质)、Mesh Collider(碰撞)三个组件
 
 
 
-## 核心内容
+## API
 ```yaml
 Unity:
 
@@ -46,6 +51,7 @@ UnityEngine:
         isGrounded:
         Move():
     Collider: # 碰撞体
+    Debug: # 调试工具
     GameObject:
         layer: # 层级
         scene:
@@ -105,41 +111,114 @@ UnityEngine:
 
 ```
 
-### Scripting
+## Scripting
+
+
+## GameObject
+
+物体对象
+
+
+### 2D Object
+
+
+#### Sprites
+
+##### 9-Sliced
+##### Capsule
+##### Circle
+##### Hexagon Flat-Top
+##### Hexagon Pointed-Top
+##### Isometric Diamond
+##### Square
+##### Triangle
+
+
+#### Physics
+#### Tilemap
+#### Sprite Shape
+#### Pixel Perfect Camera
+#### Sprite Mask
+
+### 3D Object
+
+
+#### Cube
+
+立方体
+
+#### Sphere
+#### Capsule
+#### Cylinder
+#### Plane
+#### Quad
+#### Text-TextMeshPro
+#### Legacy
+#### Ragdoll
+#### Terrain
+
+地形
+
+#### Tree
+#### Wind Zone
+
+
+### Effects
+### Light
+### Audio
+### Video
+### UI
+### UI Toolkit
+### UI Camera
 
 
 
-
-### Component
+## Component
 
 组件
 
 
-### UI
-
-
-
-
-
-
-### Input
-
-
-
+### Mesh
+### Effects
 ### Physics
+### Physics 2D
+### Navigation
+### Audio
+### Video
+### Rendering
+### Tilemap
+### Layout
+### Playables
+### Miscellaneous
+### Scripts
+### U川
+### Visual Scripting
+### Event
+### 2D Animation
+### Ul Toolkit
 
-#### Character Controlller
 
-Character Controller
 
-圆柱形的碰撞体
+## UI
 
 
 
 
 
 
-### Animation
+## Input
+
+
+
+## Physics
+
+
+
+
+
+
+
+## Animation
 
 动画控制器、动画片段
 
@@ -147,26 +226,26 @@ Character Controller
 
 
 
-### Assets
+## Assets
 
 
-#### Audio
+### Audio
 
 
-#### Video
-
-
-
-### Effect
+### Video
 
 
 
-
-### Shader
-
+## Effect
 
 
-### Network
+
+
+## Shader
+
+
+
+## Network
 
 
 
