@@ -145,10 +145,10 @@ dotnet:
             -n: # 指定项目名
             -o:
         install: # 安装项目模板
-        mvc:
+        mvc: # mvc项目
         sln: # 解决方案
         tool-manifest: # 生成dotnet-tools.json
-        webapi:
+        webapi: # webapi项目
         xunit:
     nuget: # Nuget包
         add: # 添加
@@ -359,11 +359,11 @@ System:
             AppendAllText():
             Copy():
             Delete():
-            Exists():
-            ReadAllLines():
-            ReadAllText():
+            Exists(): # 文件存在判断
+            ReadAllLines(): # 文件内容读入（多行） 
+            ReadAllText(): # 文件内容读入
             Move():
-            WriteAllText():
+            WriteAllText(): # 文件内容写入
         FileStream:
         MemoryMappedFiles:
         MemoryStream:

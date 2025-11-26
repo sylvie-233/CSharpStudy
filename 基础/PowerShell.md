@@ -3,8 +3,8 @@
 ## 基础介绍
 
 `.ps1`：powershell脚本文件
-`.psm1`：powershell模块文件
 `.psd1`：powershell模块清单文件
+`.psm1`：powershell模块文件
 
 
 PowerShell 是建立在 .NET 之上的脚本语言，几乎所有东西都是 .NET 对象。你可以直接 调用 .NET 类、方法、属性、枚举、事件、委托 等等，就像写 C# 一样
@@ -21,13 +21,14 @@ PowerShell 是建立在 .NET 之上的脚本语言，几乎所有东西都是 .N
 
 
 一切皆对象，底层基于 .NET 平台
-CmdLet、Function、Alias、Variable
-- Commands: 执行单元
-    1. Cmdlet: 最小的执行单元，由 .NET 类实现
-    2. Function
-    3. Workflow
-    4. ExternalCommand
-    5. Alias: 别名
+- Commands: 执行单元（7大分类）
+    1. Cmdlet: PowerShell 原生命令，动词-名词格式
+    2. Function：PowerShell 函数（脚本定义的命令）
+    3. Workflow：工作流命令（PowerShell 5 以前常用）
+    4. Alias: 命令别名
+    5. Application：外部程序 (.exe, .bat, .cmd)
+    6. Script：.ps1 脚本文件
+    7. Filter：类似函数的过滤器（少见）
 - Variable：变量
     - PSObject
 - ScriptBlock：一段 PowerShell 脚本代码（System.Management.Automation.ScriptBlock），可以动态调用
@@ -38,21 +39,19 @@ CmdLet、Function、Alias、Variable
 - Module：模块
 
 
-PS核心数据对象
-1. PSObject
-2. PSCustomObject
-3. ErrorRecord
-
-
-
+- PS的 .Net Runtime 是随 PowerShell 一起打包的，不依赖系统全局安装
 - PS命令不区分大小写
 - 支持变量类型声明：`[type]var = value`
+- `n 表示换行
+- Import-Module导入模块后就可以使用模块中导出的变量、函数了
 
 
 
 ## 核心内容
 ```yaml
 powershell:
+    math:
+        Round():
     System:
         Collections:
             ArrayList:
@@ -96,12 +95,31 @@ powershell:
         -Name:
         -Value:
     Clear-Host: # 清屏
+    ConvertTo-Json: # object转json
     Copy-Item: # 拷贝内容
+    Export-ModuleMember: # 导出模块程序
+        -Function: # 导出函数
     ForEach-Object: # 对象遍历
         -Process:
+    Format-Table:
+        -AutoSize:
     Get-Alias: # 获取别名
     Get-ChildItem: # 获取子元素，可用于查看目录下内容，别名idr
+    Get-CimInstance: # 获取系统信息
+        -ClassName:
+            Win32_BIOS:
+            Win32_ComputerSystem:
+                Name:
+            Win32_LogicalDisk:
+            Win32_OperatingSystem:
+                Caption:
+                OSArchitecture:
+                Version:
+            Win32_Processor:
+                Name:
+            Win32_NetworkAdapterConfiguration:
     Get-Command:
+        -Module:
         -Name:
     Get-ComputerInfo:
     Get-Content: # 获取文本内容
@@ -113,17 +131,26 @@ powershell:
     Get-Member: # 获取对象成员属性、方法
         -InputObject:
         -MemberType:
-    Get-NetIPAddress:
+    Get-Module: # 获取模块信息
+        -Name:
+        ---
+        Name:
+        Version:
+    Get-NetIPAddress: # 获取网络信息
     Get-NetTCPConnection:
     Get-Process: # 获取进程对象
     Get-Service: # 获取所有服务(后台进程)
     Get-Verb:
     Import-Module: # 导入模块
         -Name: # 导入指定的psd1文件
+        -Force:
         -Verbose: # 显示命令执行细节
     Invoke-WebRequest: # 发起网络请求
         -OutFile:
         -Uri:
+    Join-Path: # 路径合并
+        -Path:
+        -ChildPath:
     Measure-Command: # 运行时间
     Move-Item: # 移动元素
     New-Item: # 新建元素
@@ -141,29 +168,40 @@ powershell:
     Read-Host: # 控制台读入
         -Prompt:
     Remove-Item: # 删除元素
+    Remove-Module: # 移除模块
+        -ErrorAction:
+        -Name:
+    Select-Object: # object字段选择
     Set-Content: # 写入内容
     Set-ExecutionPolicy:
     Set-Location: # cd 修改当前工作目录
         -Path:
     Set-StrictMode: # 设置代码严格模式
         -Version:
-    Sort-Object: # 对象排序
+    Sort-Object: # array对象排序
+    Split-Path:
+        -Parent: # 获取父目录
     Start-BitsTransfer: # 断点续传
     Start-Service:
     Start-Sleep: # 延时
         -Seconds:
-    Stop-Service:
+    Stop-Process: # 关闭进程
+        -Force:
+        -Id:
+        -Name:
+    Stop-Service: # 
     Test-Connection: # 测试连接
     Test-Path: # 测试路径
-        -Path:
-    Where-Object: # 别名where
+        -Path: # 判断路径是否存在
+    Where-Object: # array数组过滤
     Write-Host: # 控制台输出
+        -ForegroundColor: # 设置前景色
     Write-Output:
     whoami:
 ```
 
 
-### 数据类型
+### DataTypes
 ```yaml
 DataTypes:
     bool:
@@ -172,6 +210,9 @@ DataTypes:
     decimal:
     char:
     string:
+        -f: # 字符串格式化
+        -match: # 正则表达式匹配
+        -replace: # 正则表达式替换
     datetime:
     null:
     array:
@@ -192,6 +233,22 @@ DataTypes:
 
 
 #### String
+```ps1
+# 普通字符串
+$a = 'Hello $name'
+
+# 模板字符串
+$a = "Hello $name"
+
+# 字符串格式化
+$a = "{0} {1}" -f "Hello", "World"
+
+# 多行字符串
+$txt = @"
+Line1
+Line2 $name
+"@
+```
 
 
 #### Array
@@ -233,19 +290,39 @@ Write-Host $today
 
 枚举类
 
+
 #### PSCustomObject
+```ps1
+# 定义PSCustomObject
+$user = [PSCustomObject]@{
+    Name = "Sylvie"
+    Age  = 22
+    Lang = "PowerShell"
+}
 
-自定义对象
+# 添加属性
+$user | Add-Member -NotePropertyName Email -NotePropertyValue "test@abc.com"
+```
+
+自定义对象、结构化数据对象
 
 
 
-### 控制流程
+### ControlFlow
 ```yaml
 Control Flow:
+    &&: # 多个命令执行
+    $?: # 上个命令是否执行成功
     $env: # 环境变量
         PSModulePath:
+    $ErrorActionPreference: # 异常处理配置
+        stop:
     $false: # 布尔False
+    $MyInvocation: # ps1脚本调用上下文信息
+        MyCommand:
+            Name: #
     $null: # 空对象
+    $PSScriptRoot: # 脚本执行所在目录
     $PSVersionTable: # PS版本信息
     $true: # 布尔True
     do ... until ...:
@@ -270,7 +347,7 @@ Control Flow:
 ```
 
 
-#### 注释
+#### Comment
 ```ps1
 #   单行注释
 s
@@ -280,14 +357,16 @@ s
 ```
 
 
-#### 异常处理
+#### Exception Handler
 
 
-#### 管道
+#### Pipeline
+
+管道
 
 
 
-### 函数
+### Function
 ```ps1
 # 函数声明
 function Greet-User {
@@ -307,20 +386,49 @@ Greet-User -Name "John"
 支持形参默认值、
 
 
-#### `[Parameter]`
-```yaml
-Parameter:
-    Mandatory: # 必填参数
-    ValueFromPipeline: # 接收管道输入
+#### Parameter
+```ps1
+function Get-HelloMessage {
+    <#
+    .SYNOPSIS
+        获取问候消息
+    .DESCRIPTION
+        返回一个自定义的问候消息
+    .PARAMETER Name
+        要问候的人的名字
+    .EXAMPLE
+        Get-HelloMessage -Name "张三"
+        返回: "你好，张三！欢迎使用PowerShell模块。"
+    #>
+    param(
+        [Parameter(Mandatory=$true, HelpMessage="请输入要问候的人的名字")]
+        [string]$Name
+    )
+    
+    return "你好，$Name！欢迎使用PowerShell模块。"
+}
 ```
 `[Parameter(Mandatory=$true)]`: 参数限定
 
 
 
-#### 匿名函数
+#### ScriptBlock
+```ps1
+# lambda函数定义
+$lambda = { param($x) $x * 2 }
+$lambda.Invoke(5)    # 输出 10
+
+# lambda默认参数 $_
+1..5 | ForEach-Object { $_ * 3 }
+
+# 立即执行函数
+& { "Hello" }
+```
+
+脚本块
 
 
-### 面向对象
+### Class
 ```ps1
 class Employer {
     [string]$Name
@@ -346,7 +454,7 @@ $employer.SayHello()
 `$this`：自身实例引用
 
 
-#### 继承
+#### Extends
 ```ps1
 class Employer: Employee {
     [string]$EmployeeID
@@ -387,9 +495,31 @@ Import-Module -Name "xxx.psd1"
 #### psd1
 ```yaml
 psd1:
-    Author: # 作者
+    ModuleVersion: # 模块清单版本号
+    Author: # 作者信息
+    CompanyName: # 公司信息
+    Copyright: # 版权信息 
+    Description: # 模块描述
+    RootModule: # 根模块 xxx.psm1
     FunctionsToExport: # 导出的函数
-    ModuleVersion:
-    RootModule: # 模块文件位置
+    VariablesToExport: # 导出的变量（如果有）
+    AliasesToExport: # 导出的别名（如果有）
+    PowerShellVersion: # 所需的PowerShell版本
+    DotNetFrameworkVersion: # 所需的
+    RequiredModules: # 所需的模块（如果有）
+    FileList: # 模块中的文件列表
+    PrivateData: # 私有数据（包含自定义元数据）
+        PSData:
+            ReleaseNotes:
 ```
-文件夹、清单文件、模块文件
+
+
+模块清单文件
+
+
+
+#### psm1
+
+
+模块代码文件
+
