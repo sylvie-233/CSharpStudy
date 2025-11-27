@@ -55,8 +55,8 @@ vscode格式化C#代码，使用`.editorconfig`在根目录
         /Release:
     /obj:
     Program.cs: # 项目主程序
-    xxx.csproj:
-    xxx.sln:
+    xxx.csproj: # 项目配置
+    xxx.sln: # 项目解决方案
 ```
 
 
@@ -70,7 +70,10 @@ sln:
     Global:
 ```
 
-项目解决方案
+项目解决方案（多项目管理）
+
+
+
 
 #### csproj
 ```yaml
@@ -196,7 +199,7 @@ dotnet:
 
 ### nuget
 ```yaml
-nuget:
+nuget package:
     /build: # 构建自动导入
     /content: # 打包时项目的资源（添加到用户项目中）
     /package:
@@ -220,7 +223,7 @@ nuget:
     [Content_Types].xml:
 ```
 
-.net 包（类似Java的Jar吧）
+.net 第三方包
 
 
 
@@ -444,13 +447,18 @@ System:
         StringBuilder:
     Threading: # 多线程并发
         Tasks:
-            Task:
+            Parallel:
+            Task: # 任务
+            TaskCompletionSource:
+            TaskScheduler:
         BlockingCollection:
         CancellationToken:
         ConcurrentDictionary:
         ConcurrentQueue:
+        Monitor:
         Mutex:
         Semaphore:
+        Thread:
         ThreadPool:
     Xml:
         Serialization:
@@ -515,14 +523,7 @@ System:
         Name:
     Uri:
     ValueTuple: # 
-
-Microsoft:
-    AspNetCore:
-    Extensions:
-        Configuration: # 新式配置（JSON、环境变量等）
-        DependencyInjection: # 内建依赖注入容器（DI）
 ```
-
 
 
 
@@ -718,6 +719,8 @@ interface接口
 
 #### NameSpace
 
+命名空间
+
 
 
 ### Test
@@ -727,10 +730,32 @@ interface接口
 ### Concurrency
 
 
+#### Thread
+
+
+#### Channel
+
 
 #### Mutex
 
 互斥锁
+
+#### SpinLock
+
+
+#### Semaphore
+
+信号量
+
+
+#### Monitor
+
+
+#### Barrier
+
+
+
+
 
 
 ### Extension

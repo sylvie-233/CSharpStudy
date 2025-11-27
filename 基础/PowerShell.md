@@ -139,12 +139,15 @@ powershell:
     Get-NetIPAddress: # 获取网络信息
     Get-NetTCPConnection:
     Get-Process: # 获取进程对象
+    Get-PSRepository:
     Get-Service: # 获取所有服务(后台进程)
     Get-Verb:
     Import-Module: # 导入模块
         -Name: # 导入指定的psd1文件
         -Force:
         -Verbose: # 显示命令执行细节
+    Install-Module: # 
+        -Repository:
     Invoke-WebRequest: # 发起网络请求
         -OutFile:
         -Uri:
@@ -167,6 +170,7 @@ powershell:
             -Property:
     Read-Host: # 控制台读入
         -Prompt:
+    Register-PSRepository: # 添加pwsh模块仓库
     Remove-Item: # 删除元素
     Remove-Module: # 移除模块
         -ErrorAction:
