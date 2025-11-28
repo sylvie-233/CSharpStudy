@@ -10,15 +10,12 @@ nuget包
 (1)sln（解决方案）-> (n)csproj（项目）
 
 
-vscode格式化C#代码，使用`.editorconfig`在根目录
-
 .NET Framework 传统项目默认引入：
 - System;
 - System.Collections.Generic;
 - System.Linq;
 - System.Text;
 - System.Threading.Tasks;
-
 
 
 .NET 6+ 的默认引入：
@@ -34,12 +31,9 @@ vscode格式化C#代码，使用`.editorconfig`在根目录
 - System.Globalization
 
 
-常用环境变量
-- NUGET_PACKAGES：nuget安装包默认缓存路径（默认:`\Users\~\.nuget\packages\`）
-
-
-
+- 环境变量NUGET_PACKAGES：nuget安装包默认缓存路径（默认:`\Users\~\.nuget\packages\`）
 - dotnet build生成中间产物`bin/Debug/net7.0/`、dotnet publish生成最终产物`bin/Debug/net7.0/publish/`
+- vscode格式化C#代码，使用`.editorconfig`在根目录
 
 
 
@@ -180,6 +174,11 @@ dotnet:
         -c:
             Release:
     publish: # 发布项目，生成可以部署到生产环境的完整输出，包括依赖文件，必要时包含 .NET 运行时
+        -c: # 指定Profile环境
+        -r: # 指定运行时，例如：win-x64、linux-x64、osx-x64
+        --self-contained: # 独立部署，包含 .NET 运行时
+        /p:
+            PublishSingleFile: # 打包成单个 exe 文件
     rebuild: # 重新构建clean + build
     remove:
         package: # 移除项目依赖
@@ -508,7 +507,7 @@ System:
         AddDays():
         AddMonths():
     DateTimeOffset:
-    Exception: # 异常类
+    Exception: # 异常基类
         Message: # 异常信息
     Guid:
     Int32:
@@ -579,6 +578,11 @@ string str = $"Method Description: {x.value}";
 string str = @"
     person = { name = 'Alice', age = 30 }
 ";
+
+// C# 11 Raw String Literal ：支持插值，一个$对应一个{}
+string str = $"""
+    Hello {name}
+""";
 ```
 
 
@@ -586,11 +590,32 @@ string str = @"
 
 
 #### enum
+```cs
+// 枚举定义
+enum Status
+{
+    Pending = 1,
+    Approved = 2,
+    Rejected = 4
+}
+
+
+```
 
 枚举类
 
 
 #### struct
+```cs
+// 结构体定义
+struct Point
+{
+    public int X;
+    public int Y;
+}
+
+
+```
 
 结构体
 
@@ -604,8 +629,8 @@ string str = @"
 ```yaml
 Control Flow:
     for: # for循环
-    foreach in: # for循环迭代遍历
-    if else if else: # 条件判断
+    foreach ... in ...: # for循环迭代遍历
+    if ... else if ... else ...: # 条件判断
     is: # 类型判断
     switch: # 模式匹配
         case:
@@ -618,13 +643,100 @@ Control Flow:
 
 
 #### Exception
+```cs
+// try ... catch ... finally ... 异常捕获
+try
+{
+    Console.WriteLine("尝试执行");
+}
+catch (Exception ex)
+{
+    Console.WriteLine("捕获异常");
+}
+finally
+{
+    Console.WriteLine("无论异常与否都会执行");
+}
+```
 
 throw抛出异常
+
+
+#### using
+```cs
+// 经典 using 用法，资源释放
+using (FileStream fs = new FileStream("test.txt", FileMode.Open))
+{
+    // 使用 fs
+    byte[] buffer = new byte[fs.Length];
+    fs.Read(buffer, 0, buffer.Length);
+}
+
+// 简化写法
+using FileStream fs = new FileStream("test.txt", FileMode.Open);
+
+// 异步资源释放 IAsyncDisposable
+await using var res = new MyAsyncResource();
+```
+
+资源释放、用于处理 实现了 IDisposable 接口的对象
+异步资源释放 IAsyncDisposable
+
+
+#### IEnumerable
+
+可迭代对象
+IEnumerable 只负责 提供枚举器（Enumerator）
+
+
+##### IEnumerator
+
+IEnumerator 负责 实际遍历元素
+
+
+##### yield
+```cs
+public IEnumerable<int> GetNumbers()
+{
+    yield return 1;
+    yield return 2;
+}
+```
+
+生成器返回
+
+
+##### IAsyncEnumerable
+
+异步迭代器
 
 
 #### Linq
 ```yaml
 linq:
+    Chunk(): # 数据分块
+    Any():
+    Where():
+    GroupBy(): # 分组
+    OrderBy(): # 排序
+        ThenBy():
+    Distinct():
+    Skip():
+    Take():
+    All():
+    Single():
+    SingleOrDefault():
+    FirstOrDefault():
+    Select(): # 字段选择
+    ---
+    from ... in ...: # 数据选择
+        join ... in ...:
+        on ... equals:
+        into ...:
+    where ...: # 条件过滤
+    orderby ...: # 排序
+        descending:
+    select: # 字段选择
 ```
 
 类SQL查询集合
@@ -675,8 +787,50 @@ delegate：保存方法的引用类型
 event
 
 
+#### Generic
+
+泛型函数
 
 
+#### Async
+```cs
+// 无返回值
+async Task MyAsync()
+{
+    await Task.Delay(1000);
+}
+
+// 有返回值
+async Task<int> ComputeAsync()
+{
+    await Task.Delay(1000);
+    return 42;
+}
+int result = await ComputeAsync();
+
+// 异步事件处理
+async void Button_Click(object sender, EventArgs e)
+{
+    await Task.Delay(500);
+    Console.WriteLine("按钮点击事件完成");
+}
+
+
+
+```
+
+异步函数
+
+异步方法可以返回：
+- Task：无返回值
+- `Task<T>`：返回值类型 T
+- ValueTask / `ValueTask<T>`：轻量型异步任务
+- void：仅用于事件处理，不推荐一般使用
+
+
+##### Task
+
+异步结果封装
 
 
 
@@ -723,6 +877,10 @@ interface接口
 
 
 接口
+
+
+
+#### Generic
 
 
 #### Attribute
