@@ -39,6 +39,10 @@ vscode格式化C#代码，使用`.editorconfig`在根目录
 
 
 
+- dotnet build生成中间产物`bin/Debug/net7.0/`、dotnet publish生成最终产物`bin/Debug/net7.0/publish/`
+
+
+
 ### 项目结构
 ```yaml
 项目结构:
@@ -54,6 +58,13 @@ vscode格式化C#代码，使用`.editorconfig`在根目录
                 xxx.runtimeconfig.json:
         /Release:
     /obj:
+        /Debug:
+        /Release:
+        .csproj.nuget.dgspec.json:
+        .csproj.nuget.g.props:
+        .csproj.nuget.g.targets:
+        project.assets.json:
+        project.nuget.cache:
     Program.cs: # 项目主程序
     xxx.csproj: # 项目配置
     xxx.sln: # 项目解决方案
@@ -125,14 +136,16 @@ sln:
 ```yaml
 dotnet:
     --help: # -h
-    --version: # 版本
+    --list-runtimes: # 列出已安装的运行时版本
+    --list-sdks: # 列出已安装的 SDK 版本
+    --version: # 查看 .NET SDK 版本
     add:
         package: # 添加第三方包
         reference: # 添加project项目引用
-    build:
+    build: # 项目构建,编译项目或解决方案，生成可供调试和开发使用的中间输出（DLL/EXE）
         -c:
             Release:
-    clean:
+    clean: # 项目构建清理 /bin /obj
     ef:
         database:
             update:
@@ -140,7 +153,7 @@ dotnet:
             add:
                 -c:
     list:
-        package:
+        package: # 列出项目依赖
     new: # 新建项目
         --list: # -l
         classlib:
@@ -151,6 +164,7 @@ dotnet:
         mvc: # mvc项目
         sln: # 解决方案
         tool-manifest: # 生成dotnet-tools.json
+        web: # 创建 ASP.NET Core Web 应用
         webapi: # webapi项目
         xunit:
     nuget: # Nuget包
@@ -165,18 +179,21 @@ dotnet:
     pack: # 打包
         -c:
             Release:
-    publish:
+    publish: # 发布项目，生成可以部署到生产环境的完整输出，包括依赖文件，必要时包含 .NET 运行时
+    rebuild: # 重新构建clean + build
     remove:
-        package:
+        package: # 移除项目依赖
+        reference: # 移除项目引用
     restore: # 安装依赖
     run: # 运行项目
-        --project:
+        --project: # 指定运行项目 csproj
     script: # 执行顶层csx脚本
     sdk:
         list:
     sln: # 解决方案
         add: # 添加项目引用
-        remove:
+        list: # 列出项目
+        remove: # 移除项目引用
     test: # 运行测试
          --filter: # 测试过滤
             FullyQualifiedName:
@@ -185,6 +202,8 @@ dotnet:
             -g:
             --local:
         list:
+        uninstall:
+        update:
     watch: # 文件监听
         run: # 热重载
     workload:
@@ -199,7 +218,7 @@ dotnet:
 
 ### nuget
 ```yaml
-nuget package:
+nuget package: # nuget包内部结构
     /build: # 构建自动导入
     /content: # 打包时项目的资源（添加到用户项目中）
     /package:
