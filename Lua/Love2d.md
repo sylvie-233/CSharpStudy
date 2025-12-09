@@ -1,6 +1,6 @@
 # Love2d
 
-`Love2d游戏开发入门中文教程全网独家: P8`
+``
 
 ## 基础介绍
 
@@ -17,6 +17,8 @@ love:
 
 ```
 
+love2d 运行命令
+
 
 ## 核心内容
 ```yaml
@@ -27,7 +29,6 @@ love:
             setLooping():
     data:
     event:
-    quit():
     filesystem:
     font:
     graphics:
@@ -53,8 +54,11 @@ love:
     keypressed():
     load(): # 生命周期
     mousepressed():
+    quit(): # 退出
     update(): # 生命周期
 ```
 
 
-### 生命周期
+### Lifecycle
+
+生命周期钩子

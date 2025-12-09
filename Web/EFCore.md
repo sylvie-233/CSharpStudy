@@ -3,11 +3,15 @@
 
 ## 基础介绍
 
+C#主流ORM框架
 
-- DbContext数据库上下文
+DbContext(数据库上下文) -> DbSet() -> Entity(实体模型)
 
 
-### ef
+- 支持Linq sql查询
+
+
+### dotnet ef
 ```yaml
 dotnet ef:
     database:
@@ -39,7 +43,7 @@ Microsoft.EntiryFrameworkCore:
         UseLazyLoadingProxies():
         UseSqlServer():
     DbSet: # 数据库表操作
-        Add():
+        Add(): # 添加
         AddRange():
         FindAsync():
         FirstOrDefault():
@@ -47,3 +51,11 @@ Microsoft.EntiryFrameworkCore:
         ToList():
         Where():
 ```
+
+
+
+### DbContext
+
+
+
+### DbSet

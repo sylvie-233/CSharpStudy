@@ -362,6 +362,7 @@ System:
         SqlClient:
     DateTime:
     Diagnostics: # 日志、调试、性能计数器、启动外部进程
+        Process: # 进程对象
     Dynamic: # 动态对象
     Environment: # 系统信息、环境变量
     Formats:
@@ -397,21 +398,25 @@ System:
     Linq: # LINQ 扩展方法
     Net: # 基础网络支持
         Http:
-            HttpClient:
+            HttpClient: # http客户端
                 GetAsync():
-            HttpRequestMessage:
-            HttpResponseMessage:
+            HttpRequestMessage: # http请求消息
+            HttpResponseMessage: # http响应消息
+                Content:
+                    ReadAsStringAsync():
             Json:
         Mail:
         Sockets: # socket
-            Socket:
-                Accept():
-                Bind():
+            Socket: # socket连接
+                Accept(): # 接收连接 Socket
+                Bind(): # 端口绑定
                 Close():
                 Connect():
-                Listen():
-                Receive():
-                Send():
+                Listen(): # 监听端口
+                Receive(): # 接收消息
+                Send(): # 发送消息
+        IpAddress:
+        IpEndpoint:
         WebClient:
         WebSockets: # websocket
             CancellationToken:
@@ -456,12 +461,16 @@ System:
             JsonDocument: # json动态访问
                 Parse():
             JsonSerializer:
-                Deserialize: # json反序列化
+                Deserialize(): # json反序列化
                 Serialize(): # json序列化
             JsonSerializerOptions: # 序列化配置
                 PropertyNamingPolicy:
                 WriteIndented:
         RegularExpressions: # 正则表达式
+            RegExp: # 正则表达式
+        Encoding: # 文本编码
+            UTF8:
+                GetBytes():
         StringBuilder:
     Threading: # 多线程并发
         Tasks:
@@ -476,7 +485,9 @@ System:
         Monitor:
         Mutex:
         Semaphore:
-        Thread:
+        Thread: # 线程对象
+            IsBackground: # 守护线程
+            Start():
         ThreadPool:
     Xml:
         Serialization:
@@ -883,6 +894,11 @@ interface接口
 #### Generic
 
 
+#### Record
+
+简化data class数据类，自带Constructor、Getter、Setter
+
+
 #### Attribute
 
 属性
@@ -908,6 +924,8 @@ interface接口
 
 
 #### Thread
+
+线程
 
 
 #### Channel
@@ -975,10 +993,17 @@ using Newtonsoft.Json;
 using MyLibNamespace;
 ```
 
+
 #### CLR
 
 Microsoft .NET 平台中的 运行时环境。
 负责管理代码的执行、内存分配、垃圾回收、安全性、异常处理等任务
+
+#### CLI
+
+##### CLS
+##### CTS
+##### VES
 
 ## 设计模式
 

@@ -8,13 +8,30 @@
 ## 基础介绍
 
 
-弱类型语言、区分大小写
-lua默认变量是全局的，可使用local声明局部变量
-
-字符串拼接使用`..`（类似php）
-获取字符串、数组长度`#`
+’嵌入式‘编程语言
 
 
+
+OOP属性查找顺序：
+```
+obj.x
+ ├─ 1. obj 中查找 x
+ │     ├─ 找到 → 返回
+ │     └─ 找不到 →
+ └─ 2. 查找 obj 的 metatable.__index
+       ├─ 若 __index 是 table，则在 table 中查找 x
+       ├─ 若 __index 是 function，则调用 function(obj, x)
+       └─ 仍找不到 → nil
+```
+
+
+- 弱类型语言、区分大小写
+- lua默认变量是全局的，可使用local声明局部变量
+- 函数调用可省略括号的两种情况：参数是一个字符串字面量、参数是一个表构造器
+- 字符串拼接使用`..`（类似php）
+- 获取字符串、数组长度`#`
+- `obj:method(x)` 等价于 `obj.method(obj, x)`
+- require模块导入：Lua会把点号替换成路径分隔符，查询对应路径下的`.lua`文件或目录下的`init.lua`文件
 
 
 ### lua
@@ -27,6 +44,8 @@ lua:
     -E: # 忽略环境变量
 ```
 
+lua命令工具
+
 
 #### luac
 ```yaml
@@ -37,6 +56,9 @@ luac:
     -s:
     -v:
 ```
+
+
+lua编译工具
 
 
 
@@ -145,8 +167,8 @@ std:
         tmpname():
     package: # 模块、包
         config:
-        cpath:
-        path: # 模块搜索路径
+        cpath: # .dll 模块加载路径
+        path: # .lua 模块搜索路径
         loaded():
         loadlib():
         prelaod():
@@ -201,9 +223,9 @@ metamethods: # 元方法
     __unm():
 ```
 
-### 数据类型
+### DataTypes
 ```yaml
-Data Types:
+DataTypes:
     nil:
     boolean:
     number:
@@ -220,6 +242,9 @@ Data Types:
 
 支持变量解构
 
+#### nil
+#### boolean
+#### number
 
 
 #### string
@@ -234,7 +259,12 @@ local str3 = str1 .. str2
 ```
 
 
-### 控制结构
+
+
+
+
+
+### ControlFlow
 ```yaml
 Control Flow:
     --: # 单行注释
@@ -256,7 +286,7 @@ Control Flow:
         break:
 ```
 
-#### 注释
+#### Comment
 ```lua
 -- 单行注释
 
@@ -265,6 +295,13 @@ Control Flow:
 ]]
 ```
 
+注释
+
+
+#### Exception Handler
+
+异常处理
+`pcall()`、`xpcall()`   
 
 
 #### 迭代器
@@ -277,12 +314,10 @@ Control Flow:
 - 多状态的迭代器（无参闭包）
 
 
-#### 异常处理
-
-`pcall()`、`xpcall()`、``
 
 
-### 函数
+
+### Function
 ```lua
 -- 
 function myfunc(a, b)
@@ -304,7 +339,7 @@ end
 
 
 
-### table
+### Table
 ```lua
 local tb = {"key": "value", ...}
 
@@ -321,26 +356,35 @@ end
 
 关联数组
 可利用table实现array、set、map、object
-使用table表当lua数组使用时，索引默认从1开始
 
 
 
-#### Metatable 元表
+
+#### Metatable
 ```yaml
 metatable:
     __add: # 控制 + 运算符的行为
     __call: # 函数一样可调用
     __eq:
-    __index: # 	控制表访问不存在的字段时的行为（常用于继承）
+    __index: # 控制表访问不存在的字段时的行为（常用于继承）
     __newindex: # 控制给表中不存在字段赋值时的行为
     __tostring: # 
 ```
 
+元表也是table表，只是在setmetatable后获取自身上的魔术方法（魔术方法只有当前对象被当成元表metatable后才有用）
 魔术方法、原型链结构
 `setmetatable()`、`getmetatable()`
 
 
-#### 面向对象
+
+#### Array
+```lua
+```
+
+使用table实现数组功能
+
+
+#### OOP
 ```lua
 -- 定义 Person 类
 Person = {}
@@ -370,17 +414,35 @@ local person1 = Person:new("Alice", 30)
 person1:introduce()  -- 输出 "My name is Alice and I am 30 years old."
 ```
 
+OOP的核心：
+```lua
+Class = {}
+Class.__index = Class
 
+setmetatable(obj, Class)
+```
 - 创建新对象(table)
 - 对象设置元表(属性查找)
 - 元表table的__index指向自身
 
 self获取函数调用`:`前的对象（类或类实例）
 
+
+
+
+##### Extends
+```lua
+Dog = {}
+Dog.__index = Dog
+setmetatable(Dog, Animal)   -- ⬅ 继承关键：Dog 的元表是 Animal
+```
+
 元表链形成类继承
 
 
-### 模块
+
+
+### Module
 
 模块定义：table + return
 模块加载：require()
@@ -388,8 +450,19 @@ self获取函数调用`:`前的对象（类或类实例）
 
 
 
-### 协程
+#### require
 
-coroutine
 
+require模块搜索顺序：以 require("mod") 为例：
+- 步骤 1：查 `package.loaded["mod"]`
+- 步骤 2：查 `package.preload["mod"]`
+- 步骤 3：按 `package.path 查找 Lua 文件`
+- 步骤 4：按 `package.cpath 查找 C 库`
+- 都失败 → 报错
+
+
+
+### Coroutine
+
+coroutine协程，lua中没有内置的线程
 

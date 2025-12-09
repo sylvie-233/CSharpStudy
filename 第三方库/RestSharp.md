@@ -11,12 +11,17 @@
 ## 核心内容
 ```yaml
 RestSharp:
-    RestClient:
+    RestClient: # http客户端
         Timeout:
         AddDefaultHeader():
         Execute():
             Content:
             IsSuccessful:
         ExecuteAsync():
-    RestRequest:
+        UseAfterResponse(): # 响应拦截器
+        UseBeforeRequest(): # 请求拦截器
+    RestClientOptions: # http客户端配置
+        ConfigureMessageHandler:
+            
+    RestRequest: # http请求
 ```
