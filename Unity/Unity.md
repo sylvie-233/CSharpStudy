@@ -1,7 +1,7 @@
 # Unity
 
 >
->`【Unity教程】零基础带你从小白到超神：P63`
+>``
 >
 
 
@@ -245,6 +245,11 @@ UI属性
 - 缩放
 
 
+#### ContentSizeFilter
+
+根据内容调整控件大小组件
+
+
 
 ### Canvas
 
@@ -283,10 +288,15 @@ UI属性
 面板
 
 #### ListView
+
+列表视图
+
 #### ScrollView
 
+滚动视图
 
-### Layout Group
+
+### LayoutGroup
 
 布局容器
 
@@ -329,6 +339,8 @@ UI属性
 
 #### Scrollbar
 
+滚动条
+
 #### Slider
 
 滑动条
@@ -340,6 +352,11 @@ UI属性
 #### Toggle
 
 勾选框
+
+
+##### Toggle Group
+
+勾选框组
 
 #### Toolbar
 
@@ -364,7 +381,7 @@ Unity新UI框架
 
 #### Mask
 
-遮罩
+UI遮罩
 
 ## Input
 ```yaml
