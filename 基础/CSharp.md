@@ -320,17 +320,26 @@ System:
     AppDomain:
     Buffers: # 高性能内存池和缓冲区处理（Span、Memory）
     Collections: # 集合
-        Concurrent: # 并发集合
+        Concurrent: # 并发安全集合
+            ConcurrentDictionary: # 并发安全 字典
+            ConcurrentQueue: # 并发安全 队列
+                TryDequeue():
         Generic: # 泛型集合
             ArrayList:
-            Dictionary:
+            Dictionary: # 字典
             HashSet:
             Hashtable:
             LinkedList:
-            List:
+            List: # 列表
+                Count:
+                Contains():
             ObservableCollection:
-            Queue:
-            Stack:
+            Queue: # 队列
+                Dequeue():
+                Enqueue():
+            Stack: # 栈
+                Pop():
+                Push():
     ComponentModel: # 组件模型
         DataAnnotations:
             Schema:
@@ -379,14 +388,18 @@ System:
             Exists():
             GetFiles():
         File: # 文件操作
-            AppendAllText():
+            AppendAllText(): # 文件内容追加
             Copy():
-            Delete():
+            Delete(): # 文件删除
             Exists(): # 文件存在判断
             ReadAllLines(): # 文件内容读入（多行） 
             ReadAllText(): # 文件内容读入
             Move():
             WriteAllText(): # 文件内容写入
+            WriteAllTextAsync():
+        FileInfo: # 文件信息
+            CreationTime:
+            Length:
         FileStream: # 文件流
         MemoryMappedFiles:
         MemoryStream:
@@ -397,6 +410,15 @@ System:
         StreamWriter: # 流式文本写入
             WriteLine():
     Linq: # LINQ 扩展方法
+        Enumerable: # 枚举对象 扩展
+            GroupBy():
+            Range():
+            Select():
+            Sum():
+            Take():
+            ToList():
+            Where():
+            Zip():
         Expressions: # 表达式树
             BinaryExpression:
             Expression:
@@ -437,6 +459,8 @@ System:
                 Close:
             WebSocketState:
                 Open:
+    Numerics: # 数学
+        BigInteger: # 大整数
     Reflection: # 反射
         Assembly: # 程序集（DLL/EXE）
             GetTypes():
@@ -482,20 +506,27 @@ System:
                 PropertyNamingPolicy:
                 WriteIndented:
         RegularExpressions: # 正则表达式
+            Match: # 匹配结果
+                Value:
+            MatchCollection(): # 匹配集合
             RegExp: # 正则表达式
+                Matches(): # 匹配
+                Replace(): # 替换
         Encoding: # 文本编码
             UTF8:
                 GetBytes():
         StringBuilder:
     Threading: # 多线程并发
         Tasks:
-            Parallel:
+            Parallel: # 并行执行
+                For():
             Task: # 任务
                 Factory:
                     StartNew():
                 Delay(): # 异步延时
                 Run(): # 运行任务
                 Start():
+                WhenAll():
             TaskCompletionSource:
             TaskScheduler:
         BlockingCollection:
@@ -549,13 +580,13 @@ System:
         MaxValue:
         Parse(): # 字符串转int
         ToString(): # 转字符串
-    Math:
+    Math: # 数学运算
         Pow(): # 幂
     Object: # 对象基类
         Equals():
         GetType(): # 获取对象类型
         ToString():
-    Random:
+    Random: # 随机数
         Next():
     Stopwatch:
     String: # 字符串
@@ -603,6 +634,10 @@ Data Types:
     decimal:
     char:
     string: # 字符串
+        Compare():
+        Concat():
+        Format():
+        Join():
     var: # 可变类型
     object: # 基类对象
 ```

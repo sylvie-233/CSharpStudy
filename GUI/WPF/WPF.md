@@ -158,6 +158,8 @@ System:
     WindowStyle:
 ```
 
+XAML（eXtensible Application Markup Language）是 WPF 的 UI 声明式语言
+
 xaml常用指令：
 - x:Static
 - x:Type
@@ -255,9 +257,8 @@ Binding:
         PropertyChanged:
 ```
 
-
-DataContext -> Property -> NotifyChanged()
 数据绑定：`{Binding xxx}`，属性修改需显式调用`PropertyChanged::Invoke()`重绘界面
+DataContext -> Property -> NotifyChanged()
 
 #### INotifyPropertyChanged
 
@@ -375,19 +376,43 @@ Basic Control:
 
 
 ##### StackPanel
+```xml
+<StackPanel Orientation="Horizontal">
+    <Button Content="A"/>
+    <Button Content="B"/>
+</StackPanel>
+```
 
-堆叠
-div
+堆叠、水平/垂直排列
 
 ##### WrapPanel
 
 堆叠换行
 
 ##### DockPanel
+```xml
+<DockPanel>
+    <Button DockPanel.Dock="Top" Content="标题"/>
+    <Button Content="内容"/>
+</DockPanel>
+```
 
+停靠布局
 
 
 ##### Grid
+```xml
+<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="50"/>
+        <RowDefinition Height="*"/> <!-- 自动填满 -->
+    </Grid.RowDefinitions>
+
+    <Button Content="上" Grid.Row="0"/>
+    <Button Content="下" Grid.Row="1"/>
+</Grid>
+```
+
 
 网格布局
 
