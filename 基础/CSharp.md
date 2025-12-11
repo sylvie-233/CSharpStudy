@@ -2,7 +2,7 @@
 
 >
 >
->
+> `net6全栈教程--c#高级：P38`
 
 ## 基础介绍
 
@@ -34,6 +34,7 @@ nuget包
 - 环境变量NUGET_PACKAGES：nuget安装包默认缓存路径（默认:`\Users\~\.nuget\packages\`）
 - dotnet build生成中间产物`bin/Debug/net7.0/`、dotnet publish生成最终产物`bin/Debug/net7.0/publish/`
 - vscode格式化C#代码，使用`.editorconfig`在根目录
+- `global using`Program.cs中全局导入，各个子命名空间都可用
 
 
 
@@ -196,8 +197,8 @@ dotnet:
     test: # 运行测试
          --filter: # 测试过滤
             FullyQualifiedName:
-    tool: # 工具包
-        install:
+    tool: # 命令行工具
+        install: # 按照命令行工具
             -g:
             --local:
         list:
@@ -386,7 +387,7 @@ System:
             ReadAllText(): # 文件内容读入
             Move():
             WriteAllText(): # 文件内容写入
-        FileStream:
+        FileStream: # 文件流
         MemoryMappedFiles:
         MemoryStream:
         Path:
@@ -396,6 +397,12 @@ System:
         StreamWriter: # 流式文本写入
             WriteLine():
     Linq: # LINQ 扩展方法
+        Expressions: # 表达式树
+            BinaryExpression:
+            Expression:
+            MemberExpression:
+            MethodCallExpression:
+            ParameterExpression:
     Net: # 基础网络支持
         Http:
             HttpClient: # http客户端
@@ -431,23 +438,31 @@ System:
             WebSocketState:
                 Open:
     Reflection: # 反射
-        Activator:
-            CreateInstance(): # 动态创建对象
+        Assembly: # 程序集（DLL/EXE）
+            GetTypes():
+            Load(): # 加载程序集
+            LoadFrom():
+        AssemblyName:   
+        BindingFlags:
+        CustomAttributeData:
+        ConstructorInfo: # 构造函数
+            GetParameters():
+            Invoke():
+        EventInfo:
         FieldInfo: # 字段信息
             GetValue():
+            SetValue():
+        MemberInfo:
         MethodInfo: # 方法信息
             Name:
+            GetCustomAttributes(): # 获取方法上的自定义特性
             Invoke(): # 调用方法
+        Module:
+        ParameterInfo: # 方法参数
         PropertyInfo: # 属性信息
-            Name:
+            Name:   
             GetValue():
             SetValue():
-        Type: # 类型
-            GetCustomAttribute():
-            GetCustomAttributes():
-            GetField():
-            GetMethods():
-            GetProperties():
     Runtime: # 运行时
         CompilerServices:    
     Security: # 
@@ -476,6 +491,11 @@ System:
         Tasks:
             Parallel:
             Task: # 任务
+                Factory:
+                    StartNew():
+                Delay(): # 异步延时
+                Run(): # 运行任务
+                Start():
             TaskCompletionSource:
             TaskScheduler:
         BlockingCollection:
@@ -487,13 +507,16 @@ System:
         Semaphore:
         Thread: # 线程对象
             IsBackground: # 守护线程
+            Priority: # 优先级
             Start():
-        ThreadPool:
+        ThreadPool: # 线程池
     Xml:
         Serialization:
             XmlSerializer:
     Timers: # 定时器支持
     TimeSpan:
+    Activator:
+        CreateInstance(): # 动态创建对象
     ArgumentException:
     Array:
         Copy(): # 拷贝
@@ -508,6 +531,7 @@ System:
     Console: # 控制台
         ForegroundColor:
         Clear():
+        ReadKey():
         ReadLine(): # 读入一行
         WriteLine():
     Convert: # 类型转换
@@ -550,6 +574,14 @@ System:
     Tuple: # 元组
     Type: # 类型
         Name:
+        GetConstructor(): # ConstructorInfo
+        GetCustomAttribute(): # 获取自定义特性
+        GetCustomAttributes():
+        GetField(): # FieldInfo
+        GetMethod(): # MethodInfo
+        GetMethods():
+        GetProperty(): # PropertyInfo
+        GetProperties():
     Uri:
     ValueTuple: # 
 ```
@@ -609,11 +641,10 @@ enum Status
     Approved = 2,
     Rejected = 4
 }
-
-
 ```
 
 枚举类
+C# 真正的 enum 不允许自定义构造函数
 
 
 #### struct
@@ -624,8 +655,6 @@ struct Point
     public int X;
     public int Y;
 }
-
-
 ```
 
 结构体
@@ -639,9 +668,10 @@ struct Point
 ### Control Flow
 ```yaml
 Control Flow:
-    for: # for循环
+    for ...: # for循环
     foreach ... in ...: # for循环迭代遍历
     if ... else if ... else ...: # 条件判断
+    as: # 类型强转
     is: # 类型判断
     switch: # 模式匹配
         case:
@@ -697,7 +727,7 @@ await using var res = new MyAsyncResource();
 #### IEnumerable
 
 可迭代对象
-IEnumerable 只负责 提供枚举器（Enumerator）
+IEnumerable 只负责 提供枚举器（IEnumerator）
 
 
 ##### IEnumerator
@@ -720,6 +750,9 @@ public IEnumerable<int> GetNumbers()
 ##### IAsyncEnumerable
 
 异步迭代器
+
+
+
 
 
 #### Linq
@@ -761,7 +794,9 @@ Linq主要包括三大部分：
 延迟执行、立即执行
 
 
+##### Expression
 
+表达式树
 
 
 
@@ -778,29 +813,57 @@ Linq主要包括三大部分：
 
 具名传参
 
-
-
 #### Override
 
 函数重载
 函数参数个数、类型不同、返回值
 
 
+#### Lambda
+```cs
+// 有返回值
+Func<int, int> square = x => x * x;
+
+// 无返回值
+Action<string> show = s => Console.WriteLine(s);
+```
+
+匿名函数
+
+
+##### Func
+
+`Func<T>`：有返回值
+
+##### Action
+
+`Action<T>`：无返回值
+
+
+##### Event
+
+事件函数event
+多播委托
+
+
 #### Delegate
 
 函数委托
-delegate：保存方法的引用类型
+delegate：保存方法的引用类型，可以new
+常用lambda表达式一起使用
 
 
-#### Event
 
-事件函数
-event
 
 
 #### Generic
 
 泛型函数
+
+
+#### Extension
+
+扩展函数
 
 
 #### Async
@@ -825,9 +888,6 @@ async void Button_Click(object sender, EventArgs e)
     await Task.Delay(500);
     Console.WriteLine("按钮点击事件完成");
 }
-
-
-
 ```
 
 异步函数
@@ -843,55 +903,87 @@ async void Button_Click(object sender, EventArgs e)
 
 异步结果封装
 
+##### Parallel
+
+并行执行 for/foreach
+
 
 
 
 ### Class
 
-命名空间：`namespace`，命名空间一般和项目名相同
 
-
-
-
-类的访问修饰符：`public`、`internal`
-
-静态属性、静态方法
-
-构造方法、this指针
-
-属性Properties：Getter、Setter
-
-属性、方法访问修饰符：`public`、`protected`、`private`
-
-常量属性：`const`、只读属性：`readonly`
+类的访问修饰符：
+- public: 任何地方都能访问
+- internal: 仅限同一程序集内部访问
+- protected: 仅限自身类和子类访问
+- private: 仅限类内部访问
 
 
 构造方法：`this()`,`base()`
 
 
-virtual虚方法：可被子类重写
+
+#### Getter/Setter
+
+常量属性：`const`、只读属性：`readonly`
+
+#### Extends
 
 继承父类、override重写
 
+
+#### Abstract
+
 abstract抽象类、abstract抽象方法、virtual虚方法
+virtual虚方法：可被子类重写
+
+
+#### Interface
 
 interface接口
 
 
-#### Getter/Setter
-
-#### Extends
-
-继承
-
-#### Interface
-
-
-接口
-
-
-
 #### Generic
+```cs
+// 泛型类定义
+public class Repository<T> where T : class, new()
+{
+    private List<T> items = new();
+
+    public void Add(T item) => items.Add(item);
+
+    public IEnumerable<T> All() => items;
+}
+
+// 泛型约束
+class Repository<T> where T : class
+```
+
+泛型类
+
+
+##### Contravariance
+```cs
+// 逆变 in（T 只输入，不输出）
+public interface IWriter<in T>
+{
+    void Write(T data);
+}
+```
+
+逆变 in
+
+##### Covariance
+```cs
+// 协变 out（T 只输出，不输入）
+public interface IReadOnly<out T>
+{
+    T Get();
+}
+```
+
+斜变 out
 
 
 #### Record
@@ -899,21 +991,67 @@ interface接口
 简化data class数据类，自带Constructor、Getter、Setter
 
 
-#### Attribute
 
-属性
+#### Partial
+
+一个类的定义可以拆开写在多个文件里
+
+
+#### Attribute
+```cs
+// 自定义特性
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method,
+                AllowMultiple = false,
+                Inherited = true)]
+public class MyInfoAttribute : Attribute
+{
+    public int Level { get; }
+    public string Name { get; set; }
+
+    public MyInfoAttribute(int level)
+    {
+        Level = level;
+    }
+}
+
+// 使用自定义特性
+[MyInfo(3, Name = "Admin")]
+class UserController {}
+
+// 反射读取自定义特性
+var attrs = typeof(UserController)
+    .GetCustomAttributes(typeof(MyInfoAttribute), inherit:true);
+foreach (MyInfoAttribute attr in attrs)
+{
+    Console.WriteLine(attr.Level);
+}
+```
+
+
+属性、元信息
+常与反射一起使用
+
+##### AttributeUsage
+
+元特性，用于定义属性可在哪些地方使用
+
+
 
 #### Reflection
 
 反射
+
+##### Assembly
+
+程序集
+
 
 ### Module
 
 
 #### NameSpace
 
-命名空间
-
+命名空间：`namespace`，命名空间一般和项目名相同
 
 
 ### Test
@@ -922,20 +1060,82 @@ interface接口
 
 ### Concurrency
 
+并发编程
+
 
 #### Thread
 
 线程
 
+##### ThreadState
+
+线程状态
+
+##### ThreadPool
+
+线程池
+
+##### ExecutionContext
+
+线程执行上下文
+
+
+
+#### BlockingCollection
+
+
+
+##### ConcurrentDictionary
+
+##### ConcurrentQueue
+
 
 #### Channel
+
+通道
 
 
 #### Mutex
 
 互斥锁
 
-#### SpinLock
+##### Monitor
+```dart
+// 基础使用
+object locker = new object();
+
+Monitor.Enter(locker);
+try
+{
+    // 临界区
+    Console.WriteLine("Working...");
+}
+finally
+{
+    Monitor.Exit(locker);
+}
+
+// lock语法糖
+lock(locker)
+{
+    // 临界区
+    Console.WriteLine("Working...");
+}
+```
+
+低级锁 API（Pulse/Wait）
+lock语法糖
+
+
+##### SpinLock
+
+自旋锁
+
+
+
+#### Interlocked
+
+原子操作
 
 
 #### Semaphore
@@ -943,10 +1143,20 @@ interface接口
 信号量
 
 
-#### Monitor
 
 
 #### Barrier
+
+线程屏障
+
+
+#### CountdownEvent
+
+倒计时器，所有线程完成后统一继续
+
+
+##### ManualResetEvent
+
 
 
 
@@ -954,6 +1164,8 @@ interface接口
 
 
 ### Extension
+
+扩展知识点
 
 
 #### csx

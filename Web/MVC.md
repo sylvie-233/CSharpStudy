@@ -13,8 +13,6 @@ _Layout、_ViewImport、_ViewImport页面子目录也支持
 Layout布局页面支持继承
 
 
-
-
 ### 项目结构
 ```yaml
 mvc:
@@ -43,7 +41,7 @@ mvc:
 #### launchSettings.json
 ```yaml
 launchSettings.json:
-
+    
 ```
 
 

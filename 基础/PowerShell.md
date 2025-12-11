@@ -97,6 +97,9 @@ powershell:
     Clear-Host: # 清屏
     ConvertTo-Json: # object转json
     Copy-Item: # 拷贝内容
+    Expand-Archive: # 解压
+        –Path:
+        -Destination:
     Export-ModuleMember: # 导出模块程序
         -Function: # 导出函数
     ForEach-Object: # 对象遍历

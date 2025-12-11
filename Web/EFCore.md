@@ -14,9 +14,9 @@ DbContext(数据库上下文) -> DbSet() -> Entity(实体模型)
 ### dotnet ef
 ```yaml
 dotnet ef:
-    database:
-        update: # 更新数据库
-    migrations:
+    database: # 数据库
+        update: # 根据迁移文件、更新数据库
+    migrations: # 数据库迁移
         add: # 根据模型生成迁移文件
 ```
 

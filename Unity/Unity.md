@@ -1,7 +1,7 @@
 # Unity
 
 >
->`【Unity教程】零基础带你从小白到超神：P28`
+>`【Unity教程】零基础带你从小白到超神：P39`
 >
 
 
@@ -17,7 +17,7 @@
 
 
 
-## API
+## Scripting
 ```yaml
 Unity:
 
@@ -110,8 +110,6 @@ UnityEngine:
     WaitForSeconds:
 
 ```
-
-## Scripting
 
 
 ## GameObject

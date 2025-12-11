@@ -1802,11 +1802,14 @@ HTTP请求
 ### CSharp
 ```yaml
 Godot:
-    []:
-        Export:
+    [Export]:
     AudioServer:
     Collections:
         Array:
+    Editor: 
+        EditorNode3DGizmoPlugin:
+        EditorPlugin:
+    FileAccess:
     GD:
         Load(): # 资源加载
         Print(): # 控制台输出
@@ -1824,6 +1827,7 @@ Godot:
         IsPressed(): # 首次按压
         IsReleased(): # 取消按压
     InputEventMouse:
+    Json:
     Key:
         B:
     Node:
@@ -1846,7 +1850,7 @@ Godot:
         _Ready(): # 准备运行钩子
         _PhysicsProcess(): # 物理运行钩子
         _Process(): # 运行钩子
-            delta:
+            delta: # 帧间隔
         AddChild():
         AddToGroup(): # 加入分组
         Connect(): # 信号连接
@@ -1862,6 +1866,7 @@ Godot:
     OS:
     PackedScene: # 场景预制体
         Instantiate(): # 实例化场景（生成Node）
+    RayCast2D:
     RefCounted:
     SceneTree: # 场景树
         CurrentScene:
@@ -1870,6 +1875,8 @@ Godot:
         ChangeSceneToFile():
         ChangeSceneToPacked():
         GetNodesInGroup(): # 在分组里查找节点
+    Tween: # 插值动画（移动、旋转、透明度）
+    Tools:
     Vector2:
     GetGlobalMousePosition(): # 获取全局鼠标位置
 ```
