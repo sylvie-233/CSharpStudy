@@ -1262,12 +1262,29 @@ TileSet
 
 ##### AudioListener3D
 ##### AudioStreamPlayer3D
+
+3D音频播放器
+
 ##### BoneAttachment3D
 ##### Camera3D
 ##### CollisionObject3D
 ##### CollisionPolygon3D
 ##### CollisionShape3D
+##### CSGShape3D
+
+3D 内置形状
+
+###### CSGBox3D
+###### CSGMesh3D
+###### CSGSphere3D
+
+
 ##### Joint3D
+##### GeometryInstance3D
+###### MeshInstance3D
+
+3D网格节点实例
+
 ##### GridMap
 ##### Marker3D
 ##### NavigationLink3D
@@ -1300,21 +1317,39 @@ Control基类
 常使用锚点、Container控制布局
 
 
+#### CanvasLayer
 
+绘制层
 
 
 #### Control
 
 控件基类
 
+#### Theme
+
+主题
+
 
 #### Button
+
+按钮
 
 
 #### Label
 
+标签
+
+##### Label3D
+
 
 #### TextureRect
+
+贴图区域块
+
+##### ColorRect
+
+纯色区域块
 
 
 #### TextEdit
@@ -1337,12 +1372,17 @@ Control基类
 
 
 ##### HBoxContainer
+###### VBoxContainer
 
 ##### MarginContainer
 
+外边距容器
+
+###### CenterContainer
+
 ##### PanelContainer
 
-
+面板容器
 
 ##### GridContainer
 
@@ -1415,11 +1455,13 @@ RigidBody刚体 + CollisionObject2D碰撞体 + CollisionShape2D碰撞形状 实�
 
 用于模拟 触发器区域。Area2D 主要用于 感知碰撞区域，比如检测是否有物体进入特定区域。它不像刚体那样响应力，但可以检测与其他物体的交互（如进入区域、离开区域）
 
+
 ##### Area2D
 ```yaml
 Area2D:
 
 ```
+##### Area3D
 
 2D碰撞区域
 继承自CollisionObject2D
@@ -1437,6 +1479,7 @@ Area2D:
 
 用于定义物体的 碰撞形状，可以与 RigidBody2D、KinematicBody2D 或 StaticBody2D 结合使用。CollisionShape2D 可以是 矩形、圆形、胶囊、路径等，定义了物体的物理边界
 
+##### CollisionShape3D
 
 #### Joint
 
@@ -1451,6 +1494,9 @@ Area2D:
 
 用于 射线检测，通过从一个点沿一个方向发射射线，检测它与其他物体的碰撞。这对于射击游戏、光线反射/折射、物体拾取等场景非常有用
 
+#### RayCast3D
+
+3D射线检测
 
 #### ShapeCast
 
@@ -1463,6 +1509,18 @@ Area2D:
 
 你可以启用物理调试模式，查看物体的 碰撞边界、速度矢量、力的方向 等，帮助你调试物理相关的问题
 
+
+#### Path
+
+##### Path2D
+2D路径
+
+##### PathFollow2D
+
+2D路径跟随
+
+##### Path3D
+##### PathFollow3D
 
 #### Navigation
 
@@ -1529,9 +1587,7 @@ Area2D:
 
 
 
-#### Theme
 
-主题
 
 
 
@@ -1541,11 +1597,28 @@ Area2D:
 音效播放
 AudioBus音频控制总线，是一种资源类型
 
+##### AudioStreamPlayer3D
+
 
 
 #### VideoPlayer
 
 
+#### TileMap
+
+##### GridMap
+
+3D网格地图
+
+
+#### MeshInstance2D
+##### MeshInstance3D
+
+#### CSGShape3D
+##### CSGBox3D
+##### CSGPolygon3D
+
+3D 立方体模型
 
 ### Effect
 
@@ -1558,6 +1631,7 @@ Viewport -> Camera
 一个Viewport中可以有多个Camera，但同时只能有一个被激活
 
 
+
 ##### Camera2D
 ```yaml
 Camera2D:
@@ -1568,18 +1642,25 @@ Camera2D:
 
 ##### Camera3D
 
+3D摄像机
 
 
 #### Light
 
 灯光
 
+##### Environment
+
+环境光
+
 #### Particles
 
 粒子系统
 速度、加速度、阻力、形状、方向、角度、大小、颜色
 
+##### GPUParticles3D
 
+3D GPU粒子
 
 ##### ParticleProcessMaterial
 
