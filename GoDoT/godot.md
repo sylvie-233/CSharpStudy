@@ -18,7 +18,6 @@ scene可进行嵌套（组合node、预制体）、基于scene进行组件封装
 材质：Texture、Material、Shader
 
 
-
 - 每个节点都能添加脚本、godot的脚本相当于和节点绑定的（一体）、单纯给节点扩展方法
 - 全局脚本：项目设置 -> 自动加载
 - @GDScript：GDScript的工具函数和类型操作、@GlobalScope：Godot引擎全局作用域；@GlobalScope下的东西可以自动导入
@@ -1163,8 +1162,8 @@ Signal节点信号、自定义信号
 Group节点分组、类似Unity的标签tag
 只有Node节点才可以挂载脚本
 
-#### CanvasItem
 
+#### CanvasItem
 
 
 ##### Node2D
@@ -1319,7 +1318,10 @@ Control基类
 
 #### CanvasLayer
 
-绘制层
+UI绘制层
+
+##### CanvasGroup
+##### CanvasModulate
 
 
 #### Control
@@ -1342,6 +1344,9 @@ Control基类
 
 ##### Label3D
 
+#### Sprite2D
+
+图片
 
 #### TextureRect
 
@@ -1430,52 +1435,53 @@ RigidBody刚体 + CollisionObject2D碰撞体 + CollisionShape2D碰撞形状 实�
 
 
 
-#### RigidBody
+#### RigidBody2D
 
 刚体
 用于模拟具有质量、摩擦和弹性的物体。刚体会根据物理引擎计算其运动和碰撞。可以通过设置不同的属性（如 线性和角速度、质量、摩擦力 等）来影响物体的行为
 
 
-#### StaticBody
+#### StaticBody2D
 
 静态物体
 用于表示不会移动的物体（如地面、墙壁等）。它不会响应力的作用，只用于碰撞检测。
 
 
-#### CharacterBody
+#### CharacterBody2D
 
 用于 运动物体，并且允许开发者通过脚本控制物体的运动。KinematicBody2D 不受物理引擎的自动影响，它的运动是通过脚本直接控制的，但仍然能够与其他物体碰撞。
-
-##### CharacterBody2D
 
 结合velocity速度进行move_and_slide()移动
 
 
-#### Area
 
-用于模拟 触发器区域。Area2D 主要用于 感知碰撞区域，比如检测是否有物体进入特定区域。它不像刚体那样响应力，但可以检测与其他物体的交互（如进入区域、离开区域）
-
-
-##### Area2D
+#### Area2D
 ```yaml
 Area2D:
 
 ```
+
+用于模拟 触发器区域。Area2D 主要用于 感知碰撞区域，比如检测是否有物体进入特定区域。它不像刚体那样响应力，但可以检测与其他物体的交互（如进入区域、离开区域）
+
+依赖CollisionShape2D具体Shape形状
+
+
+
 ##### Area3D
 
 2D碰撞区域
 继承自CollisionObject2D
 
 
-#### CollisionPolygon
+#### CollisionPolygon2D
 
 碰撞多边形
 
-##### CollisionPolygon2D
 
 
 
-#### CollisionShape
+
+#### CollisionShape2D
 
 用于定义物体的 碰撞形状，可以与 RigidBody2D、KinematicBody2D 或 StaticBody2D 结合使用。CollisionShape2D 可以是 矩形、圆形、胶囊、路径等，定义了物体的物理边界
 
@@ -1547,13 +1553,18 @@ Area2D:
 用于复杂的动画混合和状态机控制
 
 
-#### AnimatedSprite
+#### AnimatedSprite2D
 
-精灵动画
+精灵动画图片
+依赖Sprite Frames精灵图序列帧（可多个）
+
+#### Timer
+
+定时器
 
 #### Tween
 
-
+属性动画、可动态修改（可多个、并行、回调）
 用于平滑过渡和插值动画
 
 
@@ -1575,10 +1586,27 @@ Area2D:
 `tres`、`res`：资源文件
 资源文件
 
-
 ##### PackedScene
 
 打包场景文件
+
+##### ResourceLoader
+
+资源序列化加载
+
+###### ResourceSaver
+
+资源序列化保存
+
+
+#### ConfigFile
+
+配置数据保存
+
+
+#### TranslationServer
+
+国际化翻译
 
 
 #### SceneTree
@@ -1592,10 +1620,20 @@ Area2D:
 
 
 
+
+
 #### AudioStreamPlayer
 
 音效播放
 AudioBus音频控制总线，是一种资源类型
+
+##### AudioStreamPlayer2D
+
+带距离控制的音效播放
+
+##### AudioListener2D
+
+带距离控制的音效收听
 
 ##### AudioStreamPlayer3D
 
@@ -1645,13 +1683,26 @@ Camera2D:
 3D摄像机
 
 
-#### Light
+#### Light2D
 
 灯光
 
 ##### Environment
 
 环境光
+
+
+##### PointLight2D
+
+2D点光源
+
+##### DirectionalLight2D
+
+2D平行光
+
+##### LightOccluder2D
+
+2D灯光遮罩
 
 #### Particles
 
@@ -1867,16 +1918,18 @@ Shader 的重要容器，它允许你将自定义的着色器应用到 3D 或 2D
 
 HTTP请求
 
+#### TcpServer
+
+tcp服务器
+
+##### WebsocketPeer
+
+websocket连接请求
+
 #### ENetMultiplayerPeer
 
 
 #### MultiplayerAPI
-
-
-### Test
-
-
-测试
 
 
 
@@ -1885,6 +1938,8 @@ HTTP请求
 Godot:
     [Export]:
     AudioServer:
+    Callable:
+        From():
     Collections:
         Array:
     Editor: 
@@ -1900,7 +1955,7 @@ Godot:
         GetAxis():
         IsActionJustPressed(): # 键盘按键
         IsActionJustReleased():
-        IsActionPressed():
+        IsActionPressed(): # 键盘按键
         IsKeyPressed():
     InputEvent:
     InputEventKey:
@@ -1910,21 +1965,7 @@ Godot:
     InputEventMouse:
     Json:
     Key:
-        B:
     Node:
-        CanvasItem:
-            Node2D:
-                Sprite2D:
-                    Frame:
-                    Position:
-                    RotationDegrees:
-                    Skew:
-                    Texture:
-                    Visible:
-                    ZIndex:
-                    LookAt():
-            Control:
-        Node3D:
         _EnterTree(): # 进入节点树
         _ExitTree(): # 退出节点树
         _Input():
@@ -1932,6 +1973,7 @@ Godot:
         _PhysicsProcess(): # 物理运行钩子
         _Process(): # 运行钩子
             delta: # 帧间隔
+        _UnhandledInput(): # 全局输入处理
         AddChild():
         AddToGroup(): # 加入分组
         Connect(): # 信号连接
@@ -1943,6 +1985,22 @@ Godot:
             GetNodesInGroup():
         QueueFree(): # 销毁节点
         RemoveChild():
+        CanvasItem:
+            Node2D:
+                AnimatedSprite2D:
+                    Play():
+                    Stop():
+                Sprite2D:
+                    Frame:
+                    Position:
+                    RotationDegrees:
+                    Skew:
+                    Texture:
+                    Visible:
+                    ZIndex:
+                    LookAt():
+            Control:
+        Node3D:
     Object:
     OS:
     PackedScene: # 场景预制体
@@ -1959,7 +2017,7 @@ Godot:
     Tween: # 插值动画（移动、旋转、透明度）
     Tools:
     Vector2:
-    GetGlobalMousePosition(): # 获取全局鼠标位置
+    Vector3:
 ```
 
 

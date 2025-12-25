@@ -296,9 +296,7 @@ ICommand(Vue methods)
 
 
 
-
-
-### Basic Control
+### Layout
 ```yaml
 Basic Control:
     <Border>:
@@ -365,17 +363,15 @@ Basic Control:
     <UserControl>: # 自定义控件
         d:DesignHeight:
         d:DesignWidth:
+
+Layout:
+
 ```
-
-
-通过控件Name操作控件
-
-#### Layout
 
 布局
 
 
-##### StackPanel
+#### StackPanel
 ```xml
 <StackPanel Orientation="Horizontal">
     <Button Content="A"/>
@@ -385,11 +381,11 @@ Basic Control:
 
 堆叠、水平/垂直排列
 
-##### WrapPanel
+#### WrapPanel
 
 堆叠换行
 
-##### DockPanel
+#### DockPanel
 ```xml
 <DockPanel>
     <Button DockPanel.Dock="Top" Content="标题"/>
@@ -400,7 +396,7 @@ Basic Control:
 停靠布局
 
 
-##### Grid
+#### Grid
 ```xml
 <Grid>
     <Grid.RowDefinitions>
@@ -416,45 +412,47 @@ Basic Control:
 
 网格布局
 
-##### UniformGrid
+#### UniformGrid
 
 
 
 
-#### Input
+### Widget
 
-输入组件
+控件
 
 
-##### Button
+#### Button
 
 按钮
 
-##### TextBox
+#### TextBox
 
 输入框
-##### CheckBox
+#### CheckBox
 
-##### Slider
+#### Slider
 
-#### View
+#### TextBlock
+文本块
+
+### View
 
 显示组件
 
 
-##### TextBlock
-文本块
 
 
-##### ScrollViewer
 
-##### ListBox
+#### ScrollViewer
+
+#### ListBox
 
 列表渲染视图
 ListBoxItem
 ItemTemplate -> DataTemplate
 
-##### DataGrid
+#### DataGrid
 
 表格渲染视图
 Columns -> DataGridTextColumn

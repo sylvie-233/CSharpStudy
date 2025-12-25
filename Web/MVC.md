@@ -156,25 +156,8 @@ Microsoft:
 
 
 
-### Websocket
 
-
-
-### SSE
-
-
-
-
-
-
-
-## Razor
-
-嵌入C#的HTML模板引擎，`cshtml`
-
-
-
-### 模板语法
+### Razor
 ```yaml
 Razor:
     @: # 使用变量
@@ -219,3 +202,12 @@ Tag Helpers:
     asp-validation-summary: # 
 ```
 
+嵌入C#的HTML模板引擎，`cshtml`
+
+
+
+### Websocket
+
+
+
+### SSE

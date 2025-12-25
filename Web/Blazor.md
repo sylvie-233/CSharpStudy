@@ -143,8 +143,8 @@ Blazor:
 
 
 
-### 生命周期
+### Lifecycle
 
-
+生命周期：
 - OnInitialized
 - OnAfterRender
