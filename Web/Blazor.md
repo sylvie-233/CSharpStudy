@@ -7,12 +7,13 @@
 
 允许使用C#代替JS编写交互式的WEB用户界面
 基于WebAssembly技术的WEB开发框架
-Blazor Server、Blazor WebAssembly
 
-支持组件封装、同级组件可直接引用
+- Interactive render mode交互渲染模式：Blazor Server、Blazor WebAssembly（默认SSR）
+- 支持组件封装、同级组件可直接引用
+- 自定义razor组件可通过@using导入使用
+- razor中声明的变量默认都是响应式的
+- Blazor中与服务器的交互主要是通过blazor.web.js脚本（websocket）进行的
 
-
-- ComponentBase组件基类
 
 
 
@@ -21,7 +22,7 @@ Blazor Server、Blazor WebAssembly
 Blazor Server App:
     /bin:
     /Components:
-        /Layout:
+        /Layout: # 布局
             MainLayout.razor:
             NavMenu.razor:
         /Pages:
@@ -106,10 +107,11 @@ Blazor:
     @onclick: # 点击事件绑定
     @page: # 标注响应页面，页面 url 路径
     @ref: # DOM引用
-    @rendermode:
+    @rendermode: # 组件交互渲染模式（server、client）
         InteractiveServer:
+        InteractiveWebAssembly:
     @typeparam: # 组件属性
-    @using:
+    @using: # 命名空间使用
     asp-action:
     asp-controller:
     asp-for:
@@ -142,9 +144,196 @@ Blazor:
 ```
 
 
+### Component
 
-### Lifecycle
+组件
+
+#### Lifecycle
 
 生命周期：
 - OnInitialized
 - OnAfterRender
+
+##### OnInitialized
+###### OnInitializedAsync
+
+##### OnParametersSet
+
+路由参数设置成功
+
+#### Binding
+
+属性、事件绑定
+
+
+#### Rendering
+
+渲染
+
+##### List Render
+```jsx
+<ul>
+@foreach (var item in items)
+{
+    <li>@item.Name</li>
+}
+</ul>
+```
+
+列表渲染
+
+
+##### Condition Render
+```jsx
+// 普通条件渲染
+@if (state == 0)
+{
+    <p>Init</p>
+}
+else if (state == 1)
+{
+    <p>Running</p>
+}
+else
+{
+    <p>Error</p>
+}
+
+// switch多分支条件渲染
+@switch (status)
+{
+    case Status.Success:
+        <p>成功</p>
+        break;
+    case Status.Fail:
+        <p>失败</p>
+        break;
+    default:
+        <p>未知</p>
+        break;
+}
+```
+
+条件渲染
+
+
+#### Widget
+
+内置组件
+
+##### EditForm
+
+表单
+###### DataAnnotationsValidator
+###### ValidationMessage
+###### ValidationSummary
+
+###### InputCheckbox
+###### InputNumber
+###### InputText
+
+
+##### HeadOutlet
+##### NavLink
+
+链接
+
+##### PageTitle
+
+页面头
+
+
+### Page
+
+页面
+
+
+
+#### Layout
+```jsx
+@page "/admin/users"
+@layout AdminLayout
+
+<h3>User Management</h3>
+```
+
+布局页面
+@layout手动指定布局页面
+
+
+##### LayoutComponentBase
+
+布局组件基类
+
+
+
+#### Route
+
+页面路由
+
+##### Route Parameter
+```jsx
+// 路由参数定义
+@page "/users/{userId}"
+
+@code {
+    [Parameter]
+    public string userId { get; set; }
+}
+
+// query参数定义
+@page "/users"
+
+@code {
+
+    []
+    public string? keyword { get; set; }
+}
+```
+
+路由参数
+
+###### Parameter 
+###### SupplyParameterFromQuery
+###### SupplyParameterFromForm
+
+
+##### NavigationManager
+
+编程式导航、依赖注入获取
+
+
+#### Attribute
+
+##### StreamRendering
+
+流式渲染
+
+
+### App
+
+应用页面
+
+#### Route
+
+路由页面
+
+##### Router
+
+路由根组件
+
+###### Found
+###### NotFound
+###### RouterView
+
+
+
+#### Dependency Inject
+
+依赖注入
+
+##### NavigationManager
+
+#### Static Resources
+
+静态资源

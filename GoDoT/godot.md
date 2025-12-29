@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.x官方文档：https://docs.godotengine.org/zh-cn/4.x/getting_started/introduction/key_concepts_overview.html`
-> ``
+> `【转载】Godot 终极入门新篇：P2`
 >
  
 
@@ -21,6 +21,7 @@ scene可进行嵌套（组合node、预制体）、基于scene进行组件封装
 - 每个节点都能添加脚本、godot的脚本相当于和节点绑定的（一体）、单纯给节点扩展方法
 - 全局脚本：项目设置 -> 自动加载
 - @GDScript：GDScript的工具函数和类型操作、@GlobalScope：Godot引擎全局作用域；@GlobalScope下的东西可以自动导入
+- GDScript 的变量作用域分为：全局（AutoLoad）、脚本级、类级、函数级、代码块级（if/for/while）
 - 基础物理配置：RigidBody刚体 + CollisionObject碰撞体 + CollisionShape碰撞形状
 - queue_free()节点销毁
 - node节点分组group、类似unity中的tag标签
@@ -923,6 +924,10 @@ enum Food {GOOD, BAD}
 
 
 ##### Vector2
+```yaml
+Vector2:
+    
+```
 
 二维向量
 
@@ -1402,6 +1407,11 @@ UI绘制层
 
 列表视图
 
+
+
+#### Viewport
+
+##### SubViewport
 
 
 #### Window
