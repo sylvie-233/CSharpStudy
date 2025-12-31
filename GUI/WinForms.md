@@ -39,7 +39,7 @@ System:
 
 #### ControlCollection
 
-控件集合（Controls）
+控件集合（Controls自动生成）
 
 #### EventHandler
 
@@ -58,7 +58,7 @@ System:
 
 ### View
 
-#### CheckedListBox
+#### DataGridView
 
 
 ### Widget
@@ -79,3 +79,8 @@ System:
 #### TextBox
 
 输入框
+
+
+#### RadioBox
+
+单选框

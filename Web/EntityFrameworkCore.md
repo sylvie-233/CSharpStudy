@@ -35,6 +35,7 @@ Microsoft.EntiryFrameworkCore:
             BeginTransaction():
                 Commit():
                 Rollback():
+        Dispose(): # 关闭连接
         Entry(): # 获取操作实体
             State:
         SaveChanges(): # 执行数据库操作
@@ -43,10 +44,10 @@ Microsoft.EntiryFrameworkCore:
         UseLazyLoadingProxies():
         UseSqlServer():
     DbSet: # 数据库表操作
-        Add(): # 添加
+        Add(): # 添加数据
         AddRange():
         FindAsync():
-        FirstOrDefault():
+        FirstOrDefault(): 
         Remove():
         ToList():
         Where():
@@ -56,6 +57,21 @@ Microsoft.EntiryFrameworkCore:
 
 ### DbContext
 
-
+数据库上下文
 
 ### DbSet
+
+
+模型集合
+
+### Model
+
+模型
+
+
+#### Table
+
+数据库表
+
+##### Key
+主键

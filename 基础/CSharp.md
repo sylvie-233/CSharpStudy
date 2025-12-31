@@ -35,6 +35,7 @@ nuget包
 - dotnet build生成中间产物`bin/Debug/net7.0/`、dotnet publish生成最终产物`bin/Debug/net7.0/publish/`
 - vscode格式化C#代码，使用`.editorconfig`在根目录
 - `global using`Program.cs中全局导入，各个子命名空间都可用
+- C# 10+推荐使用文件作用域 namespace（不用namespace括起来了）
 
 
 
@@ -369,7 +370,23 @@ System:
             AppSettings:
     Data: # 数据集、表、行等 ADO.NET 基础类
         Common: # 通用数据库接口
+        DataRow:
+        DataSet: # 查询数据集
+            Tables:
+        DataTable: # 查询数据集表
+            Rows: # 数据行
         SqlClient:
+            SqlCommand: # 数据库操作
+                CommandText:
+                Connetion:
+                ExecuteNonQuery():
+            SqlConnection: # 数据库连接
+                ConnectionString: # 连接字符串
+                Close():
+                Open():
+            SqlDataAdapter: # 数据库数据适配器
+                SelectCommand: # select语句
+                Fill(): # 填充数据集DataSet
     DateTime:
     Diagnostics: # 日志、调试、性能计数器、启动外部进程
         Process: # 进程对象
@@ -829,6 +846,9 @@ Linq主要包括三大部分：
 延迟执行、立即执行
 
 
+##### IQueryable
+
+
 ##### Expression
 
 表达式树
@@ -1137,6 +1157,7 @@ foreach (MyInfoAttribute attr in attrs)
 ##### Monitor
 ```dart
 // 基础使用
+
 object locker = new object();
 
 Monitor.Enter(locker);
