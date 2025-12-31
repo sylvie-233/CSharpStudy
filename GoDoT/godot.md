@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.x官方文档：https://docs.godotengine.org/zh-cn/4.x/getting_started/introduction/key_concepts_overview.html`
-> `【转载】Godot 终极入门新篇：P2`
+> `【转载】Godot 终极入门新篇：P3`
 >
  
 
@@ -206,7 +206,7 @@ Godot:
             get_action_strength():
             get_axis(): # 方向按键
             get_gravity():
-            get_vector(): # 根据输入获取方向
+            get_vector(): # 根据输入获取方向 Vector2
             is_action_just_pressed(): # 按键 按压，支持输入映射，第一次按压
             is_action_just_released(): # 按键 释放
             is_action_pressed(): # 按键 按下
@@ -1342,6 +1342,10 @@ UI绘制层
 
 按钮
 
+#### ColorRect
+
+颜色块
+
 
 #### Label
 
@@ -1439,9 +1443,10 @@ UI绘制层
 - 区域（Area / Area2D）；
 - 碰撞形状（CollisionShape / CollisionShape2D）；
 - 物理材料（PhysicsMaterial / PhysicsMaterial2D）。
+ 
 
-
-RigidBody刚体 + CollisionObject2D碰撞体 + CollisionShape2D碰撞形状 实现碰撞检测
+- RigidBody刚体 + CollisionObject2D碰撞体 + CollisionShape2D碰撞形状 实现碰撞检测
+- StaticBody2D、CharacterBody2D、RigidBody2D均继承自PhysicsBody2D（CollisionBody2D）
 
 
 
@@ -1451,10 +1456,16 @@ RigidBody刚体 + CollisionObject2D碰撞体 + CollisionShape2D碰撞形状 实�
 用于模拟具有质量、摩擦和弹性的物体。刚体会根据物理引擎计算其运动和碰撞。可以通过设置不同的属性（如 线性和角速度、质量、摩擦力 等）来影响物体的行为
 
 
+##### PhysicalBone2D
+
+
 #### StaticBody2D
 
 静态物体
 用于表示不会移动的物体（如地面、墙壁等）。它不会响应力的作用，只用于碰撞检测。
+
+
+##### AnimatableBody2D
 
 
 #### CharacterBody2D
@@ -1468,7 +1479,9 @@ RigidBody刚体 + CollisionObject2D碰撞体 + CollisionShape2D碰撞形状 实�
 #### Area2D
 ```yaml
 Area2D:
-
+    Signal: # 信号
+        body_entered(body: Node2D): # 碰撞体进入
+        body_exited(body: Node2D): # 碰撞体退出
 ```
 
 用于模拟 触发器区域。Area2D 主要用于 感知碰撞区域，比如检测是否有物体进入特定区域。它不像刚体那样响应力，但可以检测与其他物体的交互（如进入区域、离开区域）
@@ -1496,6 +1509,14 @@ Area2D:
 用于定义物体的 碰撞形状，可以与 RigidBody2D、KinematicBody2D 或 StaticBody2D 结合使用。CollisionShape2D 可以是 矩形、圆形、胶囊、路径等，定义了物体的物理边界
 
 ##### CollisionShape3D
+
+#### Marker2D
+
+发射点节点
+
+##### VisibleOnScreenNotifier2D
+
+物体超出屏幕通知节点
 
 #### Joint
 
@@ -1569,6 +1590,11 @@ Area2D:
 依赖Sprite Frames精灵图序列帧（可多个）
 
 #### Timer
+```yaml
+Timer:
+    Signal: # 信号
+        timeout():
+```
 
 定时器
 
@@ -1686,6 +1712,9 @@ Camera2D:
     Limit:
     Drag: # 相机拖动 
 ```
+
+
+- 可通过设置Limit属性设置相机范围（避免超出场景）
 
 
 ##### Camera3D

@@ -5,6 +5,7 @@
 
 .NET 官方的「本地微服务编排 + 资源管理 + 可观测性」平台
 Aspire ≈ Spring Boot + Spring Cloud + docker-compose + Actuator（开发期整合版）
+自带开发监测仪表盘
 
 
 AppHost项目：
@@ -15,6 +16,7 @@ AppHost项目：
 
 
 - Aspire AppHost的本地编排 / 资源管理只用于开发期
+- 默认的两个项目：AppHost、ServiceDefaults
 - Aspire 的 AppHost 就是 Spring Cloud 本地开发期“超级启动器”
 
 ## 核心内容
