@@ -2,7 +2,7 @@
 
 >
 > `GODOT4.x官方文档：https://docs.godotengine.org/zh-cn/4.x/getting_started/introduction/key_concepts_overview.html`
-> `【转载】Godot 终极入门新篇：P3`
+> ``
 >
  
 
@@ -27,11 +27,10 @@ scene可进行嵌套（组合node、预制体）、基于scene进行组件封装
 - node节点分组group、类似unity中的tag标签
 
 
-
-### 项目设置
+### Project Settings
 ```yaml
-项目设置:
-    常规:
+Project Settings:
+    General:
         应用:
             配置: # 应用名称、图标
             运行: # 主场景
@@ -50,21 +49,21 @@ scene可进行嵌套（组合node、预制体）、基于scene进行组件封装
         导航:
         层名称:
         文件系统:
-    输入映射:
-    本地化:
-    全局:
+    Input Map:
+    Localization:
+    Globals:
         自动加载:
         着色器全局量:
         分组:
-    插件:
-    默认导入设置:
+    Plugins:
+    Import Defaults:
 ```
 
 
 
-### 编辑器设置
+### Editor Settings
 ```yaml
-编辑器设置:
+Editor Settings:
     界面:
     网络:
     文件系统:
@@ -1474,6 +1473,7 @@ UI绘制层
 
 结合velocity速度进行move_and_slide()移动
 
+##### CharacterBody3D
 
 
 #### Area2D
@@ -1575,6 +1575,7 @@ Area2D:
 #### AnimationPlayer
 
 动画播放器（可对属性k帧）
+常搭配AnimatedSprite2D播放动画帧
 
 
 
@@ -1599,6 +1600,11 @@ Timer:
 定时器
 
 #### Tween
+```yaml
+Tween:
+    from(): # 设置初始值
+    tween_property(): # 属性动画
+```
 
 属性动画、可动态修改（可多个、并行、回调）
 用于平滑过渡和插值动画
@@ -1677,8 +1683,25 @@ AudioBus音频控制总线，是一种资源类型
 
 #### VideoPlayer
 
+#### TileMapLayer
+```yaml
+TileMapLayer:
 
-#### TileMap
+```
+
+瓦片地图层
+
+
+##### TileSet
+
+瓦片资源
+
+##### TileMap
+```yaml
+TileMap:
+```
+
+瓦片地图（过时）
 
 ##### GridMap
 
@@ -1687,6 +1710,9 @@ AudioBus音频控制总线，是一种资源类型
 
 #### MeshInstance2D
 ##### MeshInstance3D
+
+
+3D物体
 
 #### CSGShape3D
 ##### CSGBox3D
@@ -1726,10 +1752,6 @@ Camera2D:
 
 灯光
 
-##### Environment
-
-环境光
-
 
 ##### PointLight2D
 
@@ -1742,6 +1764,10 @@ Camera2D:
 ##### LightOccluder2D
 
 2D灯光遮罩
+
+##### Light3D
+###### SpotLight3D
+
 
 #### Particles
 
