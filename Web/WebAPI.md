@@ -1,10 +1,93 @@
 # WebAPI
 
-`.NET 10 Web API 开发：P16`
+``
 
 ## 基础介绍
 
 rest api项目框架
+
+
+
+WebAPI请求执行流程：
+```
+┌─────────────────────────────────────────────┐
+│               HTTP Request                  │
+└─────────────────────────────────────────────┘
+                    ↓
+════════════════ Middleware Pipeline ════════════════
+                    ↓
+        ┌─────────────────────────┐
+        │ Middleware A (Before)   │
+        └─────────────────────────┘
+                    ↓
+        ┌─────────────────────────┐
+        │ Middleware B (Before)   │
+        └─────────────────────────┘
+                    ↓
+                UseRouting
+                    ↓
+            UseAuthentication
+                    ↓
+             UseAuthorization
+                    ↓
+════════════════ MVC / WebAPI Pipeline ═══════════════
+                    ↓
+        ┌─────────────────────────┐
+        │ Authorization Filters   │   ❌ 可直接短路
+        └─────────────────────────┘
+                    ↓
+        ┌─────────────────────────┐
+        │ Resource Filter (Before)│   ⭐ 可包住整个 MVC
+        └─────────────────────────┘
+                    ↓
+              Model Binding
+                    ↓
+        ┌─────────────────────────┐
+        │ Action Filter (Before)  │
+        └─────────────────────────┘
+                    ↓
+        ┌─────────────────────────┐
+        │      Action Method      │
+        └─────────────────────────┘
+                    ↓
+        ┌─────────────────────────┐
+        │ Action Filter (After)   │
+        └─────────────────────────┘
+                    ↓
+        ┌─────────────────────────┐
+        │ Exception Filter        │   ⚠️ 仅 MVC 内异常
+        └─────────────────────────┘
+                    ↓
+        ┌─────────────────────────┐
+        │ Result Filter (Before)  │
+        └─────────────────────────┘
+                    ↓
+        ┌─────────────────────────┐
+        │     Result Execute      │   (JSON / View)
+        └─────────────────────────┘
+                    ↓
+        ┌─────────────────────────┐
+        │ Result Filter (After)   │
+        └─────────────────────────┘
+                    ↓
+        ┌─────────────────────────┐
+        │ Resource Filter (After) │
+        └─────────────────────────┘
+════════════════ 返回 Middleware ═══════════════
+                    ↑
+        ┌─────────────────────────┐
+        │ Middleware B (After)    │
+        └─────────────────────────┘
+                    ↑
+        ┌─────────────────────────┐
+        │ Middleware A (After)    │
+        └─────────────────────────┘
+                    ↑
+┌─────────────────────────────────────────────┐
+│               HTTP Response                 │
+└─────────────────────────────────────────────┘
+```
+
 
 ### 项目结构
 ```yaml
@@ -43,6 +126,10 @@ WebApplicationBuilder:
     Logging: # 日志
     Services: # 服务管理
         AddControllers(): # 注册 Controller 所需的全部核心服务，让 MapControllers() 能工作
+        AddDbContext():
+        AddHttpContextAccessor():
+        AddOpenApi():
+        AddSession():
     WebHost: # Kestrel / Host 配置
 ```
 
@@ -55,6 +142,7 @@ WebApplication:
     MapControllers(): # Controller Action 注册成 Endpoint（自动扫描）
     MapDelete():
     MapGet(): # mini api
+    MapOpenApi():
     MapPost():
     MapPud():
     Run(): # 运行
@@ -62,6 +150,7 @@ WebApplication:
     UseAuthorization(): # 中间件 授权管理
     UseHttpsRedirection(): # 中间件 http重定向到https
     UseRouting(): # 根据请求路径 + HTTP Method，匹配一个 Endpoint，并把结果挂到 HttpContext 上
+    UseSwaggerUI():
 ```
 
 Web应用
@@ -70,6 +159,8 @@ Web应用
 #### IConfiguration
 
 配置文件读取
+
+#### IHttpContextAccessor
 
 
 ### Controller
@@ -183,6 +274,13 @@ json数据校验结果
 
 过滤器机制
 
+#### AuthorizationFilter
+
+
+##### IAsyncAuthorizationFilter
+
+授权校验过滤器（异步）
+
 #### IActionFilter
 
 ##### ActionFilterAttribute
@@ -193,15 +291,35 @@ json数据校验结果
 ```yaml
 ActionExecutingContext:
     ActionArguments:
+    HttpContext:
+        Items:
     ModelState:
     Result:
 ```
 
 ###### ValidationProblemDetails
 
-#### IResultFilter
-#### AuthorizationFilter
 #### ExceptionFilter
+
+##### ExceptionFilterAttribute
+
+异常过滤器属性
+
+###### ExceptionContext
+```yaml
+ExceptionContext:
+    ModelState:
+    Result:
+    RouteData:
+```
+
+#### IResultFilter
+
+
+#### TypeFilter
+
+提供依赖注入功能，避免直接创建实例
+
 
 ### Middleware
 
@@ -246,8 +364,14 @@ ActionExecutingContext:
 
 ##### Authorize
 
-### Swagger
+### OpenAPI
 
 
 
 
+#### Swagger
+
+
+
+#### ApiExplorerSettings
+#### ApiVersion

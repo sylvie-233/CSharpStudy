@@ -6,11 +6,13 @@
 
 
 MVC框架
-
 默认使用Razor模板引擎
-每个子目录可以有自己的 Shared 文件夹，用于存放该子目录下特定的共享资源
-_Layout、_ViewImport、_ViewImport页面子目录也支持
-Layout布局页面支持继承
+
+
+
+- 每个子目录可以有自己的 Shared 文件夹，用于存放该子目录下特定的共享资源
+- _Layout、_ViewImport、_ViewImport页面子目录也支持
+- Layout布局页面支持继承
 
 
 ### 项目结构
@@ -152,9 +154,74 @@ Microsoft:
         Hosting():
 ```
 
+### Dependency Inject
+
+依赖注入
+
+
+#### WebApplicationBuilder
+```yaml
+WebApplicationBuilder:
+    Configuration: # 配置系统
+    Environment: # 环境
+    Logging: # 日志
+    Services: # 服务管理
+        AddHttpClient():
+    WebHost: # Kestrel / Host 配置
+```
+
+应用构建器
+
+
+#### WebApplication
+```yaml
+WebApplication:
+    MapControllerRoutes(): 
+    Run(): # 运行
+    UseAuthentication(): # 中间件 认证管理
+    UseAuthorization(): # 中间件 授权管理
+    UseHttpsRedirection(): # 中间件 http重定向到https
+    UseRouting(): # 根据请求路径 + HTTP Method，匹配一个 Endpoint，并把结果挂到 HttpContext 上
+    UseStaticFiles(): # 静态文件挂载
+```
+
+Web应用
+常用于配置中间件
+
+#### IConfiguration
+
+配置文件读取
+
+
+#### IHttpClientFactory
+
+http客户端工厂
+
+
+### Controller
+```yaml
+Controller:
+    ModelState: # 模型状态
+```
+
+控制器基类
 
 
 
+
+#### IActionResult
+
+响应结果
+
+
+##### View
+
+视图响应
+
+
+### Filter
+
+过滤器
 
 
 ### Razor
@@ -204,6 +271,22 @@ Tag Helpers:
 
 嵌入C#的HTML模板引擎，`cshtml`
 
+
+#### TagHelpers
+
+
+##### asp-controller
+###### asp-action
+###### asp-route
+###### asp-for
+###### asp-validation-for
+###### asp-validation-summary
+
+#### Model
+
+##### @model
+
+模型绑定
 
 
 ### Websocket
