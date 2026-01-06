@@ -1,11 +1,11 @@
 # WebAPI
 
-`.net微服务实战：P5`
+``
 
 ## 基础介绍
 
 rest api项目框架
-
+底层使用Kestrel服务器
 
 
 WebAPI请求执行流程：
@@ -127,6 +127,7 @@ WebApplicationBuilder:
     Services: # 服务管理
         AddControllers(): # 注册 Controller 所需的全部核心服务，让 MapControllers() 能工作
         AddDbContext():
+        AddHostedService(): # 添加后台服务
         AddHttpContextAccessor():
         AddOpenApi():
         AddSession():

@@ -2,9 +2,21 @@
 
 >
 >
-> `net6全栈教程--c#高级：P38`
+> ``
 
 ## 基础介绍
+
+
+.NET：运行时 + 基础类库 + 工具链
+C#：一种语言（最终跑在 .NET Runtime 上）
+```
+C# / F# / VB
+   ↓ 编译
+IL (中间语言)
+   ↓
+CLR / CoreCLR 执行
+```
+
 
 nuget包
 (1)sln（解决方案）-> (n)csproj（项目）
@@ -593,6 +605,7 @@ System:
     Exception: # 异常基类
         Message: # 异常信息
     Guid:
+    IEquatable:
     Int32:
         MaxValue:
         Parse(): # 字符串转int
@@ -601,6 +614,7 @@ System:
         Pow(): # 幂
     Object: # 对象基类
         Equals():
+        GetHashCode():
         GetType(): # 获取对象类型
         ToString():
     Random: # 随机数
@@ -632,6 +646,7 @@ System:
         GetProperties():
     Uri:
     ValueTuple: # 
+    ValueType: # 值类型基类
 ```
 
 
@@ -683,6 +698,12 @@ string str = $"""
 
 字符串
 
+string 的三大特性：
+- 不可变
+- UTF-16
+- 可驻留（intern）
+
+
 
 #### enum
 ```cs
@@ -712,6 +733,26 @@ struct Point
 结构体
 
 值类型
+
+
+#### object
+```yaml
+object:
+    ReferenceEquals():
+```
+
+
+#### Array
+```cs
+// 数组定义
+int[] arr = new int[10];
+```
+
+数组
+
+#### Span
+
+对一段内存的 安全视图
 
 
 
@@ -956,7 +997,8 @@ async void Button_Click(object sender, EventArgs e)
 
 ##### Task
 
-异步结果封装
+Task 表示“一次可能正在进行、也可能已经完成的异步操作”
+一个 异步操作的抽象
 
 ##### Parallel
 
@@ -1267,11 +1309,16 @@ using MyLibNamespace;
 Microsoft .NET 平台中的 运行时环境。
 负责管理代码的执行、内存分配、垃圾回收、安全性、异常处理等任务
 
-#### CLI
 
-##### CLS
-##### CTS
-##### VES
+
+#### GC
+
+.NET GC 是 分代 GC
+- Gen0: 短命对象（临时变量）
+- Gen1: 过渡
+- Gen2: 长生命周期（单例、缓存）
+- LOH: 大对象（>85KB）
+
 
 ## 设计模式
 
