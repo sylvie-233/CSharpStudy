@@ -21,5 +21,20 @@ Windows Subsystem Linux（windows子linux系统）
 
 
 
+### winget
+```yaml
+winget:
+    --version:
+    install:
+    list:
+    search:
+    source:
+        list:
+    uninstall:
+    upgrade:
+```
+
+Windows 11 官方的命令行包管理器
+
 
 ## Hyper-V
